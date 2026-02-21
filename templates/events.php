@@ -7,11 +7,11 @@
     <?php include 'header_owner.php' ?>
 
     <!-- ส่วนแสดงผลหลักของหน้า -->
-
-    <!-- ยังไม่ได้กรอกให้แสดงของตัวเอง -->
     <main>
         <h1> <?= $data['title'] ?></h1>
-        <p> <?= $data['message'] ?? '' ?></p>
+
+        <!-- flash card แลดงข้อความ -->
+        <p> <?= $_SESSION['message'] ?? ''; unset($_SESSION['message']);?></p>
 
         <?php if ($data['result'] != []){ ?>
 

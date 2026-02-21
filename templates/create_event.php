@@ -16,7 +16,7 @@
             <form action="create_event" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="event_picture">รูปกิจกรรม</label>
-                    <input type="file" name="event_picture" id="" required>
+                    <input type="file" name="event_picture[]" id="" multiple required>
                 </div>
                 <div>
                     <label for="event_name">ชื่อกิจกรรม: </label>
