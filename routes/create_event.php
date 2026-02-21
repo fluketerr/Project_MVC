@@ -31,18 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $targetPath = $uploadDir . $fileName;
 
-            if (move_uploaded_file($_FILES['event_picture']['tmp_name'], $targetPath)) {
-
-                if (insertPicture($fileName, $eventId, $conn) != false) {
-                    $conn->commit();
-                    header("Location: /events");
-                    exit;
-                }
+            if (!move_uploaded_file($_FILES['event_picture']['tmp_name'], $targetPath)) {
+                throw new Exception("Upload picture failed");
             }
-        }
-        $conn->rollback();
-        if (isset($targetPath) && file_exists($targetPath)) {
-            unlink($targetPath);
+            if (insertPicture($fileName, $eventId, $conn) != true) {
+                throw new Exception("Insert picture failed");
+            }
+
+            $conn->commit();
+            header("Location: /events");
+            exit;
         }
     } catch (Exception $e) {
         $conn->rollback();
@@ -50,6 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             unlink($targetPath);
         }
     }
-}else{
+} else {
     renderView('create_event', ['title' => 'Create Event']);
 }
