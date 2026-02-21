@@ -3,13 +3,15 @@
 <head></head>
 
 <body>
-    <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->
-    <?php include 'header.php' ?>
-    <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->
+    <!-- Header -->
+    <?php include 'header_owner.php' ?>
 
     <!-- ส่วนแสดงผลหลักของหน้า -->
+
+    <!-- ยังไม่ได้กรอกให้แสดงของตัวเอง -->
     <main>
         <h1> <?= $data['title'] ?></h1>
+        <p> <?= $data['message'] ?? '' ?></p>
 
         <?php if ($data['result'] != []){ ?>
 
@@ -47,11 +49,9 @@
         <?php } ?>
 
     </main>
-    <!-- ส่วนแสดงผลหลักของหน้า -->
 
-    <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->
+    <!-- Footer -->
     <?php include 'footer.php' ?>
-    <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->
 </body>
 
 </html>
