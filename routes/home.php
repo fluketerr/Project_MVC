@@ -27,3 +27,13 @@ renderView('home', [
     'title' => 'Welcome to Home Page',
     'result' => $result
 ]);
+if (isset($_POST['join'])) {
+
+    $event_id = $_POST['event_id'];
+    $user_id = 1;
+
+    joinEvent($user_id, $event_id);
+
+    header("Location: /home");
+    exit();
+}
