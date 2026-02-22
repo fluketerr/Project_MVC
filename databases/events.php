@@ -52,3 +52,32 @@ function deleteEventById(int $id, $conn): bool
     $stmt->execute();
     return $stmt->affected_rows > 0;
 }
+
+function updateEvent(array $event, mysqli $conn): bool
+{
+    $sql = "UPDATE Events 
+            SET event_name = ?, 
+                event_detail = ?, 
+                start_date = ?, 
+                end_date = ?, 
+                event_capacity = ?, 
+                event_status = ?
+            WHERE eid = ?";
+
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param(
+        'ssssisi',
+        $event['name'],
+        $event['detail'],
+        $event['start'],
+        $event['end'],
+        $event['capacity'],
+        $event['status'],
+        $event['eid']
+    );
+
+    $stmt->execute();
+
+    return $stmt->affected_rows >= 0;
+}
