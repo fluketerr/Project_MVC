@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'capacity' => (int)$_POST['event_capacity'],
         'start' => $start_date,
         'end' => $end_date,
-        'create_uid' => 1
+        'create_uid' => $_SESSION['user_id']
     ];
 
     $conn = getConnection();
