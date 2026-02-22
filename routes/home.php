@@ -1,4 +1,15 @@
 <?php
+
+if (isset($_POST['join'])) {
+
+    $event_id = $_POST['event_id'];
+    $user_id = 1;
+
+    joinEvent($user_id, $event_id);
+
+    header("Location: /home");
+    exit();
+}
 // ประมวลผลก่อนแสดงผลหน้า
 unset($_SESSION['eid']);
 

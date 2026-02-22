@@ -58,9 +58,6 @@
             return confirm("ต้องการลบกิจกรรมนี้มั้ย ?");
         }
     </script>
-
-    <!-- Footer -->
-    <?php include 'footer.php' ?>
 </body>
 
 </html>
