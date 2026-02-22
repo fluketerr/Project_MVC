@@ -138,3 +138,15 @@ function updateEvent(array $event, mysqli $conn): bool
 
     return $stmt->affected_rows >= 0;
 }
+
+function getEvetByCreateUid(int $uid): mysqli_result|bool
+{
+    global $conn;
+    $sql = "select * from events where create_uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i',$uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    return $result;
+}
