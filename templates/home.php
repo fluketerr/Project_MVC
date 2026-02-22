@@ -1,19 +1,28 @@
+
 <html>
 
-<head>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+<head></head>
 
-<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] flex flex-row min-h-screen">
-    <main class="flex-1 p-4 m-4 bg-white rounded-lg shadow overflow-y-auto">
+<body>
+    <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->
+    <?php include 'header.php' ?>
+    <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->
 
-        <div class="flex  gap-2">
-            <?php include 'header_owner.php' ?>
-        </div>
+    <!-- ส่วนแสดงผลหลักของหน้า -->
+    <main>
+        <a href="/home">กิจกรรมทั้งหมด</a>
+        <a href="/my_events">กิจกรรมของฉัน</a>
 
-        <h1 class="text-2xl font-bold"><?= $data['title'] ?></h1>
+        <form method="GET">
+            <input type="hidden" name="page" value="home">
 
-        <!-- flash card แลดงข้อความ -->
+            <input type="text" name="keyword" placeholder="ค้นหาชื่อกิจกรรม" value="<?= $_GET['keyword'] ?? '' ?>">
+
+            <input type="date" name="start">
+            <input type="date" name="end">
+
+            <button type="submit">ค้นหา</button>
+        </form>
         <p> <?= $_SESSION['message'] ?? '';
             unset($_SESSION['message']); ?></p>
 
@@ -30,39 +39,10 @@
                         <th>Capacity</th>
                         <th>Status</th>
                         <th>Create UID</th>
-                        <th>Option</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php while ($row = $data['result']->fetch_object()) { ?>
-                        <div class="flex w-full bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden font-sans">
-
-                            <div class="w-1/4 bg-gray-300">
-                            </div>
-
-                            <div class="flex flex-1 p-6 justify-between items-start">
-
-                                <div class="flex-1 pr-4">
-                                    <h2 class="text-xl font-semibold text-slate-800 mb-2">
-                                        <?= $row->event_name ?>
-                                    </h2>
-                                    <p class="text-sm text-slate-500 leading-relaxed max-w-md">
-                                        <?= $row->event_detail ?>
-                                </div>
-
-                                <div class="flex flex-col items-end justify-between h-full space-y-8">
-                                    <div class="text-right">
-                                        <p class="text-slate-800 font-medium text-lg">ผู้เข้าร่วม</p>
-                                        <p class="text-slate-600 text-sm">67 / <?= $row->event_capacity ?></p>
-                                    </div>
-
-                                    <button class="bg-gray-500 hover:bg-gray-700 text-white px-8 py-2 rounded-xl text-sm font-medium transition-colors">
-                                        เข้าร่วม
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
                         <tr>
                             <td><?= $row->eid ?></td>
                             <td><?= $row->event_name ?></td>
@@ -72,8 +52,12 @@
                             <td><?= $row->event_capacity ?></td>
                             <td><?= $row->event_status ?></td>
                             <td><?= $row->create_uid ?></td>
-                            <td><a href="/delete_event?eid=<?=(int)$row->eid ?>" onclick="return confirmDelete()" >ลบกิจกรรม</a>
-                                <a href="/set_sessionEid?eid=<?= (int)$row->eid ?>">จัดการกิจกรรม</a></td>
+                            <td>
+                                <form method="POST" action="">
+                                    <input type="hidden" name="event_id" value="<?= $row->eid ?>">
+                                    <button type="submit" name="join" >ขอเข้าร่วม</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -83,7 +67,6 @@
             <p>ไม่มีข้อมูล</p>
         <?php } ?>
 
-        <?php include 'footer.php' ?>
     </main>
     <!-- ส่วนแสดงผลหลักของหน้า -->
 

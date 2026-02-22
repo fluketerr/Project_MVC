@@ -5,7 +5,22 @@ function getEvets(): mysqli_result|bool
     $conn = getConnection();
     $sql = "select * from events";
     $result = $conn->query($sql);
-    $conn->close();
+    
+    return $result;
+}
+
+function getNotinEvets(int $uid): mysqli_result|bool
+{
+    $conn = getConnection();
+    $sql = "select * from events
+            where eid not in (select eid
+                              from Registrations
+                              where uid = ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i',$uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
     return $result;
 }
 
@@ -51,4 +66,46 @@ function deleteEventById(int $id, $conn): bool
     $stmt->bind_param('i', $id);
     $stmt->execute();
     return $stmt->affected_rows > 0;
+}
+function searchEvents($keyword, $start, $end)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM Events WHERE 1";
+
+    if ($keyword != '') {
+        $keyword = strtolower($keyword);
+        $sql .= " AND LOWER(event_name) LIKE '%$keyword%'";
+    }
+
+    if ($start != '' && $end != '') {
+        $sql .= " AND start_date >= '$start'
+                  AND end_date <= '$end'";
+    }
+
+    return $conn->query($sql);
+}
+function joinEvent($user_id, $event_id)
+{
+    global $conn;
+
+    $sql = "INSERT INTO Registrations (uid, eid, status)
+            VALUES ('$user_id', '$event_id', 'wait')";
+
+    return $conn->query($sql);
+}
+function getMyEvents($user_id, $status = '')
+{
+    global $conn;
+
+    $sql = "SELECT e.*, r.status
+            FROM Registrations r
+            JOIN Events e ON r.eid = e.eid
+            WHERE r.uid = '$user_id'";
+
+     if ($status != '') {
+        $sql .= " AND r.status = '$status'";
+    }
+
+    return $conn->query($sql);
 }
