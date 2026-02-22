@@ -5,7 +5,22 @@ function getEvets(): mysqli_result|bool
     $conn = getConnection();
     $sql = "select * from events";
     $result = $conn->query($sql);
-    $conn->close();
+    
+    return $result;
+}
+
+function getNotinEvets(int $uid): mysqli_result|bool
+{
+    $conn = getConnection();
+    $sql = "select * from events
+            where eid not in (select eid
+                              from Registrations
+                              where uid = ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i',$uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
     return $result;
 }
 
@@ -51,33 +66,4 @@ function deleteEventById(int $id, $conn): bool
     $stmt->bind_param('i', $id);
     $stmt->execute();
     return $stmt->affected_rows > 0;
-}
-
-function updateEvent(array $event, mysqli $conn): bool
-{
-    $sql = "UPDATE Events 
-            SET event_name = ?, 
-                event_detail = ?, 
-                start_date = ?, 
-                end_date = ?, 
-                event_capacity = ?, 
-                event_status = ?
-            WHERE eid = ?";
-
-    $stmt = $conn->prepare($sql);
-
-    $stmt->bind_param(
-        'ssssisi',
-        $event['name'],
-        $event['detail'],
-        $event['start'],
-        $event['end'],
-        $event['capacity'],
-        $event['status'],
-        $event['eid']
-    );
-
-    $stmt->execute();
-
-    return $stmt->affected_rows >= 0;
 }
