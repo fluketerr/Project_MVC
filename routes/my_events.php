@@ -1,11 +1,23 @@
 <?php
 
-$user_id = 1;
-$status = $_GET['status'] ?? '';
 
-$result = getMyEvents($user_id, $status);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['cancel'])) {
+
+        $event_id = $_POST['event_id'];
+        $user_id = $_SESSION['user_id'];   // หรือ $_SESSION['uid']
+
+        cancelEvent($user_id, $event_id);
+
+        header("Location: /my_events");
+        exit();
+    }
+}
+
+$status = $_GET['status'] ?? '';
+$result = getMyEvents($_SESSION['user_id'], $status);
 
 renderView('my_events', [
-    'title' => 'กิจกรรมของฉัน',
     'result' => $result
 ]);
