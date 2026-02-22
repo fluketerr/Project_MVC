@@ -5,6 +5,6 @@
         <a href="/">Home</a>
         <a href="/manage_event">Event</a>
         <a href="#">ผู้ขอเข้าร่วม</a>
-        <a href="#">คำขอ</a>
+        <a href="/request_event">คำขอ</a>
         <a href="/edit_event">แก้ไข</a>
     </nav>
