@@ -3,7 +3,7 @@
 if (isset($_POST['join'])) {
 
     $event_id = $_POST['event_id'];
-    $user_id = 1;
+    $user_id = $_SESSION['user_id'] ?? null;
 
     joinEvent($user_id, $event_id);
 
@@ -20,7 +20,8 @@ $end     = $_GET['end'] ?? '';
 if ($keyword != '' || ($start != '' && $end != '')) {
     $result = searchEvents($keyword, $start, $end);
 } else {
-    $result = getNotinEvets(1);   
+    $user_id = $_SESSION['user_id'] ?? null;
+    $result = getNotinEvets((int)$user_id);   
 }
 
 renderView('home', [
@@ -30,7 +31,7 @@ renderView('home', [
 if (isset($_POST['join'])) {
 
     $event_id = $_POST['event_id'];
-    $user_id = 1;
+    $user_id = $_SESSION['user_id'] ?? null;
 
     joinEvent($user_id, $event_id);
 

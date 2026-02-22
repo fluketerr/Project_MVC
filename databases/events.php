@@ -36,6 +36,18 @@ function getEvetById(int $eid): mysqli_result|bool
     return $result;
 }
 
+function getEvetByCreateUid(int $uid): mysqli_result|bool
+{
+    global $conn;
+    $sql = "select * from events where create_uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i',$uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result;
+}
+
 function insertEvent($event, $conn):int | bool
 {
     $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, create_uid) 
