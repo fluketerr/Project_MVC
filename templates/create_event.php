@@ -1,8 +1,10 @@
 <html>
 
-<head></head>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-<body>
+<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] flex flex-row min-h-screen">
     <!-- Header -->
     <?php include 'header.php' ?>
 
