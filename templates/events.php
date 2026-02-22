@@ -26,6 +26,7 @@
                         <th>Capacity</th>
                         <th>Status</th>
                         <th>Create UID</th>
+                        <th>Option</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,8 @@
                             <td><?= $row->event_capacity ?></td>
                             <td><?= $row->event_status ?></td>
                             <td><?= $row->create_uid ?></td>
+                            <td><a href="/delete_event?eid=<?=(int)$row->eid ?>" onclick="return confirmDelete()" >ลบกิจกรรม</a>
+                                <a href="/set_sessionEid?eid=<?= (int)$row->eid ?>">จัดการกิจกรรม</a></td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -49,6 +52,12 @@
         <?php } ?>
 
     </main>
+
+    <script>
+        function confirmDelete() {
+            return confirm("ต้องการลบกิจกรรมนี้มั้ย ?");
+        }
+    </script>
 
     <!-- Footer -->
     <?php include 'footer.php' ?>
