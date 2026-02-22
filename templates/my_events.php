@@ -1,4 +1,5 @@
 <html>
+
 <head>
 
 </head>
@@ -32,7 +33,7 @@
 
         <?php while ($row = $data['result']->fetch_object()): ?>
             <tr>
-                <td><?= $row->event_name?></td>
+                <td><?= $row->event_name ?></td>
                 <td><?= $row->start_date ?></td>
                 <td><?= $row->end_date ?></td>
                 <td>
@@ -46,6 +47,33 @@
                     }
                     ?>
                 </td>
+                <td>
+                    <form method="POST">
+                        <input type="hidden" name="event_id" value="<?= $row->eid ?>">
+                        <button type="submit" name="cancel">ยกเลิกการเข้าร่วม</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST">
+                        <input type="hidden" name="otp_event_id" value="<?= $row->eid ?>">
+                        <button type="submit" name="request_otp">ขอ OTP</button>
+                    </form>
+
+                    <?php
+                    if (
+                        isset($_POST['request_otp']) &&
+                        isset($_POST['otp_event_id']) &&
+                        $_POST['otp_event_id'] == $row->eid
+                    ) {
+                        
+                        $uid = $_SESSION['user_id'];
+                        $otp = generateOTP($uid, $row->eid);
+                        echo "<div><strong>OTP:</strong> $otp </div>";
+                    }
+                    ?>
+
+                   
+                </td>
             </tr>
         <?php endwhile; ?>
 
@@ -55,4 +83,5 @@
     <p>ยังไม่ได้สมัครกิจกรรม</p>
 <?php endif; ?>
 <?php include 'footer.php' ?>
+
 </html>
