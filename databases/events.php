@@ -109,3 +109,4 @@ function getMyEvents($user_id, $status = '')
 
     return $conn->query($sql);
 }
+}
