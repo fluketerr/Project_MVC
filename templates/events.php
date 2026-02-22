@@ -95,7 +95,7 @@
         <?php include 'footer.php' ?>
     </main>
 
-     <script>
+    <script>
         function confirmDelete() {
             return confirm("ต้องการลบกิจกรรมนี้มั้ย ?");
         }
