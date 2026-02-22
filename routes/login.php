@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['is_logged_in'] = true; 
         $_SESSION['timestamp'] = time();
 
+        $_SESSION['user_id'] = getUserIdByEmail($email);
         $_SESSION['user_email'] = $email;
         $_SESSION['name'] = getUserByEmail($email);
 
