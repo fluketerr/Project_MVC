@@ -39,6 +39,10 @@
             จำนวน <?= (int)($data['topAgeCount'] ?? 0) ?> คน
         </div>
 
+        <p><strong>เช็คชื่อแล้ว:</strong>
+            <?= (int)($data['checkedCount'] ?? 0) ?> คน
+        </p>
+
         <form method="GET" action="/join_event" style="margin-bottom:15px;">
             <input type="text" name="keyword"
                 placeholder="ค้นหาชื่อ / email / เบอร์"
