@@ -7,11 +7,12 @@
     <h1>Update User</h1>
     <?php include 'header.php' ?>
     <form method="POST" action="">
-        <label for="name">First Name:</label>
-        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name'] ?? ''); ?>" required>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($first_name);?>">
     
-        <label for="surname">Last Name:</label>
-        <input type="text" id="surname" name="surname" value="<?php echo htmlspecialchars($user['surname'] ?? ''); ?>">
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($last_name); ?>">
         <br><br>
         
         <label for="birthday">Birthday:</label>

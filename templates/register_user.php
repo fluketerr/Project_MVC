@@ -7,10 +7,10 @@
     <h1>Register</h1>
     <form method="POST" action="">
         <label for="name">First Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="first_name" name="first_name" required>
     
         <label for="surname">Last Name:</label>
-        <input type="text" id="surname" name="surname" required>
+        <input type="text" id="last_name" name="last_name" required>
         <br><br>
         
         <label for="email">Email:</label>
