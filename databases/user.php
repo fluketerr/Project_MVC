@@ -1,4 +1,3 @@
-
 <?php
 function getUsers(): mysqli_result|bool
 {
@@ -81,15 +80,4 @@ function checkLogin(string $email, string $password): bool
         return password_verify($password, $row['password']);
     }
     return false;
-}
-
-function updateCheckIn(string $uid,string $eid):bool
-{ 
-    global $conn;
-    $time = date('Y-m-d H:i:s');
-    $sql = 'update registrations set checkin_time = ? where uid = ? and eid = ?';
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sii',$time, $uid, $eid);
-    $stmt->execute();
-    return $stmt->affected_rows > 0;
 }
