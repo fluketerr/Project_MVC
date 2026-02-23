@@ -85,6 +85,17 @@ function generateOTP($uid, $eid) {
     return str_pad(abs(crc32($hash)) % 1000000, 6, '0', STR_PAD_LEFT);
 }
 
+function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
+{
+    global $conn;
+    $sql = 'select * from registrations where uid = ? and eid = ?';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $uid,$eid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result;
+}
+
 // update status
 function updateRegistrationStatus(int $rid, string $status, mysqli $conn): bool
 {
@@ -133,4 +144,5 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
 
     $stmt->execute();
     return $stmt->get_result();
+
 }
