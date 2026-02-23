@@ -128,6 +128,7 @@ function updateUserData(int $uid, string $name, string $birthday, string $tel, s
     
     return $stmt->affected_rows; 
 }
+
 function updateCheckIn(string $uid,string $eid):bool
 { 
     global $conn;
@@ -137,6 +138,6 @@ function updateCheckIn(string $uid,string $eid):bool
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('siis',$time, $uid, $eid,$status);
     $stmt->execute();
-    return $stmt->affected_rows >= 0;
+    return $stmt->affected_rows > 0;
 }
 

@@ -90,7 +90,7 @@ function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
     global $conn;
     $sql = 'select * from registrations where uid = ? and eid = ?';
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ii', $eid,$uid);
+    $stmt->bind_param('ii', $uid,$eid);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result;
