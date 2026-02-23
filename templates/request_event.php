@@ -63,7 +63,6 @@
 
             <?php while ($row = $data['regis']->fetch_object()): ?>
 
-                <?php $uid = $row->uid ?>
                 <div class="card"
                     onclick="openModal(
         '<?= htmlspecialchars($row->name) ?>',
@@ -79,7 +78,7 @@
                     <h3><?= htmlspecialchars($row->name) ?></h3>
                     <p>Email: <?= htmlspecialchars($row->email) ?></p>
                     <p>เบอร์โทร: <?= htmlspecialchars($row->tel) ?></p>
-                    <p>Status: <?= $row->status ?></p>                  
+                    <p>Status: <?= $row->status ?></p>
 
                     <!-- ปุ่มกดไม่ให้ไป trigger modal -->
                     <div onclick="event.stopPropagation()">
