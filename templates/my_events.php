@@ -54,11 +54,12 @@
                     </form>
                 </td>
                 <td>
+                    <?php if ($row->status == 'approved'): ?>
                     <form method="POST">
                         <input type="hidden" name="otp_event_id" value="<?= $row->eid ?>">
                         <button type="submit" name="request_otp">ขอ OTP</button>
                     </form>
-
+                    <?php endif; ?>
                     <?php
                     if (
                         isset($_POST['request_otp']) &&
