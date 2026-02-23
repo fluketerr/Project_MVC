@@ -1,3 +1,4 @@
+
 <?php
 function getUsers(): mysqli_result|bool
 {
