@@ -36,16 +36,28 @@ function getEvetById(int $eid): mysqli_result|bool
     return $result;
 }
 
-function getEvetByCreateUid(int $uid): mysqli_result|bool
+function getEvetByCreateUid(int $uid)
 {
-    global $conn;
-    $sql = "select * from events where create_uid = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i',$uid);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $conn = getConnection();
 
-    return $result;
+    $sql = "
+        SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image
+        FROM Events e
+        WHERE e.create_uid = ?
+        ORDER BY e.eid DESC
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $uid);
+    $stmt->execute();
+
+    return $stmt->get_result();
 }
 
 function insertEvent($event, $conn):int | bool
