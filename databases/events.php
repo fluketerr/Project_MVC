@@ -1,6 +1,6 @@
 <?php
 
-function getEvets(): mysqli_result|bool
+function getEvents(): mysqli_result|bool
 {
     $conn = getConnection();
     $sql = "select * from events";
