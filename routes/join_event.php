@@ -20,6 +20,7 @@ if ($result) {
 
 $maleCount = 0;
 $femaleCount = 0;
+$checkedCount = 0;
 
 foreach ($participants as $p) {
     $gender = $p['gender'] ?? '';
@@ -28,6 +29,10 @@ foreach ($participants as $p) {
         $maleCount++;
     } elseif ($gender === 'female' || $gender === 'หญิง') {
         $femaleCount++;
+    }
+
+    if (!empty($p['checkin_time'])) {
+        $checkedCount++;
     }
 }
 $totalParticipants = count($participants);
@@ -68,5 +73,6 @@ renderView('join_event', [
     'femaleCount' => $femaleCount,
     'totalParticipants' => $totalParticipants,
     'topAgeRange' => $topAgeRange,
-    'topAgeCount' => $topAgeCount
+    'topAgeCount' => $topAgeCount,
+    'checkedCount' => $checkedCount
 ]);
