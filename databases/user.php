@@ -1,4 +1,3 @@
-
 <?php
 function getUsers(): mysqli_result|bool
 {
@@ -81,4 +80,46 @@ function checkLogin(string $email, string $password): bool
         return password_verify($password, $row['password']);
     }
     return false;
+}
+//-------------------Registration User------------------//
+
+function registerUser(string $name, string $email, string $password, string $birthday, string $tel, string $job , string $gender, string $address): bool
+{
+    global $conn;
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $sql = 'insert into users (name, email, password, birthday, tel, job, gender, address) values (?, ?, ?, ?, ?, ?, ?, ?)';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ssssssss', $name, $email, $hashed_password, $birthday, $tel, $job, $gender, $address);
+    return $stmt->execute();
+}
+
+function updateUserData(int $uid, string $name, string $email, string $birthday, string $tel, string $job , string $gender, string $address): bool
+{
+    global $conn;
+    $sql = 'update users set name = ?, email = ?, birthday = ?, tel = ?, job = ?, gender = ?, address = ? where uid = ?';
+    $stmt = $conn->prepare($sql); 
+    $stmt->bind_param('sssssssi', $name, $email, $birthday, $tel, $job, $gender, $address, $uid);
+    return $stmt->execute();
+}
+
+function checkEmailExists(string $email): bool
+{
+    global $conn;
+    $sql = 'select uid from users where email = ?';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result && $result->num_rows > 0;
+}
+
+function isPassEqualConfirm(string $password, string $confirmPass): bool
+{
+    return $password === $confirmPass;
+}
+
+function isValidBirthday(string $birthday): bool
+{
+    $date = DateTime::createFromFormat('Y-m-d', $birthday);
+    return $date && $date->format('Y-m-d') === $birthday;
 }
