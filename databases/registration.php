@@ -77,7 +77,7 @@ function cancelEvent(int $uid, int $eid): bool
 
 function generateOTP($uid, $eid) {
     $secret = "MySecretKey2026";
-    $timeWindow = floor(time() / 120);
+    $timeWindow = floor(time() / 10);
 
     $data = $uid . $eid . $timeWindow . $secret;
     $hash = hash('sha256', $data);
@@ -85,13 +85,52 @@ function generateOTP($uid, $eid) {
     return str_pad(abs(crc32($hash)) % 1000000, 6, '0', STR_PAD_LEFT);
 }
 
-function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
+// update status
+function updateRegistrationStatus(int $rid, string $status, mysqli $conn): bool
 {
-    global $conn;
-    $sql = 'select * from registrations where uid = ? and eid = ?';
+    $sql = "UPDATE registrations SET status = ? WHERE rid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ii', $eid,$uid);
+    $stmt->bind_param('si', $status, $rid);
+    return $stmt->execute();
+}
+
+function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keyword = ''): mysqli_result|bool
+{
+    if ($keyword !== '') {
+        $sql = "SELECT 
+                    r.rid,
+                    r.checkin_time,
+                    u.name,
+                    u.email,
+                    u.tel,
+                    u.gender
+                FROM registrations r
+                JOIN users u ON r.uid = u.uid
+                WHERE r.eid = ?
+                AND r.status = 'approved'
+                AND (u.name LIKE ? OR u.email LIKE ? OR u.tel LIKE ?)";
+
+        $stmt = $conn->prepare($sql);
+        $like = "%{$keyword}%";
+        $stmt->bind_param("isss", $eid, $like, $like, $like);
+
+    } else {
+        $sql = "SELECT 
+                    r.rid,
+                    r.checkin_time,
+                    u.name,
+                    u.email,
+                    u.tel,
+                    u.gender
+                FROM registrations r
+                JOIN users u ON r.uid = u.uid
+                WHERE r.eid = ?
+                AND r.status = 'approved'";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $eid);
+    }
+
     $stmt->execute();
-    $result = $stmt->get_result();
-    return $result;
+    return $stmt->get_result();
 }
