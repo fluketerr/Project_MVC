@@ -6,8 +6,11 @@
 <body>
     <h1>Register</h1>
     <form method="POST" action="">
-        <label for="name">Name:</label>
+        <label for="name">First Name:</label>
         <input type="text" id="name" name="name" required>
+    
+        <label for="surname">Last Name:</label>
+        <input type="text" id="surname" name="surname" required>
         <br><br>
         
         <label for="email">Email:</label>
@@ -25,16 +28,16 @@
         <label for="job">Job:</label>
         <select id="job" name="job" required>
             <option value="">Select Job</option>
-            <option value="student">Student</option>
-            <option value="designer">Designer</option>
-            <option value="developer">Developer</option>
-            <option value="programer">Programmer</option>
-            <option value="manager">Manager</option>
-            <option value="teacher">Teacher</option>
-            <option value="engineer">Engineer</option>
-            <option value="self-employed">Self-employed</option>
-            <option value="unemployed">Unemployed</option>
-            <option value="other">Other</option>
+            <option value="Student">Student</option>
+            <option value="Designer">Designer</option>
+            <option value="Developer">Developer</option>
+            <option value="Programmer">Programmer</option>
+            <option value="Manager">Manager</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Engineer">Engineer</option>
+            <option value="Self-employed">Self-employed</option>
+            <option value="Unemployed">Unemployed</option>
+            <option value="Other">Other</option>
         </select>
         <br><br>
 

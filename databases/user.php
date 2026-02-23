@@ -93,15 +93,6 @@ function registerUser(string $name, string $email, string $password, string $bir
     return $stmt->execute();
 }
 
-function updateUserData(int $uid, string $name, string $email, string $birthday, string $tel, string $job , string $gender, string $address): bool
-{
-    global $conn;
-    $sql = 'update users set name = ?, email = ?, birthday = ?, tel = ?, job = ?, gender = ?, address = ? where uid = ?';
-    $stmt = $conn->prepare($sql); 
-    $stmt->bind_param('sssssssi', $name, $email, $birthday, $tel, $job, $gender, $address, $uid);
-    return $stmt->execute();
-}
-
 function checkEmailExists(string $email): bool
 {
     global $conn;
@@ -123,3 +114,20 @@ function isValidBirthday(string $birthday): bool
     $date = DateTime::createFromFormat('Y-m-d', $birthday);
     return $date && $date->format('Y-m-d') === $birthday;
 }
+
+//---------------------Update data------------------//
+
+function updateUserData(int $uid, string $name, string $birthday, string $tel, string $job , string $gender, string $address): int
+{
+    global $conn;
+    $sql = 'UPDATE users SET name = ?, birthday = ?, tel = ?, job = ?, gender = ?, address = ? WHERE uid = ?';
+    $stmt = $conn->prepare($sql); 
+    
+    $stmt->bind_param('ssssssi', $name, $birthday, $tel, $job, $gender, $address, $uid);
+    $stmt->execute();
+    
+    return $stmt->affected_rows; 
+}
+
+
+
