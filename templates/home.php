@@ -1,7 +1,9 @@
 
 <html>
 
-<head></head>
+<head>
+     <h1>Home</h1>
+</head>
 
 <body>
     <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->

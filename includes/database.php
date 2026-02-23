@@ -22,3 +22,4 @@ require_once DATABASES_DIR . '/user.php';
 require_once DATABASES_DIR . '/events.php';
 require_once DATABASES_DIR . '/pictures.php';
 require_once DATABASES_DIR . '/registration.php';
+require_once DATABASES_DIR . '/user.php';

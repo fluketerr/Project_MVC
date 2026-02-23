@@ -84,3 +84,14 @@ function generateOTP($uid, $eid) {
 
     return str_pad(abs(crc32($hash)) % 1000000, 6, '0', STR_PAD_LEFT);
 }
+
+function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
+{
+    global $conn;
+    $sql = 'select * from registrations where uid = ? and eid = ?';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $eid,$uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result;
+}

@@ -1,5 +1,4 @@
 <header>
-        <h1>Project</h1>
     </header>
     <nav>
         <a href="/">Home</a>
@@ -8,10 +7,11 @@
             <span>ยินดีต้อนรับ, <?= $_SESSION['name'] ?></span>
             <?php print_r($_SESSION); ?>
             <a href="/logout">Logout</a>
+            <a href="/update_user">Update Profile</a>
         <?php } else { ?>
             <a href="/login">Login</a> 
         <?php } ?>
-        <a href="/user-chgpwd">Change Password</a>
+        <a href="/register_user">Register</a>
 
 
     </nav>

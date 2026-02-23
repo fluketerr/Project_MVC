@@ -15,9 +15,10 @@ function getNotinEvets(int $uid): mysqli_result|bool
     $sql = "select * from events
             where eid not in (select eid
                               from Registrations
-                              where uid = ?)";
+                              where uid = ?)
+                              and create_uid != ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i',$uid);
+    $stmt->bind_param('ii',$uid,$uid);
     $stmt->execute();
     $result = $stmt->get_result();
     
