@@ -12,17 +12,30 @@ function getEvents(): mysqli_result|bool
 function getNotinEvets(int $uid): mysqli_result|bool
 {
     $conn = getConnection();
-    $sql = "select * from events
-            where eid not in (select eid
-                              from Registrations
-                              where uid = ?)
-                              and create_uid != ?";
+
+    $sql = "
+        SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image
+        FROM Events e
+        WHERE e.eid NOT IN (
+                SELECT eid
+                FROM Registrations
+                WHERE uid = ?
+        )
+        AND e.create_uid != ?
+        ORDER BY e.eid DESC
+    ";
+
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ii',$uid,$uid);
+    $stmt->bind_param('ii', $uid, $uid);
     $stmt->execute();
-    $result = $stmt->get_result();
-    
-    return $result;
+
+    return $stmt->get_result();
 }
 
 function getEvetById(int $eid): mysqli_result|bool
