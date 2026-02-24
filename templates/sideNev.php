@@ -1,40 +1,65 @@
 <?php
 // Side Navigation Component
 ?>
+<aside class="flex flex-col w-64 bg-transparent h-screen left-0 top-0">
 
-<aside class="w-64 bg-slate-900 h-screen fixed left-0 top-0 pt-5 shadow-md">
-    <nav class="flex flex-col">
-        <ul class="list-none p-0 m-0">
+    <div class="w-64 flex items-center justify-center pt-6">
+        <a href="/" class="">
+            <?php include 'logo.php'; ?>
+        </a>
+    </div>
+
+    <nav class="flex flex-col h-full">
+        <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
-                <a href="/" class="flex items-center px-5 py-4 text-slate-100 no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-slate-800 hover:border-l-blue-400 hover:pl-7">
-                    <span class="mr-2.5 text-xl">🏠</span>
+                <a href="/" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
                     <span class="text-base">Home</span>
                 </a>
             </li>
-            <li class="m-0">
-                <a href="/about" class="flex items-center px-5 py-4 text-slate-100 no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-slate-800 hover:border-l-blue-400 hover:pl-7">
-                    <span class="mr-2.5 text-xl">ℹ️</span>
-                    <span class="text-base">About</span>
-                </a>
-            </li>
-            <li class="m-0">
-                <a href="/services" class="flex items-center px-5 py-4 text-slate-100 no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-slate-800 hover:border-l-blue-400 hover:pl-7">
-                    <span class="mr-2.5 text-xl">⚙️</span>
-                    <span class="text-base">Services</span>
-                </a>
-            </li>
-            <li class="m-0">
-                <a href="/products" class="flex items-center px-5 py-4 text-slate-100 no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-slate-800 hover:border-l-blue-400 hover:pl-7">
-                    <span class="mr-2.5 text-xl">📦</span>
-                    <span class="text-base">Products</span>
-                </a>
-            </li>
-            <li class="m-0">
-                <a href="/contact" class="flex items-center px-5 py-4 text-slate-100 no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-slate-800 hover:border-l-blue-400 hover:pl-7">
-                    <span class="mr-2.5 text-xl">📧</span>
-                    <span class="text-base">Contact</span>
-                </a>
-            </li>
+            <?php if (isset($_SESSION['user_email'])) { ?>
+                <li class="m-0">
+                    <a href="/my_events" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                        <span class="text-base">My Events</span>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
+        <ul name="bottom_menu" class="list-none p-0 m-0 mt-auto">
+            <?php if (isset($_SESSION['user_email'])) { ?>
+                <li class="m-0">
+                    <a href="/update_user" class="gap-2 flex items-center px-5 py-2 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                        <svg width="20" height="20" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25.2041 26.4644V23.944C25.2041 22.6071 24.673 21.325 23.7277 20.3796C22.7823 19.4343 21.5002 18.9032 20.1633 18.9032H10.0816C8.74474 18.9032 7.46259 19.4343 6.51725 20.3796C5.57192 21.325 5.04083 22.6071 5.04083 23.944V26.4644M20.1633 8.82158C20.1633 11.6055 17.9064 13.8624 15.1225 13.8624C12.3385 13.8624 10.0816 11.6055 10.0816 8.82158C10.0816 6.03761 12.3385 3.78076 15.1225 3.78076C17.9064 3.78076 20.1633 6.03761 20.1633 8.82158Z" stroke="#213C51" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                        <span class="text-base"><?= isset($_SESSION['name']) ? $_SESSION['name'] : 'Update User' ?></span>
+                    </a>
+                </li>
+                <li class="m-0">
+                    <a class="gap-2 flex items-center px-5 py-2 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                        <span class="text-base">UID:</span>
+                        <span class="text-base"><?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Update User' ?></span>
+                    </a>
+                </li>
+                <li class="m-0">
+                    <a href="/logout" class="flex items-center px-5 py-2 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                        <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
+                            <path d="M9.5 24.5H4.5C3.83696 24.5 3.20107 24.2366 2.73223 23.7678C2.26339 23.2989 2 22.663 2 22V4.5C2 3.83696 2.26339 3.20107 2.73223 2.73223C3.20107 2.26339 3.83696 2 4.5 2H9.5M18.25 19.5L24.5 13.25M24.5 13.25L18.25 7M24.5 13.25H9.5" stroke="#213C51" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="text-base">Logout</span>
+                    </a>
+                </li>
+            <?php } else { ?>
+                <li class="m-0">
+                    <a href="/login" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.75 3.75H23.75C24.413 3.75 25.0489 4.01339 25.5178 4.48223C25.9866 4.95107 26.25 5.58696 26.25 6.25V23.75C26.25 24.413 25.9866 25.0489 25.5178 25.5178C25.0489 25.9866 24.413 26.25 23.75 26.25H18.75M12.5 21.25L18.75 15M18.75 15L12.5 8.75M18.75 15H3.75" stroke="#213C51" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+                        <span class="text-base">Login</span>
+                    </a>
+                </li>
+            <?php } ?>
         </ul>
     </nav>
 </aside>
