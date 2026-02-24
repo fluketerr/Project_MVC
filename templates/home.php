@@ -44,6 +44,7 @@
 
                         type="text"
                         placeholder="Search event or date"
+                        name="keyword"
                         class="w-full bg-white/80 text-sm text-gray-700 rounded-full py-2.5 pl-5 pr-10 outline-none shadow-sm placeholder-gray-500"
                         
                         >
