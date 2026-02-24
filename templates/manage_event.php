@@ -114,7 +114,7 @@
                 <?php endif; ?>
 
             </div>
-            <div class="flex items-center justify-center py-16">
+            <div class="flex flex-col items-center justify-center py-16">
 
                 <form action="/check_otp" method="POST"
                     class="bg-white p-8 rounded-2xl shadow-lg 
@@ -150,8 +150,25 @@
                    transition shadow">
                         เช็คชื่อ
                     </button>
-
                 </form>
+                <?php if (isset($_SESSION['notice'])):
+
+                    $type = $_SESSION['notice_type'] ?? 'success';
+
+                    $styles = [
+                        'success' => 'bg-green-100 border-green-400 text-green-700',
+                        'error'   => 'bg-red-100 border-red-400 text-red-700',
+                        'warning' => 'bg-yellow-100 border-yellow-400 text-yellow-700',
+                    ];
+                ?>
+                    <div class="mt-4 p-4 rounded-lg shadow-md border <?= $styles[$type]; ?>">
+                        <?= $_SESSION['notice']; ?>
+                    </div>
+                <?php
+                    unset($_SESSION['notice']);
+                    unset($_SESSION['notice_type']);
+                endif;
+                ?>
 
             </div>
         </div>
