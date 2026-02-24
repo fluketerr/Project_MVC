@@ -9,6 +9,59 @@
         </a>
     </div>
 
+    <div class="justify-center items-center flex flex-col gap-4 ">
+
+        <!-- SWITCH -->
+        <div id="switch"
+            class="relative flex w-36 p-1 rounded-full bg-[#DDAED3]/75 cursor-pointer select-none">
+
+            <!-- Sliding active background -->
+            <div id="slider"
+                class="absolute top-1 left-1 w-1/2 h-[calc(100%-8px)] bg-white/30 border border-white rounded-full transition-all duration-300">
+            </div>
+
+            <!-- Buttons -->
+            <div class="relative z-10 flex w-full">
+                <div class="w-1/2 flex justify-center items-center py-2 text-sm">
+                    👤
+                </div>
+                <div class="w-1/2 flex justify-center items-center py-2 text-sm">
+                    +
+                </div>
+            </div>
+        </div>
+
+
+
+        <script>
+            const switchEl = document.getElementById("switch");
+            const slider = document.getElementById("slider");
+            let currentPage = window.location.pathname; // Get current page path
+
+            let active = 0; // 0 = left, 1 = right
+
+            if (currentPage === "/events") {
+                active = 1;
+                switchEl.style.backgroundColor = "#6594B1";
+                slider.style.transform = "translateX(90%)";
+            }
+
+            switchEl.addEventListener("click", () => {
+                active = active === 0 ? 1 : 0;
+
+                if (active === 1) {
+                    switchEl.style.backgroundColor = "#6594B1";
+                    slider.style.transform = "translateX(90%)";
+                    window.location.href = "/events";
+                } else {
+                    switchEl.style.backgroundColor = "#DDAED3";
+                    slider.style.transform = "translateX(0)";
+                    window.location.href = "/home";
+                }
+            });
+        </script>
+    </div>
+
     <nav class="flex flex-col h-full">
         <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
