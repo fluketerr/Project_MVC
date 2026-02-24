@@ -38,15 +38,17 @@
     <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start gap-4 flex-shrink-0">
-            <div class="relative w-[320px]">
+            <div class="relative w-[320px] gap-2">
                 <form method="GET">
+             
                     <input
+                    
                         type="text"
                         placeholder="Search event or date"
                         class="w-full bg-white text-sm text-gray-700 rounded-full py-2.5 pl-5 pr-10 outline-none shadow-sm placeholder-gray-500"
-                        name="keyword"
-                        value="<?= $_GET['keyword'] ?? '' ?>"
+                        
                         >
+                    
                     <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -57,7 +59,7 @@
             <p><?= $_SESSION['message'] ?? '';
             unset($_SESSION['message']); ?></p>
 
-        <?php if ($data['result'] != []) { ?>
+        
 
             <button class="w-9 h-9 bg-white rounded-full flex items-center justify-center text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-50 transition-colors">
                 ?
@@ -68,7 +70,7 @@
                 เช่น "13/1/26 - 12/2/26"
             </div>
         </div>
-
+        <?php if ($data['result'] != []) { ?>
         <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4">
 
             <?php while ($row = $data['result']->fetch_object()) { ?>
