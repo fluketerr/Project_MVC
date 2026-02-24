@@ -9,9 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
-
     <script>
-        tailwind.config = {
+    tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
@@ -32,7 +31,7 @@
 <body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
-        <?php include 'sideNev.php'; ?>
+        <?php include 'sideNav_home.php'; ?>
     </div>
 
     <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
@@ -42,10 +41,10 @@
                 <form method="GET">
              
                     <input
-                    
+
                         type="text"
                         placeholder="Search event or date"
-                        class="w-full bg-white text-sm text-gray-700 rounded-full py-2.5 pl-5 pr-10 outline-none shadow-sm placeholder-gray-500"
+                        class="w-full bg-white/80 text-sm text-gray-700 rounded-full py-2.5 pl-5 pr-10 outline-none shadow-sm placeholder-gray-500"
                         
                         >
                     
@@ -75,7 +74,8 @@
 
             <?php while ($row = $data['result']->fetch_object()) { ?>
 
-                <div class="bg-white rounded-2xl flex min-h-[150px] overflow-hidden shadow-sm --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50">
+                <div class="bg-white/35 rounded-2xl flex min-h-[150px] overflow-hidden shadow-sm --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
+                            hover:bg-white transition-colors">
                     <div class="w-[280px] bg-imagePlaceholder flex-shrink-0">
                         <?php if (!empty($row->cover_image)): ?>
                             <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover">
