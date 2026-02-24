@@ -1,110 +1,144 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Dashboard - Full Screen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    <head>
-        <style>
-            .card {
-                background: #ddd;
-                padding: 15px;
-                margin-bottom: 15px;
-                border-radius: 8px;
-                cursor: pointer;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        btnGreen: '#22c55e',
+                        btnGreenHover: '#16a34a',
+                        cardBg: '#ffffff',
+                        imagePlaceholder: '#dcdcdc'
+                    }
+                }
             }
-
-            .modal {
-                display: none;
-                position: fixed;
-                z-index: 1000;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-            }
-
-            .modal-content {
-                background: white;
-                width: 450px;
-                margin: 8% auto;
-                padding: 20px;
-                border-radius: 10px;
-                position: relative;
-            }
-
-            .close-btn {
-                position: absolute;
-                right: 15px;
-                top: 10px;
-                font-size: 22px;
-                cursor: pointer;
-            }
-        </style>
-    </head>
+        }
+    </script>
 </head>
 
-<body>
+<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex  overflow-hidden  font-sans text-gray-800">
 
-    <?php include 'header.php'; ?>
+   
+    <div class="">
+        <?php include 'sideNav_event.php'; ?>
+    </div>
+    <main class="flex flex-col flex-1 w-full ">
 
-    <main>
+        <div class="text-4xl px-3 pt-6">
+            <?= $data['title'] ?>
+        </div>
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] 
+            shadow-sm border border-white/50 p-8 flex flex-col gap-6 ">
+            <!-- Flash Message -->
+            <?php if (!empty($_SESSION['message'])): ?>
+                <div class="bg-green-100 text-green-700 px-4 py-3 rounded-xl shadow">
+                    <?= $_SESSION['message'] ?>
+                    <?php unset($_SESSION['message']); ?>
+                </div>
+            <?php endif; ?>
 
-        <a href="/home">กิจกรรมทั้งหมด</a>
-        <a href="/my_events">กิจกรรมของฉัน</a>
+            <!-- Title -->
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-semibold">
+                    คำขอเข้าร่วมกิจกรรม
+                </h2>
+                <span class="text-gray-500 text-sm">
+                    <?= $data['regis']->num_rows ?> รายการ
+                </span>
+            </div>
 
-        <p>
-            <?= $_SESSION['message'] ?? '' ?>
-            <?php unset($_SESSION['message']); ?>
-        </p>
+            <?php if ($data['regis']->num_rows > 0): ?>
 
-        <h2>คำขอเข้าร่วมกิจกรรม (รออนุมัติ)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <?php if ($data['regis']->num_rows > 0): ?>
+                    <?php while ($row = $data['regis']->fetch_object()): ?>
 
-            <?php while ($row = $data['regis']->fetch_object()): ?>
+                        <div class="bg-white rounded-2xl shadow-md p-6 
+                        hover:shadow-lg transition cursor-pointer"
+                            onclick="openModal(
+                    '<?= htmlspecialchars($row->name) ?>',
+                    '<?= htmlspecialchars($row->email) ?>',
+                    '<?= htmlspecialchars($row->tel) ?>',
+                    '<?= htmlspecialchars($row->birthday ?? '') ?>',
+                    '<?= htmlspecialchars($row->job ?? '') ?>',
+                    '<?= htmlspecialchars($row->gender ?? '') ?>',
+                    '<?= htmlspecialchars($row->address ?? '') ?>',
+                    '<?= $row->status ?>'
+                )">
 
-                <div class="card"
-                    onclick="openModal(
-        '<?= htmlspecialchars($row->name) ?>',
-        '<?= htmlspecialchars($row->email) ?>',
-        '<?= htmlspecialchars($row->tel) ?>',
-        '<?= htmlspecialchars($row->birthday ?? '') ?>',
-        '<?= htmlspecialchars($row->job ?? '') ?>',
-        '<?= htmlspecialchars($row->gender ?? '') ?>',
-        '<?= htmlspecialchars($row->address ?? '') ?>',
-        '<?= $row->status ?>'
-     )">
+                            <!-- Basic Info -->
+                            <div class="mb-4">
+                                <h3 class="text-lg font-semibold">
+                                    <?= htmlspecialchars($row->name) ?>
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    <?= htmlspecialchars($row->email) ?>
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    <?= htmlspecialchars($row->tel) ?>
+                                </p>
+                            </div>
 
-                    <h3><?= htmlspecialchars($row->name) ?></h3>
-                    <p>Email: <?= htmlspecialchars($row->email) ?></p>
-                    <p>เบอร์โทร: <?= htmlspecialchars($row->tel) ?></p>
-                    <p>Status: <?= $row->status ?></p>
+                            <!-- Status Badge -->
+                            <div class="mb-4">
+                                <?php if ($row->status === 'pending'): ?>
+                                    <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
+                                        รออนุมัติ
+                                    </span>
+                                <?php endif; ?>
+                            </div>
 
-                    <!-- ปุ่มกดไม่ให้ไป trigger modal -->
-                    <div onclick="event.stopPropagation()">
-                        <form method="POST" action="/approve_request" style="display:inline;">
-                            <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
-                            <button type="submit">อนุมัติ</button>
-                        </form>
+                            <!-- Action Buttons -->
+                            <div class="flex gap-3" onclick="event.stopPropagation()">
 
-                        <form method="POST" action="/reject_request" style="display:inline;">
-                            <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
-                            <button type="submit">ปฏิเสธ</button>
-                        </form>
-                    </div>
+                                <form method="POST" action="/approve_request">
+                                    <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
+                                    <button class="px-4 py-1 rounded-full text-sm 
+                                       bg-green-500 hover:bg-green-600 
+                                       text-white transition">
+                                        อนุมัติ
+                                    </button>
+                                </form>
+
+                                <form method="POST" action="/reject_request">
+                                    <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
+                                    <button class="px-4 py-1 rounded-full text-sm 
+                                       bg-red-500 hover:bg-red-600 
+                                       text-white transition">
+                                        ปฏิเสธ
+                                    </button>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    <?php endwhile; ?>
 
                 </div>
 
-            <?php endwhile; ?>
+            <?php else: ?>
 
-        <?php else: ?>
-            <p>ไม่มีคำขอที่รออนุมัติ</p>
-        <?php endif; ?>
+                <div class="text-center text-gray-500 py-10">
+                    ไม่มีคำขอที่รออนุมัติ
+                </div>
 
+            <?php endif; ?>
+
+        </div>
     </main>
-
-    <?php include 'footer.php'; ?>
-
     <script>
         function openModal(name, email, tel, birthday, job, gender, address, status) {
 
@@ -117,36 +151,44 @@
             document.getElementById("modalAddress").innerText = address;
             document.getElementById("modalStatus").innerText = status;
 
-            document.getElementById("userModal").style.display = "block";
+            const modal = document.getElementById("userModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
         }
 
         function closeModal() {
-            document.getElementById("userModal").style.display = "none";
-        }
-
-        window.onclick = function(event) {
             const modal = document.getElementById("userModal");
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
         }
     </script>
 
-</body>
+    <div id="userModal"
+        class="fixed inset-0 bg-black/40 hidden 
+            items-center justify-center z-50">
 
-<div id="userModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="bg-white rounded-2xl shadow-xl p-8 w-[450px] relative">
 
-        <h2 id="modalName"></h2>
-        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
-        <p><strong>วันเกิด:</strong> <span id="modalBirthday"></span></p>
-        <p><strong>เบอร์โทร:</strong> <span id="modalTel"></span></p>
-        <p><strong>อาชีพ:</strong> <span id="modalJob"></span></p>
-        <p><strong>เพศ:</strong> <span id="modalGender"></span></p>
-        <p><strong>ที่อยู่:</strong> <span id="modalAddress"></span></p>
-        <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-black">
+                ✕
+            </button>
+
+            <h2 id="modalName" class="text-xl font-semibold mb-4"></h2>
+
+            <div class="space-y-2 text-sm text-gray-700">
+                <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+                <p><strong>วันเกิด:</strong> <span id="modalBirthday"></span></p>
+                <p><strong>เบอร์โทร:</strong> <span id="modalTel"></span></p>
+                <p><strong>อาชีพ:</strong> <span id="modalJob"></span></p>
+                <p><strong>เพศ:</strong> <span id="modalGender"></span></p>
+                <p><strong>ที่อยู่:</strong> <span id="modalAddress"></span></p>
+                <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+            </div>
+
+        </div>
     </div>
-</div>
+
+</body>
 
 </html>

@@ -102,7 +102,8 @@
                             </span>
                             <form method="POST" action="">
                                 <input type="hidden" name="event_id" value="<?= $row->eid ?>">
-                                <button class="bg-btnGreen hover:bg-btnGreenHover transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">
+                                <button type="submit" name="join"
+                                        class="bg-btnGreen hover:bg-btnGreenHover transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">
                                     เข้าร่วม
                                 </button>
                             </form>
