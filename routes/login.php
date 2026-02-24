@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $_SESSION['user_id'] = getUserIdByEmail($email);
         $_SESSION['user_email'] = $email;
-        $_SESSION['name'] = getUserByEmail($email);
+        $_SESSION['name'] = getUserNameByEmail($email);
 
         header('Location: /home');
         exit;

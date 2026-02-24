@@ -11,7 +11,5 @@
         <?php } else { ?>
             <a href="/login">Login</a> 
         <?php } ?>
-        <a href="/register_user">Register</a>
-
 
     </nav>

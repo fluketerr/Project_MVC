@@ -30,7 +30,7 @@ const PUBLIC_ROUTES = ['/', '/login', '/register_user'];
 if (in_array(strtolower($_SERVER['REQUEST_URI']), PUBLIC_ROUTES)) {
     dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
     exit;
-} elseif (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true && isset($_SESSION['timestamp']) && time() - $_SESSION['timestamp'] < 1800) {
+} elseif (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true && isset($_SESSION['timestamp'])) {
     $unix_timestamp = time();
     $_SESSION['timestamp'] = $unix_timestamp;
     dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

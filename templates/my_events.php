@@ -25,6 +25,7 @@
 
     <table border="1">
         <tr>
+            <th>Img</th>
             <th>ชื่อกิจกรรม</th>
             <th>วันเริ่ม</th>
             <th>วันสิ้นสุด</th>
@@ -33,6 +34,13 @@
 
         <?php while ($row = $data['result']->fetch_object()): ?>
             <tr>
+                <td>
+                    <?php if (!empty($row->cover_image)): ?>
+                        <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" width="80">
+                    <?php else: ?>
+                        ไม่มีรูป
+                    <?php endif; ?>
+                </td>
                 <td><?= $row->event_name ?></td>
                 <td><?= $row->start_date ?></td>
                 <td><?= $row->end_date ?></td>
@@ -54,25 +62,26 @@
                     </form>
                 </td>
                 <td>
-                    <form method="POST">
-                        <input type="hidden" name="otp_event_id" value="<?= $row->eid ?>">
-                        <button type="submit" name="request_otp">ขอ OTP</button>
-                    </form>
-
+                    <?php if ($row->status == 'approved'): ?>
+                        <form method="POST">
+                            <input type="hidden" name="otp_event_id" value="<?= $row->eid ?>">
+                            <button type="submit" name="request_otp">ขอ OTP</button>
+                        </form>
+                    <?php endif; ?>
                     <?php
                     if (
                         isset($_POST['request_otp']) &&
                         isset($_POST['otp_event_id']) &&
                         $_POST['otp_event_id'] == $row->eid
                     ) {
-                        
+
                         $uid = $_SESSION['user_id'];
                         $otp = generateOTP($uid, $row->eid);
                         echo "<div><strong>OTP:</strong> $otp </div>";
                     }
                     ?>
 
-                   
+
                 </td>
             </tr>
         <?php endwhile; ?>

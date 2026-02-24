@@ -19,17 +19,38 @@ function getMyEvents($user_id, $status = '')
 {
     global $conn;
 
-    $sql = "SELECT e.*, r.status
-            FROM Registrations r
-            JOIN Events e ON r.eid = e.eid
-            WHERE r.uid = '$user_id'";
+    $sql = "
+        SELECT e.*, r.status,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image
+        FROM Registrations r
+        JOIN Events e ON r.eid = e.eid
+        WHERE r.uid = ?
+    ";
 
-     if ($status != '') {
-        $sql .= " AND r.status = '$status'";
+    if ($status != '') {
+        $sql .= " AND r.status = ?";
     }
 
-    return $conn->query($sql);
+    $sql .= " ORDER BY e.eid DESC";
+
+    $stmt = $conn->prepare($sql);
+
+    if ($status != '') {
+        $stmt->bind_param("is", $user_id, $status);
+    } else {
+        $stmt->bind_param("i", $user_id);
+    }
+
+    $stmt->execute();
+
+    return $stmt->get_result();
 }
+
 
 function updateEvent(array $event, mysqli $conn): bool
 {
@@ -108,13 +129,7 @@ function updateRegistrationStatus(int $rid, string $status, mysqli $conn): bool
 function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keyword = ''): mysqli_result|bool
 {
     if ($keyword !== '') {
-        $sql = "SELECT 
-                    r.rid,
-                    r.checkin_time,
-                    u.name,
-                    u.email,
-                    u.tel,
-                    u.gender
+        $sql = "SELECT SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
                 FROM registrations r
                 JOIN users u ON r.uid = u.uid
                 WHERE r.eid = ?
@@ -126,13 +141,7 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
         $stmt->bind_param("isss", $eid, $like, $like, $like);
 
     } else {
-        $sql = "SELECT 
-                    r.rid,
-                    r.checkin_time,
-                    u.name,
-                    u.email,
-                    u.tel,
-                    u.gender
+        $sql = "SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
                 FROM registrations r
                 JOIN users u ON r.uid = u.uid
                 WHERE r.eid = ?
@@ -144,5 +153,4 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
 
     $stmt->execute();
     return $stmt->get_result();
-
 }

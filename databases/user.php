@@ -37,6 +37,7 @@ function getUsersById(int $id): mysqli_result|bool
     $result = $stmt->get_result();
     return $result;
 }
+
 function getUserIdByEmail(string $email): int
 {
     global $conn;
@@ -52,7 +53,7 @@ function getUserIdByEmail(string $email): int
     return 0;
 }
 
-function getUserByEmail(string $email): mysqli_result|string
+function getUserNameByEmail(string $email): mysqli_result|string
 {
     global $conn;
     $sql = 'select name from users where email = ?';

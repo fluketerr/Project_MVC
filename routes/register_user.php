@@ -2,8 +2,8 @@
 require_once __DIR__ . '/../databases/user.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $first_name = $_POST['name'] ?? '';
-    $last_name = $_POST['surname'] ?? '';
+    $first_name = $_POST['first_name'] ?? '';
+    $last_name = $_POST['last_name'] ?? '';
 
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
