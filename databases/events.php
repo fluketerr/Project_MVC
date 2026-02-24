@@ -5,7 +5,7 @@ function getEvents(): mysqli_result|bool
     $conn = getConnection();
     $sql = "select * from events";
     $result = $conn->query($sql);
-    
+
     return $result;
 }
 
@@ -49,10 +49,10 @@ function getEvetById(int $eid): mysqli_result|bool
                ) AS approved_count 
             from events e where eid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i',$eid);
+    $stmt->bind_param('i', $eid);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     return $result;
 }
 
@@ -86,25 +86,27 @@ function getEvetByCreateUid(int $uid)
     return $stmt->get_result();
 }
 
-function insertEvent($event, $conn):int | bool
+function insertEvent($event, $conn): int | bool
 {
     $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, create_uid) 
     VALUES (?, ?, ?, ?, ?,?)';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
         'ssssis',
-        $event['name'], 
-        $event['detail'], 
-        $event['start'],$event['end'],
+        $event['name'],
+        $event['detail'],
+        $event['start'],
+        $event['end'],
         $event['capacity'],
-        $event['create_uid']);
+        $event['create_uid']
+    );
 
     $stmt->execute();
-    
-    if($stmt->affected_rows > 0){
+
+    if ($stmt->affected_rows > 0) {
         $eid = $stmt->insert_id;
         return $eid;
-    }else{
+    } else {
         return false;
     }
 }
@@ -117,24 +119,41 @@ function deleteEventById(int $id, $conn): bool
     $stmt->execute();
     return $stmt->affected_rows > 0;
 }
-function searchEvents($keyword, $start, $end)
+function searchEvents($keyword, $start, $end, $uid)
 {
     global $conn;
 
-    $sql = "SELECT * FROM Events WHERE 1";
+    $sql = "";
 
-    if ($keyword != '') {
+    if ($keyword != '' && $uid != "") {
         $keyword = strtolower($keyword);
-        $sql .= " AND LOWER(event_name) LIKE '%$keyword%'";
+        $sql = "
+                SELECT e.*
+                FROM Events e
+                WHERE e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
+                AND LOWER(e.event_name) LIKE '%$keyword%' ";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $uid, $uid);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
     if ($start != '' && $end != '') {
-        $sql .= " AND start_date >= '$start'
+        $sql = "  SELECT * FROM Events WHERE 1 
+                  AND start_date >= '$start'
                   AND end_date <= '$end'";
     }
 
+
+
     return $conn->query($sql);
 }
+
 function joinEvent($user_id, $event_id)
 {
     global $conn;
@@ -144,4 +163,3 @@ function joinEvent($user_id, $event_id)
 
     return $conn->query($sql);
 }
-
