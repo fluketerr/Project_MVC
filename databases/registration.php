@@ -133,4 +133,3 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
     $stmt->execute();
     return $stmt->get_result();
 }
-
