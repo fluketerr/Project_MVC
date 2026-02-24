@@ -28,97 +28,133 @@
     </script>
 </head>
 
-<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex  overflow-hidden  font-sans text-gray-800">
+<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] min-h-screen flex font-sans text-gray-800">
 
 
     <div class="">
         <?php include 'sideNav_event.php'; ?>
     </div>
-    <main class="flex flex-col flex-1 w-full ">
+    <main class="flex flex-col flex-1 w-full">
 
         <div class="text-4xl px-3 pt-6">
             <?= $data['title'] ?>
         </div>
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] 
-            shadow-sm border border-white/50 p-8 flex flex-col gap-6 ">
-            <!-- Flash Message -->
+
+        <!-- แผ่นขาวหลัก -->
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 p-8 flex flex-col">
+
+            <!-- message -->
             <?php if (!empty($_SESSION['message'])): ?>
-                <div class="bg-green-100 text-green-700 px-4 py-3 rounded-xl shadow">
+                <div class="mb-3 rounded-lg bg-green-50 border border-green-200 px-4 py-2 text-sm text-green-700">
                     <?= $_SESSION['message'] ?>
-                    <?php unset($_SESSION['message']); ?>
                 </div>
+                <?php unset($_SESSION['message']); ?>
             <?php endif; ?>
 
-            <!-- Title -->
-            <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-semibold">
-                    ข้อมูลผู้เข้าร่วม
-                </h2>
-            </div>
+            <h2 class="text-xl font-bold mb-4">ผู้เข้าร่วมกิจกรรม</h2>
 
-            <div class="fles flex-row">
-                <span class="text-gray-500 text-sm">
-                    <p><strong>จำนวนสมาชิก:</strong> <?= (int)($data['totalParticipants'] ?? 0) ?> คน</p>
-                </span>
+            <!-- ===== stat cards ===== -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
 
-                <div style="margin-bottom:15px;">
-                    ชาย: <?= (int)($data['maleCount'] ?? 0) ?> คน |
-                    หญิง: <?= (int)($data['femaleCount'] ?? 0) ?> คน
+                <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 mb-1">จำนวนสมาชิก</p>
+                    <p class="text-2xl font-bold">
+                        <?= (int)($data['totalParticipants'] ?? 0) ?>
+                    </p>
                 </div>
 
-                <div class="stat-box">
-                    <strong>ช่วงอายุที่มีผู้เข้าร่วมมากที่สุด</strong><br>
-                    ช่วงอายุ <?= htmlspecialchars($data['topAgeRange'] ?? '-') ?> ปี
-                    จำนวน <?= (int)($data['topAgeCount'] ?? 0) ?> คน
+                <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 mb-1">สัดส่วนเพศ</p>
+                    <p class="text-sm font-medium">
+                        ชาย <?= (int)($data['maleCount'] ?? 0) ?> |
+                        หญิง <?= (int)($data['femaleCount'] ?? 0) ?> |
+                        อื่นๆ <?= (int)($data['otherCount'] ?? 0) ?>
+                    </p>
                 </div>
 
-                <p><strong>เช็คชื่อแล้ว:</strong>
-                    <?= (int)($data['checkedCount'] ?? 0) ?> คน
-                </p>
+                <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 mb-1">ช่วงอายุ</p>
+                    <p class="text-xl font-bold">
+                        <?= htmlspecialchars($data['topAgeRange'] ?? '-') ?>
+                    </p>
+                    <p class="text-xs text-slate-500">
+                        <?= (int)($data['topAgeCount'] ?? 0) ?> คน
+                    </p>
+                </div>
 
+                <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
+                    <p class="text-xs text-slate-500 mb-1">เช็คชื่อแล้ว</p>
+                    <p class="text-2xl font-bold text-green-600">
+                        <?= (int)($data['checkedCount'] ?? 0) ?>
+                    </p>
+                </div>
 
             </div>
 
-            <form method="GET" action="/join_event" style="margin-bottom:15px;">
-                <input type="text" name="keyword"
-                    placeholder="ค้นหาชื่อ / email / เบอร์"
-                    value="<?= htmlspecialchars($data['keyword'] ?? '') ?>">
-                <button type="submit">ค้นหา</button>
+            <!-- ===== search ===== -->
+            <form method="GET" action="/join_event" class="mb-4">
+                <div class="relative max-w-lg">
+                    <input
+                        type="text"
+                        name="keyword"
+                        placeholder="ค้นหาชื่อ / email / เบอร์"
+                        value="<?= htmlspecialchars($data['keyword'] ?? '') ?>"
+                        class="w-full rounded-full border border-gray-200 px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+
+                    <button class="absolute right-3 top-1/2 -translate-y-1/2 text-sm">
+                        ค้นหา
+                    </button>
+                </div>
+            </form>
             </form>
 
+            <!-- ===== participants scroll ===== -->
             <?php if (!empty($data['participants'])): ?>
 
-                <?php foreach ($data['participants'] as $row): ?>
+                <div class="max-h-[520px] overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
 
-                    <div class="card">
-                        <h3><?= htmlspecialchars($row['name']) ?></h3>
-                        <p>Email: <?= htmlspecialchars($row['email']) ?></p>
-                        <p>เบอร์โทร: <?= htmlspecialchars($row['tel']) ?></p>
+                    <?php foreach ($data['participants'] as $row): ?>
 
                         <?php
                         $checked = !empty($row['checkin_time']);
-
-                        if ($checked) {
-                            $text = 'เช็คชื่อแล้ว';
-                            $color = 'green';
-                        } else {
-                            $text = 'ยังไม่เช็คชื่อ';
-                            $color = 'red';
-                        }
+                        $text = $checked ? 'เช็คชื่อแล้ว' : 'ยังไม่เช็คชื่อ';
+                        $colorClass = $checked ? 'text-green-600' : 'text-orange-500';
                         ?>
 
-                        <p>
-                            <strong>สถานะเช็คชื่อ:</strong>
-                            <span style="color: <?= $color ?>;"> <?= $text ?> </span>
-                        </p>
-                    </div>
-                <?php endforeach; ?>
+                        <div class="bg-gray-50 rounded-xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md transition">
+
+                            <!-- avatar -->
+                            <div class="w-14 h-14 bg-gray-300 rounded-lg flex-shrink-0"></div>
+
+                            <!-- info -->
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-semibold text-base truncate">
+                                    <?= htmlspecialchars($row['name']) ?>
+                                </h3>
+                                <p class="text-xs text-slate-600 truncate">
+                                    <?= htmlspecialchars($row['email']) ?>
+                                </p>
+                                <p class="text-xs text-slate-600">
+                                    <?= htmlspecialchars($row['tel']) ?>
+                                </p>
+                            </div>
+
+                            <!-- status -->
+                            <div class="text-xs font-semibold whitespace-nowrap <?= $colorClass ?>">
+                                <?= $text ?>
+                            </div>
+
+                        </div>
+
+                    <?php endforeach; ?>
+
+                </div>
 
             <?php else: ?>
-                <p>ยังไม่มีผู้เข้าร่วม</p>
+                <div class="text-center text-gray-500 py-10">
+                    ยังไม่มีผู้เข้าร่วม
+                </div>
             <?php endif; ?>
-
-
 
         </div>
     </main>
