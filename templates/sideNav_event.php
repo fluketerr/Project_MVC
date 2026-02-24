@@ -40,7 +40,8 @@
 
             let active = 0; // 0 = left, 1 = right
 
-            if (currentPage === "/events" || currentPage === "/join_event" || currentPage === "/request_event" || currentPage === "/update_event") {
+            if (currentPage === "/events" || currentPage === "/join_event" || currentPage === "/request_event" || currentPage === "/update_event" 
+                || currentPage === "/edit_event" || currentPage === "/manage_events") {
                 active = 1;
                 switchEl.style.backgroundColor = "#6594B1";
                 slider.style.transform = "translateX(90%)";
