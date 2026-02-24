@@ -66,7 +66,7 @@
     <nav class="flex flex-col h-full">
         <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
-                <a href="/manage_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                <a href="/manage_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">Event</span>
                 </a>
             </li>
@@ -81,7 +81,7 @@
                 </a>
             </li>
             <li class="m-0">
-                <a href="/edit_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                <a href="/edit_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">Configure</span>
                 </a>
             </li>
