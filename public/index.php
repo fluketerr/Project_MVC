@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+date_default_timezone_set('Asia/Bangkok');
 session_start();
 
 // กำหนดค่าคงที่สำหรับไดเรกทอรีต่างๆ ในโปรเจค

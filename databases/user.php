@@ -129,6 +129,15 @@ function updateUserData(int $uid, string $name, string $birthday, string $tel, s
     
     return $stmt->affected_rows; 
 }
-
-
+function updateCheckIn(string $uid,string $eid):bool
+{ 
+    global $conn;
+    $status = 'approved';
+    $time = date('Y-m-d H:i:s');
+    $sql = 'update registrations set checkin_time = ? where uid = ? and eid = ? and status = ?';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('siis',$time, $uid, $eid,$status);
+    $stmt->execute();
+    return $stmt->affected_rows >= 0;
+}
 
