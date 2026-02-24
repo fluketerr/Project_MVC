@@ -33,6 +33,7 @@
             <table border="1" cellpadding="8" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Img</th>
                         <th>EID</th>
                         <th>Event Name</th>
                         <th>Detail</th>
@@ -46,6 +47,13 @@
                 <tbody>
                     <?php while ($row = $data['result']->fetch_object()) { ?>
                         <tr>
+                            <td>
+                                <?php if (!empty($row->cover_image)): ?>
+                                    <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" width="80">
+                                <?php else: ?>
+                                  ไม่มีรูป
+                                <?php endif; ?>
+                            </td>
                             <td><?= $row->eid ?></td>
                             <td><?= $row->event_name ?></td>
                             <td><?= $row->event_detail ?></td>
