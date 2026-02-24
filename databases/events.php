@@ -41,7 +41,13 @@ function getNotinEvets(int $uid): mysqli_result|bool
 function getEvetById(int $eid): mysqli_result|bool
 {
     global $conn;
-    $sql = "select * from events where eid = ?";
+    $sql = "select e.*,
+               (    SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count 
+            from events e where eid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i',$eid);
     $stmt->execute();
