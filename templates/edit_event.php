@@ -34,21 +34,21 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
                     <!-- LEFT -->
                     <div class="space-y-10">
 
-                        <h2 class="text-2xl font-semibold">รูปภาพกิจกรรม</h2>
+                        <h2 class="text-2xl font-semibold text-[#1E293B]">รูปภาพกิจกรรม</h2>
                         <div>
-                            <label class="block mb-3 font-medium">เพิ่มรูปใหม่</label>
+                            <label class="block mb-3 font-medium text-[#1E293B]">เพิ่มรูปใหม่</label>
                             <input type="file"
                                 name="new_pictures[]"
                                 multiple
                                 class="block w-full text-sm text-gray-700
-                              file:mr-4 file:py-3 file:px-6
+                              file:mr-4 file:py-2 file:px-6
                               file:rounded-full file:border-0
-                              file:bg-blue-600 file:text-white
-                              hover:file:bg-blue-700">
+                              file:bg-gray-500 file:text-white
+                              hover:file:bg-gray-600 transition-colors">
                         </div>
-                        <div class="flex flex-wrap gap-8 ">
+                        <div class="flex flex-wrap gap-8 bg-gray-50 p-6 rounded-2xl border border-gray-300">
                             <?php while ($pic = $data['pictures']->fetch_object()): ?>
-                                <div class="text-center">
+                                <div class="text-center" id="imageContainer">
                                     <img src="/uploads/events/<?= $pic->picture_name ?>"
                                         class="w-52 h-36 object-cover rounded-2xl shadow-md">
                                     <label class="text-red-500 text-sm mt-2 block">
@@ -70,7 +70,7 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
                     <div class="space-y-10">
 
                         <div>
-                            <label class="block mb-2 font-medium">ชื่องาน</label>
+                            <label class="block mb-2 font-medium text-[#1E293B]">ชื่องาน</label>
                             <input type="text"
                                 name="event_name"
                                 value="<?= $event->event_name ?>"
@@ -78,7 +78,7 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
                         </div>
 
                         <div>
-                            <label class="block mb-2 font-medium">จำนวนผู้เข้าร่วม</label>
+                            <label class="block mb-2 font-medium text-[#1E293B]">จำนวนผู้เข้าร่วม</label>
                             <input type="number"
                                 name="event_capacity"
                                 value="<?= $event->event_capacity ?>"
@@ -86,7 +86,7 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
                         </div>
 
                         <div>
-                            <label class="block mb-3 font-medium">ระยะเวลากิจกรรม</label>
+                            <label class="block mb-3 font-medium text-[#1E293B]">ระยะเวลากิจกรรม</label>
                             <div class="flex gap-6">
                                 <input type="datetime-local"
                                     name="start_date"
@@ -101,7 +101,7 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
                         </div>
 
                         <div>
-                            <label class="block mb-2 font-medium">รายละเอียด</label>
+                            <label class="block mb-2 font-medium text-[#1E293B]">รายละเอียด</label>
                             <textarea
                                 name="event_detail"
                                 class="w-full h-48 px-6 py-4 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-blue-400"><?= $event->event_detail ?></textarea>
@@ -109,12 +109,12 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
 
                         <div class="flex justify-end gap-6 pt-6">
                             <a href="/my_events"
-                                class="px-8 py-3 rounded-full bg-gray-300 hover:bg-gray-400 transition">
+                                class="px-8 py-3 rounded-full bg-gray-300 hover:bg-gray-400 transition text-[#1E293B]">
                                 ยกเลิก
                             </a>
 
                             <button type="submit"
-                                class="px-10 py-3 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition shadow">
+                                class="px-10 py-3 rounded-full bg-gray-500 hover:bg-gray-600 text-white transition shadow ">
                                 บันทึกการเปลี่ยนแปลง
                             </button>
                         </div>

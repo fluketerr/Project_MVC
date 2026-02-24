@@ -47,7 +47,7 @@
                 || currentPage === "/edit_event" || currentPage === "/manage_event") {
                 active = 1;
                 switchEl.style.backgroundColor = "#6594B1";
-                slider.style.transform = "translateX(90%)";
+                slider.style.transform = "translateX(89%)";
             }
 
             switchEl.addEventListener("click", () => {
@@ -55,7 +55,7 @@
 
                 if (active === 1) {
                     switchEl.style.backgroundColor = "#6594B1";
-                    slider.style.transform = "translateX(90%)";
+                    slider.style.transform = "translateX(89%)";
                     window.location.href = "/events";
                 } else {
                     switchEl.style.backgroundColor = "#DDAED3";

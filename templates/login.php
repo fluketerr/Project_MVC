@@ -12,7 +12,7 @@
   :root {
     --c1: #213C51;
     --c2: #DDAED3;
-    --btn: #6b8fbf;
+    --btn: #6594B1;
     --btn-h: #4e78ab;
   }
 
@@ -66,7 +66,7 @@
 
   /* ─── Login panel —─── */
   .panel {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.9); 
     position: absolute;
     z-index: 10;
     width: 50%;
@@ -78,7 +78,8 @@
     min-height: 50vh;
     animation: fadeUp .4s ease both;
     border-radius: 20px;
-  }
+    border: solid 1px #6594B1;
+ }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px) }
@@ -104,7 +105,7 @@
   .logo {
     display: flex;
     justify-content: center;
-    margin-bottom: 52px;
+    margin-bottom: 30px;
   }
   .logo svg { width: 110px; height: 110px; }
 
@@ -115,24 +116,40 @@
     margin-bottom: 14px;
   }
 
-  .input-wrap {
+  .input-wrapEmail{
     display: flex;
     align-items: center;
     gap: 10px;
     background: rgba(255,255,255,0.92);
-    border: 1.5px solid rgba(0,0,0,0.1);
-    border-radius: 10px;
+    border: 1.5px solid #6594B1;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     padding: 0 16px;
     transition: border-color .2s, box-shadow .2s;
   }
-  .input-wrap:focus-within {
+  .input-wrapPassword{
+   display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.92);
+    border: 1.5px solid #6594B1;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0 16px;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .input-wrapEmail:focus-within {
+    border-color: var(--btn);
+    box-shadow: 0 0 0 3px rgba(107,143,191,.2);
+  }
+  .input-wrapPassword:focus-within {
     border-color: var(--btn);
     box-shadow: 0 0 0 3px rgba(107,143,191,.2);
   }
 
   .input-icon { color: #7a8499; flex-shrink: 0; width: 18px; height: 18px; }
 
-  .input-wrap input {
+  .input-wrapEmail input {
     flex: 1;
     border: none;
     background: transparent;
@@ -142,7 +159,19 @@
     color: #1a1a2e;
     outline: none;
   }
-  .input-wrap input::placeholder { color: #aab0be; }
+  .input-wrapEmail input::placeholder { color: #aab0be; }
+
+  .input-wrapPassword input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 16px 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #1a1a2e;
+    outline: none;
+  }
+  .input-wrapPassword input::placeholder { color: #aab0be; }
 
   .eye-btn {
     background: none; border: none; cursor: pointer;
@@ -202,20 +231,21 @@
     <?php include 'logo.php'; ?>
   </div>
 
+  <form action="login" method="post">
   <div class="input-group">
-    <div class="input-wrap">
+    <div class="input-wrapEmail">
       <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
         <circle cx="12" cy="7" r="4"/>
       </svg>
-      <input type="text" placeholder="Username" autocomplete="username">
+      <input type="text" placeholder="Email" name="email" id="email">
     </div>
-    <div class="input-wrap">
+    <div class="input-wrapPassword">
       <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="11" width="18" height="11" rx="2"/>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
       </svg>
-      <input type="password" id="pwInput" placeholder="Password" autocomplete="current-password">
+      <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password">
       <button class="eye-btn" onclick="togglePw()" type="button">
         <svg id="eyeIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -232,6 +262,7 @@
 
   <button class="btn-login">เข้าสู่ระบบ</button>
 </div>
+</form>
 
 <script>
   const rows = [

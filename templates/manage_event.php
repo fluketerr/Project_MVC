@@ -49,7 +49,7 @@
 
                     <div class="w-[420px] h-[240px]">
                         <img src="/uploads/events/<?= $pic->picture_name ?>"
-                            class="w-full h-full object-cover">
+                            class="w-full h-full object-cover rounded-lg border border-gray-300">
                     </div>
 
                 <?php else: ?>

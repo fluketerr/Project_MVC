@@ -156,7 +156,7 @@
                                         <div class="relative">
                                             <input
                                                 type="datetime-local"
-                                                class="w-2/3 px-4 py-2 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                class="w-2/3 px-4 py-2 rounded-full bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                 name="start_date" required>
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@
                                         <p class="text-[#1E293B]/75 mb-1">&nbsp;ถึง</p>
                                         <input
                                             type="datetime-local"
-                                            class="w-2/3 px-4 py-2 rounded-lg bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            class="w-2/3 px-4 py-2 rounded-full bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             name="end_date" required>
                                     </div>
 
@@ -177,7 +177,7 @@
                             </div>
 
                             <div class="mt-6 flex justify-end">
-                                <button type="submit" class="bg-gray-500 hover:bg-gray-600 text-white px-10 py-2 rounded-full font-medium transition-colors">
+                                <button type="submit" class="    text-white px-10 py-2 rounded-full font-medium transition-colors">
                                     บันทึก
                                 </button>
                             </div>
