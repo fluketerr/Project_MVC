@@ -61,7 +61,13 @@ function getEvetByCreateUid(int $uid)
                    FROM Pictures p
                    WHERE p.eid = e.eid
                    LIMIT 1
-               ) AS cover_image
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
         FROM Events e
         WHERE e.create_uid = ?
         ORDER BY e.eid DESC
