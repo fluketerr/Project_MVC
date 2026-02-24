@@ -33,7 +33,7 @@
 <body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
-        <?php include 'sideNav_home.php'; ?>
+        <?php include 'sideNav_allEvents.php'; ?>
     </div>
 
     <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
