@@ -62,12 +62,21 @@
                     </form>
                 </td>
                 <td>
-                    <?php if ($row->status == 'approved'): ?>
+                    <?php if (
+                        $row->status == 'approved' &&
+                        empty($row->checkin_time)
+                    ) { ?>
                         <form method="POST">
                             <input type="hidden" name="otp_event_id" value="<?= $row->eid ?>">
                             <button type="submit" name="request_otp">ขอ OTP</button>
                         </form>
-                    <?php endif; ?>
+
+                    <?php } elseif ($row->status == 'approved' && 
+                            !empty($row->checkin_time)) { ?>
+
+                        เข้างานแล้ว
+
+                    <?php } ?>
                     <?php
                     if (
                         isset($_POST['request_otp']) &&

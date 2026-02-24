@@ -1,7 +1,8 @@
 <?php
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
 
     if (isset($_POST['cancel'])) {
 
@@ -15,10 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+
+
 $user_id = $_SESSION['user_id'] ?? null;
 $status = $_GET['status'] ?? '';
 $result = getMyEvents($user_id, $status);
 
+
 renderView('my_events', [
-    'result' => $result
+    'result' => $result,
 ]);
