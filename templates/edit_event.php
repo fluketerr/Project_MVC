@@ -27,8 +27,6 @@
     }
     </script>
 
-    
-
 </head>
 
 <body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] 

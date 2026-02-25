@@ -63,21 +63,31 @@
 
                 <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
                     <p class="text-xs text-slate-500 mb-1">สัดส่วนเพศ</p>
-                    <canvas id="PieChart" style="width:100%; max-width:700px;">
+                    <?php
+                        $total = (int)($data['totalParticipants'] ?? 0);
+                        $male = (int)($data['maleCount'] ?? 0);
+                        $female = (int)($data['maleCount'] ?? 0);
+                        $other = (int)($data['otherCount'] ?? 0);
+                        // ถ้า $total เป็น 10 และ $male เป็น 0
+                        $male_per = ($total > 0) ? ($male / $total) * 100 : 0;
+                        $female_per = ($total > 0) ? ($female / $total) * 100 : 0;
+                        $other_per = ($total > 0) ? ($other / $total) * 100 : 0;
+                        ?>
+                    <style>
+                        .PieChart{
+                            width:200px;
+                            height: 200px;
+                            border-radius:50%;
+                            background: conic-gradient(#6594B1 0% var(--male_per),
+                                                        #DDAED3 var(--male_per) var(--female_per),
+                                                        #6b7280 var(--female_per) var(--other_per));
+                        }
 
-                    </canvas>
-                        <script src="https://cdn.jsdelivr.net"></script>
-                        <script>
-                            new Chart("PieChart",{
-                                type: "pie",
-                                data:{
-                                    labels:["Red","Blue","Yellow"],
-                                    dataset:[{
-                                        back
-                                    }]
-                                }
-                            })
-                        </script>
+                    </style>
+                    <div class="PieChart" id="PieChart" style="--male-per: <?=$male_per?>%; 
+                                                                --female_per: <?=$female_per?>%
+                                                                --other_per: <?=$other_per?>%
+                                                                  width:100%; max-width:700px;"></div>
                     <p class="text-sm font-medium">
                         ชาย <?= (int)($data['maleCount'] ?? 0) ?> |
                         หญิง <?= (int)($data['femaleCount'] ?? 0) ?> |
@@ -118,7 +128,6 @@
                         ค้นหา
                     </button>
                 </div>
-            </form>
             </form>
 
             <!-- ===== participants scroll ===== -->
