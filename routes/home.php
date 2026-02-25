@@ -1,15 +1,15 @@
 <?php
 
-if (isset($_POST['join'])) {
+// if (isset($_POST['join'])) {
 
-    $event_id = $_POST['event_id'];
-    $user_id = $_SESSION['user_id'] ?? null;
+//     $event_id = $_POST['event_id'];
+//     $user_id = $_SESSION['user_id'] ?? null;
 
-    joinEvent($user_id, $event_id);
+//     joinEvent($user_id, $event_id);
 
-    header("Location: /home");
-    exit();
-}
+//     header("Location: /home");
+//     exit();
+// }
 // ประมวลผลก่อนแสดงผลหน้า
 unset($_SESSION['eid']);
 
@@ -25,17 +25,21 @@ if ($keyword != '' || ($start != '' && $end != '')) {
     $result = getNotinEvets((int)$user_id);   
 }
 
-renderView('home', [
-    'title' => 'Welcome to Home Page',
-    'result' => $result
-]);
+
 if (isset($_POST['join'])) {
 
     $event_id = $_POST['event_id'];
     $user_id = $_SESSION['user_id'] ?? null;
+    $countCapacity = countCapacity($event_id);
 
-    joinEvent($user_id, $event_id);
-
+    if($countCapacity->count_uid < $countCapacity->event_capacity){
+     joinEvent($user_id, $event_id);
+    }
+   
     header("Location: /home");
     exit();
 }
+renderView('home', [
+    'title' => 'Welcome to Home Page',
+    'result' => $result
+]);

@@ -20,7 +20,13 @@ function getNotinEvets(int $uid): mysqli_result|bool
                    FROM Pictures p
                    WHERE p.eid = e.eid
                    LIMIT 1
-               ) AS cover_image
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
         FROM Events e
         WHERE e.eid NOT IN (
                 SELECT eid
@@ -162,4 +168,19 @@ function joinEvent($user_id, $event_id)
             VALUES ('$user_id', '$event_id', 'wait')";
 
     return $conn->query($sql);
+}
+
+function countCapacity($eid){
+    global $conn;
+
+    $sql = "select e.*,
+                    COALESCE((select count(uid) 
+                    from   registrations
+                    where  eid = ?), 0) as count_uid
+            from  events e
+            where eid = ?";
+     $stmt = $conn->prepare($sql);
+     $stmt->bind_param('ii', $eid, $eid);
+     $stmt->execute();
+     return $stmt->get_result()->fetch_object();
 }

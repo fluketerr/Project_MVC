@@ -163,7 +163,7 @@
                                 </span>
 
                                 <span class="text-lg font-bold text-gray-800 my-2">
-                                    0 / <?= $row->event_capacity ?>
+                                    <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
                                 </span>
 
                                 <?php if (isset($_SESSION['user_id'])) { ?>
