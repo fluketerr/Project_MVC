@@ -67,23 +67,51 @@
     <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start gap-4 flex-shrink-0">
-            <div class="relative w-[320px] gap-2">
-                <form method="GET">
+            <div class="w-full max-w-2xl">
+                <form method="GET" class="flex items-center gap-3">
 
-                    <input
+                    <!-- ช่องค้นหา -->
+                    <div class="relative flex-1">
+                        <input
+                            type="text"
+                            name="keyword"
+                            placeholder="Search event..."
+                            value="<?= $_GET['keyword'] ?? '' ?>"
+                            class="w-full bg-white text-sm text-gray-700 
+                       rounded-full py-2.5 pl-5 pr-10 
+                       outline-none shadow-sm 
+                       placeholder-gray-400
+                       border border-gray-200
+                       focus:ring-2 focus:ring-green-400">
 
-                        type="text"
-                        placeholder="Search event or date"
-                        name="keyword"
-                        class="w-full bg-white/80 text-sm text-gray-700 rounded-full py-2.5 pl-5 pr-10 outline-none shadow-sm placeholder-gray-500"
-                        name="keyword"
-                        value="<?= $_GET['keyword'] ?? '' ?>">
+                        <!-- ไอคอน -->
+                        <button type="submit"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
 
-                    <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </button>
+                    <!-- วันที่เริ่ม -->
+                    <input type="date"
+                        name="start"
+                        value="<?= $_GET['start'] ?? '' ?>"
+                        class="bg-white text-sm text-gray-600
+                      rounded-full px-4 py-2
+                      border border-gray-200
+                      shadow-sm focus:ring-2 focus:ring-green-400">
+
+                    <!-- วันที่สิ้นสุด -->
+                    <input type="date"
+                        name="end"
+                        value="<?= $_GET['end'] ?? '' ?>"
+                        class="bg-white text-sm text-gray-600
+                      rounded-full px-4 py-2
+                      border border-gray-200
+                      shadow-sm focus:ring-2 focus:ring-green-400">
+
                 </form>
             </div>
             <p><?= $_SESSION['message'] ?? '';
@@ -91,14 +119,7 @@
 
 
 
-            <button class="w-9 h-9 bg-white rounded-full flex items-center justify-center text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-50 transition-colors">
-                ?
-            </button>
-
-            <div class="bg-white/40 text-[10px] text-gray-600 px-4 py-2 rounded-xl max-w-[300px] leading-relaxed border border-white/50">
-                หากต้องการค้นหาด้วยวันที่ให้พิมพ์วันเริ่มต้น และ วันสิ้นสุด<br>
-                เช่น "13/1/26 - 12/2/26"
-            </div>
+           
         </div>
         <?php if ($data['result'] != []) { ?>
             <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4 scrollbar-custom">

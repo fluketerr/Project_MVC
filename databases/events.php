@@ -3,7 +3,13 @@
 function getEvents(): mysqli_result|bool
 {
     $conn = getConnection();
-    $sql = "select * from events";
+    $sql = "select e.*,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count from events e";
     $result = $conn->query($sql);
 
     return $result;
@@ -134,7 +140,19 @@ function searchEvents($keyword, $start, $end, $uid)
     if ($keyword != '' && $uid != "") {
         $keyword = strtolower($keyword);
         $sql = "
-                SELECT e.*
+                SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
                 FROM Events e
                 WHERE e.create_uid != ?
                 AND e.eid NOT IN (
@@ -160,6 +178,41 @@ function searchEvents($keyword, $start, $end, $uid)
     return $conn->query($sql);
 }
 
+function searchEventsPublic($keyword, $start, $end)
+{
+    global $conn;
+
+    $sql = "
+        SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
+        FROM Events e
+        WHERE 1=1
+    ";
+
+    if ($keyword != '') {
+        $keyword = strtolower($keyword);
+        $sql .= " AND LOWER(e.event_name) LIKE '%$keyword%' ";
+    }
+
+    if ($start != '' && $end != '') {
+        $sql .= " AND e.start_date >= '$start'
+                  AND e.end_date <= '$end' ";
+    }
+
+    return $conn->query($sql);
+}
+
 function joinEvent($user_id, $event_id)
 {
     global $conn;
@@ -170,7 +223,8 @@ function joinEvent($user_id, $event_id)
     return $conn->query($sql);
 }
 
-function countCapacity($eid){
+function countCapacity($eid)
+{
     global $conn;
 
     $sql = "select e.*,
@@ -179,8 +233,8 @@ function countCapacity($eid){
                     where  eid = ?), 0) as count_uid
             from  events e
             where eid = ?";
-     $stmt = $conn->prepare($sql);
-     $stmt->bind_param('ii', $eid, $eid);
-     $stmt->execute();
-     return $stmt->get_result()->fetch_object();
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $eid, $eid);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_object();
 }
