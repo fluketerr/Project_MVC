@@ -10,23 +10,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: {
-                    sans: ['Prompt', 'sans-serif'],
-                },
-                colors: {
-                    btnGreen: '#22c55e',
-                    btnGreenHover: '#16a34a',
-                    cardBg: '#ffffff',
-                    imagePlaceholder: '#dcdcdc'
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        btnGreen: '#22c55e',
+                        btnGreenHover: '#16a34a',
+                        cardBg: '#ffffff',
+                        imagePlaceholder: '#dcdcdc'
+                    }
                 }
             }
         }
-    }
     </script>
-
 </head>
 
 <body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] 
@@ -49,7 +48,7 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
 
                 <input type="hidden" name="eid" value="<?= (int)$event->eid ?>">
 
-                <div class="grid grid-cols-2 gap-20 ">
+                <div class="grid grid-cols-2 gap-20 mb-5">
 
                     <!-- LEFT -->
                     <div class="space-y-10">
@@ -142,6 +141,21 @@ shadow-sm border border-white/50 p-16 overflow-y-auto">
                     </div>
 
                 </div>
+
+                <div class="w-full flex justify-end">
+                    <button href="/delete_event?eid=<?= (int)$event->eid ?>" onclick="return confirmDelete()" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition-all bg-red-600 rounded-3xl hover:bg-red-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        ลบกิจกรรม
+                    </button>
+                </div>
+
+                <script>
+                    function confirmDelete() {
+                        return confirm("ต้องการลบกิจกรรมนี้มั้ย ?");
+                    }
+                </script>
 
             </form>
         </div>
