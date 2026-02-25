@@ -16,9 +16,10 @@ unset($_SESSION['eid']);
 $keyword = $_GET['keyword'] ?? '';
 $start   = $_GET['start'] ?? '';
 $end     = $_GET['end'] ?? '';
+$user_id = $_SESSION['user_id'] ?? "";
 
 if ($keyword != '' || ($start != '' && $end != '')) {
-    $result = searchEvents($keyword, $start, $end);
+    $result = searchEvents($keyword, $start, $end, $user_id);
 } else {
     $user_id = $_SESSION['user_id'] ?? null;
     $result = getNotinEvets((int)$user_id);   

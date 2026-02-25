@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,12 +18,6 @@
                     fontFamily: {
                         sans: ['Prompt', 'sans-serif'],
                     },
-                    colors: {
-                        btnGreen: '#22c55e',
-                        btnGreenHover: '#16a34a',
-                        cardBg: '#ffffff',
-                        imagePlaceholder: '#dcdcdc'
-                    }
                 }
             }
         }
@@ -33,7 +27,7 @@
 <body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
-        <?php include 'sideNev.php'; ?>
+        <?php include 'sideNav_allEvents.php'; ?>
     </div>
 
     <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
@@ -70,7 +64,7 @@
                         <div class="flex flex-col items-center justify-center min-w-[120px]">
                             <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span>
                             <span class="text-sm font-medium text-gray-800 mb-3"><?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>   </span>
-                            <a class="bg-btnGreen hover:bg-btnGreenHover transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
+                            <a class="bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
                                 href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
                                 จัดการ
                             </a>
