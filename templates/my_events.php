@@ -120,21 +120,26 @@
                                         <?= $statusText ?>
                                     </span>
                                 </div>
-                                <?php if ($row->checkin_time != null) { ?>
+                                <?php
+                                    $checkInStatusColor = '';
+                                    $checkInStatusText = '';
+                                    if ($row->checkin_time == 'null') {
+                                        $checkInStatusColor = '#22c55e';
+                                        $statusText = "ยังไม่เช็คชื่อ";
+                                    } elseif ($row->checkin_time != 'null') {
+                                        $checkInStatusColor = '#fbbf24';
+                                        $statusText = "เช็คชื่อแล้ว";
+                                    }
+                                    ?>
 
+                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="6" cy="6" r="5" fill="<?= $checkInStatusColor ?>" opacity="0.8" />
+                                        <circle cx="6" cy="6" r="5" fill="none" stroke="<?= $checkInStatusColor ?>" stroke-width="1" opacity="0.3" />
+                                    </svg>
                                     <div class="">
                                         <span class=""></span>
-                                        เช็คชื่อแล้ว
+                                        <?= $checkInStatusText ?>
                                     </div>
-
-                                <?php } else { ?>
-
-                                    <div class="">
-                                        <span class=""></span>
-                                        ยังไม่เช็คชื่อ
-                                    </div>
-
-                                <?php } ?>
 
                             </div>
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center gap-2">
