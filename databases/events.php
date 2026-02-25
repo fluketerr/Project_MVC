@@ -185,10 +185,17 @@ function searchEvents($keyword, $start, $end, $uid)
                ) AS approved_count FROM Events e
             WHERE start_date >= ?
               AND end_date <= ?
+              and e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
+                
         ";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $start, $end);
+        $stmt->bind_param("ssii", $start, $end, $uid, $uid);
         $stmt->execute();
         return $stmt->get_result();
     }
@@ -212,10 +219,16 @@ function searchEvents($keyword, $start, $end, $uid)
                ) AS approved_count 
                     FROM Events e
             WHERE start_date >= ?
+            and e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
         ";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $start);
+        $stmt->bind_param("sii", $start, $uid, $uid);
         $stmt->execute();
         return $stmt->get_result();
     }
@@ -237,12 +250,18 @@ function searchEvents($keyword, $start, $end, $uid)
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count
-                 FROM Events
+                 FROM Events e
             WHERE end_date <= ?
+            and e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
         ";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $end);
+        $stmt->bind_param("sii", $end, $uid, $uid);
         $stmt->execute();
         return $stmt->get_result();
     }
