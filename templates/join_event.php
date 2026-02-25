@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -64,7 +63,21 @@
 
                 <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
                     <p class="text-xs text-slate-500 mb-1">สัดส่วนเพศ</p>
-                    <canvas id="myChart" style="width:100%; max-width:700px;"></canvas>
+                    <canvas id="PieChart" style="width:100%; max-width:700px;">
+
+                    </canvas>
+                        <script src="https://cdn.jsdelivr.net"></script>
+                        <script>
+                            new Chart("PieChart",{
+                                type: "pie",
+                                data:{
+                                    labels:["Red","Blue","Yellow"],
+                                    dataset:[{
+                                        back
+                                    }]
+                                }
+                            })
+                        </script>
                     <p class="text-sm font-medium">
                         ชาย <?= (int)($data['maleCount'] ?? 0) ?> |
                         หญิง <?= (int)($data['femaleCount'] ?? 0) ?> |
