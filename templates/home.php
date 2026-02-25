@@ -39,19 +39,51 @@
         class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start gap-4 flex-shrink-0">
-            <div class="relative w-[320px] gap-2">
-                <form method="GET">
+            <div class="w-full max-w-2xl">
+                <form method="GET" class="flex items-center gap-3">
 
-                    <input type="text" placeholder="ค้นหา ชื่อกิจกรรม หรือ วันที่" name="keyword"
-                        class="w-full bg-white/80 text-sm text-gray-700 rounded-full py-2.5 pl-5 pr-10 outline-none shadow-sm placeholder-gray-500"
-                        name="keyword" value="<?= $_GET['keyword'] ?? '' ?>">
+                    <!-- ช่องค้นหา -->
+                    <div class="relative flex-1">
+                        <input
+                            type="text"
+                            name="keyword"
+                            placeholder="ค้นหา ชื่อกิจกรรม"
+                            value="<?= $_GET['keyword'] ?? '' ?>"
+                            class="w-full bg-white text-sm text-gray-700 
+                       rounded-full py-2.5 pl-5 pr-10 
+                       outline-none shadow-sm 
+                       placeholder-gray-400
+                       border border-gray-200
+                       focus:ring-2 focus:ring-green-400">
 
-                    <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </button>
+                        <!-- ไอคอน -->
+                        <button type="submit"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- วันที่เริ่ม -->
+                    <input type="date"
+                        name="start"
+                        value="<?= $_GET['start'] ?? '' ?>"
+                        class="bg-white text-sm text-gray-600
+                      rounded-full px-4 py-2
+                      border border-gray-200
+                      shadow-sm focus:ring-2 focus:ring-green-400">
+
+                    <!-- วันที่สิ้นสุด -->
+                    <input type="date"
+                        name="end"
+                        value="<?= $_GET['end'] ?? '' ?>"
+                        class="bg-white text-sm text-gray-600
+                      rounded-full px-4 py-2
+                      border border-gray-200
+                      shadow-sm focus:ring-2 focus:ring-green-400">
+
                 </form>
             </div>
             <p><?= $_SESSION['message'] ?? '';
