@@ -167,7 +167,7 @@
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
                                 <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span>
                                 <span class="text-sm font-medium text-gray-800 mb-3">
-                                    0 / <?= $row->event_capacity ?>
+                                    <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
                                 </span>
                                 <form method="POST">
                                     <input type="hidden" name="event_id" value="<?= $row->eid ?>">
