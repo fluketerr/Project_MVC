@@ -72,13 +72,26 @@
                             <?php endif; ?>
                         </div>
                         <div class="flex-1 flex px-8 py-5">
-                            <div class="flex-1 pr-4 min-w-0">
+                            <div class="flex flex-col flex-1 pr-4 min-w-0">
                                 <h3 class="text-lg font-medium text-gray-800 truncate">
                                     <?= htmlspecialchars($row->event_name) ?>
                                 </h3>
                                 <p class="text-[12px] text-gray-500 mt-1 leading-relaxed line-clamp-2">
                                     <?= htmlspecialchars($row->event_detail) ?>
                                 </p>
+
+                                <?php
+                                $start = date("d M Y H:i", strtotime($row->start_date));
+                                $end   = date("d M Y H:i", strtotime($row->end_date));
+                                ?>
+
+                                <div class="mt-auto pt-4">
+                                    <div class="border-t border-gray-200 mb-3"></div>
+                                    <div class="text-sm text-gray-500 flex items-center gap-2">
+                                        <span></span>
+                                        <span><?= $start ?> - <?= $end ?></span>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
@@ -100,30 +113,46 @@
                                     }
                                     ?>
                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="6" cy="6" r="5" fill="<?= $statusColor ?>" opacity="0.8"/>
-                                        <circle cx="6" cy="6" r="5" fill="none" stroke="<?= $statusColor ?>" stroke-width="1" opacity="0.3"/>
+                                        <circle cx="6" cy="6" r="5" fill="<?= $statusColor ?>" opacity="0.8" />
+                                        <circle cx="6" cy="6" r="5" fill="none" stroke="<?= $statusColor ?>" stroke-width="1" opacity="0.3" />
                                     </svg>
                                     <span class="text-sm font-medium text-gray-800">
                                         <?= $statusText ?>
                                     </span>
                                 </div>
+                                <?php if ($row->checkin_time != null) { ?>
+
+                                    <div class="">
+                                        <span class=""></span>
+                                        เช็คชื่อแล้ว
+                                    </div>
+
+                                <?php } else { ?>
+
+                                    <div class="">
+                                        <span class=""></span>
+                                        ยังไม่เช็คชื่อ
+                                    </div>
+
+                                <?php } ?>
+
                             </div>
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center gap-2">
                                 <?php
-                                    if (
-                                        isset($_POST['request_otp']) &&
-                                        isset($_POST['otp_event_id']) &&
-                                        $_POST['otp_event_id'] == $row->eid
-                                        && $row->status == 'approved'
-                                    ) {
-                                        $uid = $_SESSION['user_id'];
-                                        $otp = generateOTP($uid, $row->eid);
-                                    ?>
-                                        <div class="mt-2 w-full ">
-                                            <input type="text" value="<?= htmlspecialchars($otp) ?>" readonly class="w-full px-3 py-2 text-sm border-gray-300 rounded-lg bg-gray-50 text-center font-mono font-bold">
-                                        </div>
-                                    <?php } ?>
-                                 <?php if ($row->status == 'approved') { ?>
+                                if (
+                                    isset($_POST['request_otp']) &&
+                                    isset($_POST['otp_event_id']) &&
+                                    $_POST['otp_event_id'] == $row->eid
+                                    && $row->status == 'approved'
+                                ) {
+                                    $uid = $_SESSION['user_id'];
+                                    $otp = generateOTP($uid, $row->eid);
+                                ?>
+                                    <div class="mt-2 w-full ">
+                                        <input type="text" value="<?= htmlspecialchars($otp) ?>" readonly class="w-full px-3 py-2 text-sm border-gray-300 rounded-lg bg-gray-50 text-center font-mono font-bold">
+                                    </div>
+                                <?php } ?>
+                                <?php if ($row->status == 'approved') { ?>
                                     <?php if (empty($row->checkin_time)) { ?>
                                         <form method="POST">
                                             <input type="hidden" name="otp_event_id" value="<?= $row->eid ?>">
@@ -132,7 +161,7 @@
                                     <?php } else { ?>
                                         <span class="text-sm font-medium text-green-600">เข้างานแล้ว</span>
                                     <?php } ?>
-                                 <?php } ?>
+                                <?php } ?>
                             </div>
 
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
