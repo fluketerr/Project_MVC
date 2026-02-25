@@ -12,8 +12,7 @@
     <div class="justify-center items-center flex flex-col gap-4 mb-2">
 
         <!-- SWITCH -->
-        <div id="switch"
-            class="relative flex w-36 p-1 rounded-full bg-[#DDAED3]/75 cursor-pointer select-none">
+        <div id="switch" class="relative flex w-36 p-1 rounded-full bg-[#DDAED3]/75 cursor-pointer select-none">
 
             <!-- Sliding active background -->
             <div id="slider"
@@ -34,78 +33,107 @@
 
 
         <script>
-            const switchEl = document.getElementById("switch");
-            const slider = document.getElementById("slider");
-            let currentPage = window.location.pathname; // Get current page path
+        const switchEl = document.getElementById("switch");
+        const slider = document.getElementById("slider");
+        let currentPage = window.location.pathname; // Get current page path
 
-            let active = 0; // 0 = left, 1 = right
+        let active = 0; // 0 = left, 1 = right
 
-            if (currentPage === "/events") {
-                active = 1;
+        if (currentPage === "/events") {
+            active = 1;
+            switchEl.style.backgroundColor = "#6594B1";
+            slider.style.transform = "translateX(89%)";
+        }
+
+        switchEl.addEventListener("click", () => {
+            active = active === 0 ? 1 : 0;
+
+            if (active === 1) {
                 switchEl.style.backgroundColor = "#6594B1";
                 slider.style.transform = "translateX(89%)";
+                window.location.href = "/events";
+            } else {
+                switchEl.style.backgroundColor = "#DDAED3";
+                slider.style.transform = "translateX(0)";
+                window.location.href = "/home";
             }
-
-            switchEl.addEventListener("click", () => {
-                active = active === 0 ? 1 : 0;
-
-                if (active === 1) {
-                    switchEl.style.backgroundColor = "#6594B1";
-                    slider.style.transform = "translateX(89%)";
-                    window.location.href = "/events";
-                } else {
-                    switchEl.style.backgroundColor = "#DDAED3";
-                    slider.style.transform = "translateX(0)";
-                    window.location.href = "/home";
-                }
-            });
+        });
         </script>
     </div>
 
     <nav class="flex flex-col h-full">
         <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
-                <a href="/manage_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
+                <a href="/events" id="events"
+                    class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">กิจกรรมทั้งหมดของฉัน</span>
                 </a>
             </li>
         </ul>
 
+        <script>
+        const routeMap = {
+            "/events": "events",
+        };
+
+        const activeId = routeMap[currentPage];
+        const activeElement = document.getElementById(activeId);
+
+        if (activeElement) {
+            Object.assign(activeElement.style, {
+                backgroundColor: "#6594B1",
+                borderColor: "#213C51",
+                filter: "grayscale(50%)"
+            });
+        }
+        </script>
+
         <div class="mt-auto flex flex-col gap-4 px-6 pb-8 pt-4  ">
             <?php if (isset($_SESSION['user_email'])) { ?>
 
-                <div name="bottom_menu" class="flex items-center gap-3">
-                    <div class="text-slate-600">
-                        <svg width="20" height="20" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M25.2041 26.4644V23.944C25.2041 22.6071 24.673 21.325 23.7277 20.3796C22.7823 19.4343 21.5002 18.9032 20.1633 18.9032H10.0816C8.74474 18.9032 7.46259 19.4343 6.51725 20.3796C5.57192 21.325 5.04083 22.6071 5.04083 23.944V26.4644M20.1633 8.82158C20.1633 11.6055 17.9064 13.8624 15.1225 13.8624C12.3385 13.8624 10.0816 11.6055 10.0816 8.82158C10.0816 6.03761 12.3385 3.78076 15.1225 3.78076C17.9064 3.78076 20.1633 6.03761 20.1633 8.82158Z" stroke="#213C51" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-
-                    <div class="flex flex-col">
-                        <a href="/update_user" class="text-sm font-semibold text-slate-800"><span class="text-base"><?= isset($_SESSION['name']) ? $_SESSION['name'] : 'Update User' ?></span></a>
-                        <span class="text-xs text-slate-500">UID: <?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Update User' ?></span>
-                    </div>
+            <div name="bottom_menu" class="flex items-center gap-3">
+                <div class="text-slate-600">
+                    <svg width="20" height="20" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M25.2041 26.4644V23.944C25.2041 22.6071 24.673 21.325 23.7277 20.3796C22.7823 19.4343 21.5002 18.9032 20.1633 18.9032H10.0816C8.74474 18.9032 7.46259 19.4343 6.51725 20.3796C5.57192 21.325 5.04083 22.6071 5.04083 23.944V26.4644M20.1633 8.82158C20.1633 11.6055 17.9064 13.8624 15.1225 13.8624C12.3385 13.8624 10.0816 11.6055 10.0816 8.82158C10.0816 6.03761 12.3385 3.78076 15.1225 3.78076C17.9064 3.78076 20.1633 6.03761 20.1633 8.82158Z"
+                            stroke="#213C51" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </div>
 
-                <a href="/logout" class="group flex items-center gap-3 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-red-600">
-                    <div class="text-slate-500 transition-colors duration-200 group-hover:text-red-600">
-                        <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-2">
-                            <path d="M9.5 24.5H4.5C3.83696 24.5 3.20107 24.2366 2.73223 23.7678C2.26339 23.2989 2 22.663 2 22V4.5C2 3.83696 2.26339 3.20107 2.73223 2.73223C3.20107 2.26339 3.83696 2 4.5 2H9.5M18.25 19.5L24.5 13.25M24.5 13.25L18.25 7M24.5 13.25H9.5" stroke="#213C51" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </div>
-                    <span>Logout</span>
-                </a>
+                <div class="flex flex-col">
+                    <a href="/update_user" class="text-sm font-semibold text-slate-800"><span
+                            class="text-base"><?= isset($_SESSION['name']) ? $_SESSION['name'] : 'Update User' ?></span></a>
+                    <span class="text-xs text-slate-500">UID:
+                        <?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Update User' ?></span>
+                </div>
+            </div>
+
+            <a href="/logout"
+                class="group flex items-center gap-3 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-red-600">
+                <div class="text-slate-500 transition-colors duration-200 group-hover:text-red-600">
+                    <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="mr-2">
+                        <path
+                            d="M9.5 24.5H4.5C3.83696 24.5 3.20107 24.2366 2.73223 23.7678C2.26339 23.2989 2 22.663 2 22V4.5C2 3.83696 2.26339 3.20107 2.73223 2.73223C3.20107 2.26339 3.83696 2 4.5 2H9.5M18.25 19.5L24.5 13.25M24.5 13.25L18.25 7M24.5 13.25H9.5"
+                            stroke="#213C51" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <span>Logout</span>
+            </a>
             <?php } else { ?>
-                <div class="m-0">
-                    <a href="/login" class="group flex items-center gap-3 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-gray-600">
-                        <div class="text-slate-500 transition-colors duration-200 group-hover:text-gray-600">
-                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18.75 3.75H23.75C24.413 3.75 25.0489 4.01339 25.5178 4.48223C25.9866 4.95107 26.25 5.58696 26.25 6.25V23.75C26.25 24.413 25.9866 25.0489 25.5178 25.5178C25.0489 25.9866 24.413 26.25 23.75 26.25H18.75M12.5 21.25L18.75 15M18.75 15L12.5 8.75M18.75 15H3.75" stroke="#213C51" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                        <span>Login</span>
-                    </a>
-                </div>
+            <div class="m-0">
+                <a href="/login"
+                    class="group flex items-center gap-3 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-gray-600">
+                    <div class="text-slate-500 transition-colors duration-200 group-hover:text-gray-600">
+                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.75 3.75H23.75C24.413 3.75 25.0489 4.01339 25.5178 4.48223C25.9866 4.95107 26.25 5.58696 26.25 6.25V23.75C26.25 24.413 25.9866 25.0489 25.5178 25.5178C25.0489 25.9866 24.413 26.25 23.75 26.25H18.75M12.5 21.25L18.75 15M18.75 15L12.5 8.75M18.75 15H3.75"
+                                stroke="#213C51" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <span>Login</span>
+                </a>
+            </div>
             <?php } ?>
 
         </div>
