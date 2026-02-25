@@ -103,7 +103,11 @@
             </div>
         </div>
         <?php if ($data['result'] != []) { ?>
-        <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4 scrollbar-custom">
+        <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4
+                    [&::-webkit-scrollbar]:w-2 
+                  [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+        ">
 
             <?php while ($row = $data['result']->fetch_object()) { ?>
 

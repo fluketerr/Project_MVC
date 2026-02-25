@@ -104,9 +104,8 @@
             <div class="mt-4 ">
                 <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2 
                     [&::-webkit-scrollbar]:h-2 
-                  [&::-webkit-scrollbar-thumb]:bg-[#EEEEEE]
+                  [&::-webkit-scrollbar-thumb]:bg-[#4b5563]/60
                     [&::-webkit-scrollbar-thumb]:rounded-full
-                    [&::-webkit-scrollbar-th]:
                 ">
                     <?php if (!empty($data['pictures'])): ?>
                         <?php while ($pic = $data['pictures']->fetch_object()): ?>
