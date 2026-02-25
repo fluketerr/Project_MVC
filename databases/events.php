@@ -167,10 +167,84 @@ function searchEvents($keyword, $start, $end, $uid)
         return $stmt->get_result();
     }
 
-    if ($start != '' && $end != '') {
-        $sql = "  SELECT * FROM Events WHERE 1 
-                  AND start_date >= '$start'
-                  AND end_date <= '$end'";
+  if ($start != '' && $end != '') {
+
+        $sql = "
+            SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count FROM Events e
+            WHERE start_date >= ?
+              AND end_date <= ?
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $start, $end);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    
+    if ($start != '') {
+
+        $sql = "
+            SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count 
+                    FROM Events e
+            WHERE start_date >= ?
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $start);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    
+    if ($end != '') {
+
+        $sql = "
+            SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
+                 FROM Events
+            WHERE end_date <= ?
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $end);
+        $stmt->execute();
+        return $stmt->get_result();
     }
 
 
