@@ -65,18 +65,33 @@
     <nav class="flex flex-col h-full">
         <ul name="top_main_menu" class="list-none p-0 mb-0">
             <li class="m-0">
-                <a href="/" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                <a id="home" href="/" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
                     <span class="text-base">กิจกรรมทั้งหมด</span>
                 </a>
             </li>
             <?php if (isset($_SESSION['user_email'])) { ?>
                 <li class="m-0">
-                    <a href="/my_events" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
+                    <a id="my_events" href="/my_events" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
                         <span class="text-base">กิจกรรมที่ฉันเข้าร่วม</span>
                     </a>
                 </li>
             <?php } ?>
         </ul>
+
+        <script>
+            const home = document.getElementById("home")
+            const my_events = document.getElementById("my_events")
+
+            if(currentPage === "/home" || currentPage === "/"){
+                home.style.backgroundColor = "#DBC3D6";
+                home.style.borderColor= "#DDAED3";
+            }else if(currentPage === "/my_events"){
+                my_events.style.backgroundColor = "#DBC3D6";
+                my_events.style.borderColor= "#DDAED3";
+            }
+
+        </script>
+
         <div class="mt-auto flex flex-col gap-4 px-6 pb-8 pt-4 border-t border-slate-300/50">
             <?php if (isset($_SESSION['user_email'])) { ?>
 

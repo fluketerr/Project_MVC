@@ -1,3 +1,4 @@
+/*ใช้ไม่ได้*/
 <style>
 /* @tailwind base; */
 /* @tailwind components; */
@@ -25,5 +26,4 @@
     scrollbar-color: #888 #f1f1f1;
   }
 }
-
 </style>

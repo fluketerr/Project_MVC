@@ -48,7 +48,7 @@
 
                     <div class="w-[420px] h-[240px]">
                         <img src="/uploads/events/<?= $pic->picture_name ?>"
-                            class="w-full h-full object-cover rounded-lg border border-gray-300">
+                            class="w-full h-full object-cover rounded-xl border border-gray-300">
                     </div>
 
                 <?php else: ?>
@@ -73,7 +73,7 @@
                     </div>
 
                     <!-- Capacity Section -->
-                    <div class="mt-6">
+                    <div class="mt-6 mb-6">
 
                         <div class="flex justify-between text-sm mb-2">
                             <span>ผู้เข้าร่วม</span>
@@ -102,7 +102,12 @@
 
             <!-- Gallery Section -->
             <div class="mt-4 ">
-                <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2">
+                <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2 
+                    [&::-webkit-scrollbar]:h-2 
+                  [&::-webkit-scrollbar-thumb]:bg-[#EEEEEE]
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+                    [&::-webkit-scrollbar-th]:
+                ">
                     <?php if (!empty($data['pictures'])): ?>
                         <?php while ($pic = $data['pictures']->fetch_object()): ?>
                             <div class="flex-shrink-0 w-44 h-28 rounded-xl overflow-hidden shadow snap-center">
