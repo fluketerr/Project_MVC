@@ -103,10 +103,14 @@
                                 0 / <?= $row->event_capacity ?>
                             </span>
                             <form method="POST" action="">
+                                <?php if(isset($_SESSION['user_id'])){ ?>
                                 <input type="hidden" name="event_id" value="<?= $row->eid ?>">
                                 <button type="submit" name="join"  class="bg-btnGreen hover:bg-btnGreenHover transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">
                                     เข้าร่วม
                                 </button>
+                                <?php }else{?>
+                                    <a href='/login' name="join"  class="bg-btnGreen hover:bg-btnGreenHover transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">เข้าร่วม</a>
+                                <?php }?>
                             </form>
                         </div>
                     </div>

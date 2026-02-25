@@ -177,7 +177,7 @@
                             </div>
 
                             <div class="mt-6 flex justify-end">
-                                <button type="submit" class="    text-white px-10 py-2 rounded-full font-medium transition-colors">
+                                <button type="submit" class="bg-gray-600 text-white px-10 py-2 rounded-full font-medium transition-colors">
                                     บันทึก
                                 </button>
                             </div>
