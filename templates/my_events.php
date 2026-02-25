@@ -97,45 +97,53 @@
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
                                 <span class="text-sm text-gray-600 mb-0.5">สถานะ</span>
 
-                                <div class="flex items-center gap-2 mb-3">
-                                    <?php
-                                    $statusColor = '';
-                                    $statusText = '';
-                                    if ($row->status == 'wait') {
-                                        $statusColor = '#fbbf24';
-                                        $statusText = "รออนุมัติ";
-                                    } elseif ($row->status == 'approved') {
-                                        $statusColor = '#22c55e';
-                                        $statusText = "อนุมัติแล้ว";
-                                    } elseif ($row->status == 'rejected') {
-                                        $statusColor = '#ef4444';
-                                        $statusText = "ถูกปฏิเสธ";
-                                    }
-                                    ?>
-                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="6" cy="6" r="5" fill="<?= $statusColor ?>" opacity="0.8" />
-                                        <circle cx="6" cy="6" r="5" fill="none" stroke="<?= $statusColor ?>" stroke-width="1" opacity="0.3" />
-                                    </svg>
-                                    <span class="text-sm font-medium text-gray-800">
-                                        <?= $statusText ?>
-                                    </span>
+                                <div class="flex items-center gap-2 mb-3 flex-col">
+                                    <div class="flex flex-row gap-2 mb-3">
+                                        <?php
+                                        $statusColor = '';
+                                        $statusText = '';
+                                        if ($row->status == 'wait') {
+                                            $statusColor = '#fbbf24';
+                                            $statusText = "รออนุมัติ";
+                                        } elseif ($row->status == 'approved') {
+                                            $statusColor = '#22c55e';
+                                            $statusText = "อนุมัติแล้ว";
+                                        } elseif ($row->status == 'rejected') {
+                                            $statusColor = '#ef4444';
+                                            $statusText = "ถูกปฏิเสธ";
+                                        }
+                                        ?>
+                                        <svg class="pt-1" width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="6" cy="6" r="5" fill="<?= $statusColor ?>" opacity="0.8" />
+                                            <circle cx="6" cy="6" r="5" fill="none" stroke="<?= $statusColor ?>" stroke-width="1" opacity="0.3" />
+                                        </svg>
+                                        <span class="text-sm font-medium text-gray-800">
+                                            <?= $statusText ?>
+                                        </span>
+                                    </div>
+                              
+                                    <div class="flex flex-row gap-2 mb-3 pl-5">
+                                        <?php
+                                            $checkInStatusColor = '';
+                                            $checkInStatusText = '';
+                                            if ($row->checkin_time == 'null') {
+                                                $checkInStatusColor = '#22c55e';
+                                                $checkInStatusText = "ยังไม่เช็คชื่อ";
+                                            } elseif ($row->checkin_time != 'null') {
+                                                $checkInStatusColor = '#fbbf24';
+                                                $checkInStatusText = "เช็คชื่อแล้ว";
+                                            }
+                                            ?>
+                                            <svg class="pt-1" width="20" height="20" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="6" cy="6" r="5" fill="<?= $checkInStatusColor ?>" opacity="0.8" />
+                                                <circle cx="6" cy="6" r="5" fill="none" stroke="<?= $checkInStatusColor ?>" stroke-width="1" opacity="0.3" />
+                                            </svg>
+                                            <div class="">
+                                                <span class=""></span>
+                                                <?= $checkInStatusText ?>
+                                            </div>
+                                    </div>
                                 </div>
-                                <?php if ($row->checkin_time != null) { ?>
-
-                                    <div class="">
-                                        <span class=""></span>
-                                        เช็คชื่อแล้ว
-                                    </div>
-
-                                <?php } else { ?>
-
-                                    <div class="">
-                                        <span class=""></span>
-                                        ยังไม่เช็คชื่อ
-                                    </div>
-
-                                <?php } ?>
-
                             </div>
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center gap-2">
                                 <?php

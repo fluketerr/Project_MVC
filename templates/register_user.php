@@ -295,7 +295,7 @@
         <div class="field sel-wrap">
         <label for="gender">เพศ</label>
         <div class="input-wrap">
-            <select>
+            <select id="gender" name="gender" required>
                 <option value="" disabled selected>Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
