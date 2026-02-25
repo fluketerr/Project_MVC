@@ -237,7 +237,7 @@ function searchEvents($keyword, $start, $end, $uid)
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count
-                 FROM Events
+                 FROM Events e
             WHERE end_date <= ?
         ";
 
