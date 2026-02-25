@@ -73,7 +73,8 @@
                                 data:{
                                     labels:["Red","Blue","Yellow"],
                                     dataset:[{
-                                        back
+                                        backgroundColor:["#ff6384","#36a2eb","#ffce56"],
+                                        data:[300,50,100]
                                     }]
                                 }
                             })
