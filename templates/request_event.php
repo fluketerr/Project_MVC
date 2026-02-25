@@ -37,7 +37,7 @@
     <main class="flex flex-col flex-1 w-full ">
 
         <div class="text-4xl px-3 pt-6">
-            <?= $data['title'] ?>
+            คำขอเข้าร่วม
         </div>
         <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] 
             shadow-sm border border-white/50 p-8 flex flex-col gap-6 ">
@@ -52,7 +52,7 @@
             <!-- Title -->
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-semibold">
-                    คำขอเข้าร่วมกิจกรรม
+                   
                 </h2>
                 <span class="text-gray-500 text-sm">
                     <?= $data['regis']->num_rows ?> รายการ

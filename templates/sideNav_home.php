@@ -66,13 +66,13 @@
         <ul name="top_main_menu" class="list-none p-0 mb-0">
             <li class="m-0">
                 <a href="/" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
-                    <span class="text-base">Home</span>
+                    <span class="text-base">กิจกรรมทั้งหมด</span>
                 </a>
             </li>
             <?php if (isset($_SESSION['user_email'])) { ?>
                 <li class="m-0">
                     <a href="/my_events" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
-                        <span class="text-base">My Events</span>
+                        <span class="text-base">กิจกรรมที่ฉันเข้าร่วม</span>
                     </a>
                 </li>
             <?php } ?>

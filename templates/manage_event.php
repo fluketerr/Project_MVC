@@ -33,13 +33,12 @@
     <div class="">
         <?php include 'sideNav_event.php'; ?>
     </div>
-    <main class="flex flex-col flex-1 w-full ">
+    <main class="flex flex-col flex-1 w-full overflow-x-auto">
         <?php $row = $data['event']->fetch_object(); ?>
         <div class="text-4xl px-3 pt-6">
-            <?= $data['title'] ?>
+            กิจกรรม
         </div>
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] 
-            shadow-sm border border-white/50 p-8 flex flex-col gap-6 ">
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 p-8 flex flex-col overflow-y-hidden">
 
             <!-- Header Section -->
             <div class="flex gap-8">
@@ -102,22 +101,22 @@
             </div>
 
             <!-- Gallery Section -->
-            <div class="flex gap-6 mt-4">
-
-                <?php if (!empty($data['pictures'])): ?>
-                    <?php while ($pic = $data['pictures']->fetch_object()): ?>
-                        <div class="w-48 h-28 rounded-xl overflow-hidden shadow">
-                            <img src="/uploads/events/<?= $pic->picture_name ?>"
-                                class="w-full h-full object-cover">
-                        </div>
-                    <?php endwhile; ?>
-                <?php endif; ?>
-
+            <div class="mt-4 ">
+                <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2">
+                    <?php if (!empty($data['pictures'])): ?>
+                        <?php while ($pic = $data['pictures']->fetch_object()): ?>
+                            <div class="flex-shrink-0 w-44 h-28 rounded-xl overflow-hidden shadow snap-center">
+                                <img src="/uploads/events/<?= $pic->picture_name ?>"
+                                    class="w-full h-full object-cover">
+                            </div>
+                        <?php endwhile; ?>
+                    <?php endif; ?>
+                    </div>
             </div>
-            <div class="flex flex-col items-center justify-center py-16">
+            <div class="flex flex-col items-center justify-center pt-4">
 
                 <form action="/check_otp" method="POST"
-                    class="bg-white p-8 rounded-2xl shadow-lg 
+                    class="bg-white/70 p-8 rounded-2xl
                border border-gray-100 
                flex items-end gap-6">
 

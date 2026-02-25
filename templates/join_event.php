@@ -37,7 +37,7 @@
     <main class="flex flex-col flex-1 w-full">
 
         <div class="text-4xl px-3 pt-6">
-            <?= $data['title'] ?>
+            ผู้เข้าร่วม
         </div>
 
         <!-- แผ่นขาวหลัก -->
@@ -51,7 +51,6 @@
                 <?php unset($_SESSION['message']); ?>
             <?php endif; ?>
 
-            <h2 class="text-xl font-bold mb-4">ผู้เข้าร่วมกิจกรรม</h2>
 
             <!-- ===== stat cards ===== -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">

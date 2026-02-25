@@ -97,7 +97,7 @@
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
                                 <span class="text-sm text-gray-600 mb-0.5">สถานะ</span>
 
-                                <div class="flex items-center gap-2 mb-3 flex-col">
+                                <div class="flex gap-2 mb-3 flex-col">
                                     <div class="flex flex-row gap-2 mb-3">
                                         <?php
                                         $statusColor = '';
@@ -122,15 +122,15 @@
                                         </span>
                                     </div>
                               
-                                    <div class="flex flex-row gap-2 mb-3 pl-5">
+                                    <div class="flex flex-row gap-2 mb-3">
                                         <?php
                                             $checkInStatusColor = '';
                                             $checkInStatusText = '';
-                                            if ($row->checkin_time == 'null') {
-                                                $checkInStatusColor = '#22c55e';
-                                                $checkInStatusText = "ยังไม่เช็คชื่อ";
-                                            } elseif ($row->checkin_time != 'null') {
+                                            if ($row->checkin_time == null && $row->status == 'approved') {
                                                 $checkInStatusColor = '#fbbf24';
+                                                $checkInStatusText = "ยังไม่เช็คชื่อ";
+                                            } elseif ($row->checkin_time != null && $row->status == 'approved') {
+                                                $checkInStatusColor = '#22c55e';
                                                 $checkInStatusText = "เช็คชื่อแล้ว";
                                             }
                                             ?>
@@ -138,10 +138,9 @@
                                                 <circle cx="6" cy="6" r="5" fill="<?= $checkInStatusColor ?>" opacity="0.8" />
                                                 <circle cx="6" cy="6" r="5" fill="none" stroke="<?= $checkInStatusColor ?>" stroke-width="1" opacity="0.3" />
                                             </svg>
-                                            <div class="">
-                                                <span class=""></span>
+                                            <span class="text-sm font-medium text-gray-800">
                                                 <?= $checkInStatusText ?>
-                                            </div>
+                                            </span>
                                     </div>
                                 </div>
                             </div>

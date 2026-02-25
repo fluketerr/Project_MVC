@@ -4,8 +4,9 @@
 <aside class="flex flex-col w-64 bg-transparent h-screen left-0 top-0">
 
     <div class="w-full grid grid-cols-[1fr_1fr_1fr_1fr_1fr] items-center gap-4 px-5 pt-6">
-        <a href="/events" class="">
-            <span class="text-lg">←</span>
+        <a class="w-7 h-7 bg-[#6594B1]  rounded-full flex items-center justify-center text-sm font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
+            href="/events">
+               <span >←</span>
         </a>
         <a href="/" class="">
             <?php include 'logo.php'; ?>
@@ -70,22 +71,22 @@
         <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
                 <a href="/manage_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
-                    <span class="text-base">Event</span>
+                    <span class="text-base">กิจกรรม</span>
                 </a>
             </li>
             <li class="m-0">
                 <a href="/join_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
-                    <span class="text-base">Participant</span>
+                    <span class="text-base">ผู้เข้าร่วม</span>
                 </a>
             </li>
             <li class="m-0">
                 <a href="/request_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
-                    <span class="text-base">Request</span>
+                    <span class="text-base">คำขอเข้าร่วม</span>
                 </a>
             </li>
             <li class="m-0">
                 <a href="/edit_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
-                    <span class="text-base">Configure</span>
+                    <span class="text-base">แก้ไขกิจกรรม</span>
                 </a>
             </li>
         </ul>

@@ -26,6 +26,36 @@
             }
         }
     </script>
+    <style>
+        /* @tailwind base; */
+        /* @tailwind components; */
+        /* @tailwind utilities; */
+
+        @layer utilities {
+            .scrollbar-custom::-webkit-scrollbar {
+                width: 50px;
+                /* Width of the entire scrollbar */
+            }
+
+            .scrollbar-custom::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .scrollbar-custom::-webkit-scrollbar-thumb {
+                background: red;
+            }
+
+            .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+                background: purple;
+            }
+
+            /* For Firefox */
+            .scrollbar-custom {
+                scrollbar-width: thin;
+                scrollbar-color: #888 #f1f1f1;
+            }
+        }
+    </style>
 </head>
 
 <body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
@@ -71,7 +101,7 @@
             </div>
         </div>
         <?php if ($data['result'] != []) { ?>
-            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4">
+            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4 scrollbar-custom">
 
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 

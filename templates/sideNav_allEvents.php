@@ -66,7 +66,7 @@
         <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
                 <a href="/manage_event" class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
-                    <span class="text-base">Event</span>
+                    <span class="text-base">กิจกรรมทั้งหมดของฉัน</span>
                 </a>
             </li>
         </ul>

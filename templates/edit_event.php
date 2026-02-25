@@ -18,7 +18,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <main class="flex flex-col flex-1 w-full">
         <div class="text-4xl px-3 pt-6">
-            <?= $data['title'] ?>
+            แก้ไขกิจกรรม
         </div>
         <?php $event = $data['event']->fetch_object() ?>
 
