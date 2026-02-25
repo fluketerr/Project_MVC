@@ -86,16 +86,9 @@
     padding: 28px 44px 32px;
     display: flex;
     flex-direction: column;
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: blur(0px);
+    background-color: rgba(255,255,255,0.9);
     border-radius: 20px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
-    animation: fadeUp .4s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px) }
-    to   { opacity: 1; transform: translateY(0) }
+    border: solid 1px #6594B1;
   }
 
   .back-link {
@@ -262,7 +255,7 @@
         <div class="field col-full">
             <label>อีเมล</label>
             <div class="input-wrap">
-                <input type="email" placeholder="">
+                <input type="email" id="email" name="email" required>
             </div>
         </div>
         <div class="field">
@@ -275,16 +268,16 @@
         </div>
         <div class="field">
             <label>เบอร์โทร</label>
-            <div class="input-wrap"><input type="tel"></div>
+            <div class="input-wrap"><input type="text" id="tel" name="tel" required></div>
         </div>
         <div class="field">
             <label>วันเกิด</label>
-            <div class="input-wrap"><input type="text"></div>
+            <div class="input-wrap"><input type="date" id="birthday" name="birthday" required></div>
         </div>
         <div class="field sel-wrap">
-            <label>อาชีพ</label>
+            <label for="job">อาชีพ</label>
             <div class="input-wrap">
-                <select>
+                <select id="job" name="job" required>
                         <option value=" " disabled selected>เลือกอาชีพ</option>
                     <option value="Student">นักเรียน</option>
                     <option value="Designer">นักออกแบบ</option>
@@ -292,15 +285,15 @@
                     <option value="Programmer">โปรแกรมเมอร์</option>
                     <option value="Manager">ผู้จัดการ</option>
                     <option value="Teacher">ครู/อาจารย์</option>
-                    <option value="Engineer">Engineer</option>
-                    <option value="Self-employed">Self-employed</option>
-                    <option value="Unemployed">Unemployed</option>
-                    <option value="Other">Other</option>
+                    <option value="Engineer">วิศวกร</option>
+                    <option value="Self-employed">ฟรีแลนซ์</option>
+                    <option value="Unemployed">ไร้งาน</option>
+                    <option value="Other">อื่นๆ</option>
                 </select>
         </div>
         </div>
         <div class="field sel-wrap">
-        <label>เพศ</label>
+        <label for="gender">เพศ</label>
         <div class="input-wrap">
             <select>
                 <option value="" disabled selected>Select Gender</option>
@@ -311,20 +304,20 @@
         </div>
         </div>
         <div class="field col-full">
-        <label>ที่อยู่</label>
+        <label for="address">ที่อยู่</label>
         <div class="input-wrap area">
-            <textarea placeholder=""></textarea>
+            <textarea placeholder="" id="address" name="address" required></textarea>
         </div>
         </div>
         <div class="field">
-        <label>รหัสผ่าน</label>
+        <label for="password">รหัสผ่าน</label>
         <div class="input-wrap">
             <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="11" width="18" height="11" rx="2"/>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>
-            <input type="password" id="pw1">
-            <button class="eye-btn" onclick="togglePw('pw1','e1')" type="button">
+            <input type="password" id="password" name="password" required>
+            <button id="eye1" class="eye-btn" onclick="togglePw1('pw1','e1')" type="button">
             <svg id="e1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
             </svg>
@@ -338,8 +331,8 @@
             <rect x="3" y="11" width="18" height="11" rx="2"/>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
             </svg>
-            <input type="password" id="pw2">
-            <button class="eye-btn" onclick="togglePw('pw2','e2')" type="button">
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <button id="eye2" class="eye-btn" onclick="togglePw2('pw2','e2')" type="button">
             <svg id="e2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
             </svg>
@@ -349,7 +342,7 @@
     </div>
 </form>
 
-  <div class="links-row"><a href="#">มีบัญชีอยู่แล้ว?</a></div>
+  <div class="links-row"><a href="/login">มีบัญชีอยู่แล้ว?</a></div>
   <button class="btn-register">สมัครสมาชิก</button>
 </div>
 
@@ -396,9 +389,20 @@
     inner.appendChild(row);
   });
 
-  function togglePw(id, iconId) {
-    const inp = document.getElementById(id);
-    const ico = document.getElementById(iconId);
+  function togglePw1(id, iconId) {
+    const inp = document.getElementById("password");
+    const ico = document.getElementById("e1");
+    if (inp.type === 'password') {
+      inp.type = 'text';
+      ico.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+    } else {
+      inp.type = 'password';
+      ico.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+    }
+  }
+  function togglePw2(id, iconId) {
+    const inp = document.getElementById("confirm_password");
+    const ico = document.getElementById("e2");
     if (inp.type === 'password') {
       inp.type = 'text';
       ico.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
