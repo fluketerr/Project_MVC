@@ -129,7 +129,7 @@ function updateRegistrationStatus(int $rid, string $status, mysqli $conn): bool
 function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keyword = ''): mysqli_result|bool
 {
     if ($keyword !== '') {
-        $sql = "SELECT SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
+        $sql = "SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
                 FROM registrations r
                 JOIN users u ON r.uid = u.uid
                 WHERE r.eid = ?
@@ -154,3 +154,4 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
     $stmt->execute();
     return $stmt->get_result();
 }
+

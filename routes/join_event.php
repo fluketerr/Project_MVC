@@ -20,15 +20,21 @@ if ($result) {
 
 $maleCount = 0;
 $femaleCount = 0;
+$otherCount = 0;
 $checkedCount = 0;
 
 foreach ($participants as $p) {
-    $gender = $p['gender'] ?? '';
+    $genderRaw = $p['gender'] ?? '';
+    $gender = strtolower(trim($genderRaw));
 
-    if ($gender === 'male' || $gender === 'ชาย') {
+    if (in_array($gender, ['male', 'ชาย', 'm'])) {
         $maleCount++;
-    } elseif ($gender === 'female' || $gender === 'หญิง') {
+
+    } elseif (in_array($gender, ['female', 'หญิง', 'f'])) {
         $femaleCount++;
+
+    } elseif (in_array($gender, ['other', 'อื่นๆ', 'o'])) {
+        $otherCount++;
     }
 
     if (!empty($p['checkin_time'])) {
@@ -71,6 +77,7 @@ renderView('join_event', [
     'participants' => $participants,
     'maleCount' => $maleCount,
     'femaleCount' => $femaleCount,
+    'otherCount' => $otherCount,
     'totalParticipants' => $totalParticipants,
     'topAgeRange' => $topAgeRange,
     'topAgeCount' => $topAgeCount,
