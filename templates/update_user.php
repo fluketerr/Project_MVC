@@ -315,7 +315,7 @@
 
     <!-- PANEL -->
     <div class="panel">
-        <a href="/login" class="back-link">
+        <a href="javascript:history.back()" class="back-link">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <polyline points="15 18 9 12 15 6" />
             </svg>
