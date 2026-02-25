@@ -6,6 +6,28 @@
     <title>Edit Event</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Prompt', 'sans-serif'],
+                },
+                colors: {
+                    btnGreen: '#22c55e',
+                    btnGreenHover: '#16a34a',
+                    cardBg: '#ffffff',
+                    imagePlaceholder: '#dcdcdc'
+                }
+            }
+        }
+    }
+    </script>
+
+    
 
 </head>
 
