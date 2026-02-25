@@ -10,15 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: {
-                    sans: ['Prompt', 'sans-serif'],
-                },
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                }
             }
         }
-    }
     </script>
 </head>
 
@@ -43,36 +43,52 @@
 
         <div class="flex-1 overflow-y-auto px-8 pb-8 flex flex-col gap-4">
             <?php while ($row = $data['result']->fetch_object()) { ?>
-            <div class="bg-white rounded-2xl flex h-[150px] overflow-hidden shadow-sm">
-                <div class="w-[280px] h-[150px] bg-imagePlaceholder flex-shrink-0 overflow-hidden">
-                    <?php if (!empty($row->cover_image)): ?>
-                    <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
-                        class="w-full h-full object-cover">
-                    <?php else: ?>
-                    <div class="flex items-center justify-center h-full">
-                        ไม่มีรูป
+                <div class="bg-white rounded-2xl flex h-[150px] overflow-hidden shadow-sm">
+                    <div class="w-[280px] h-[150px] bg-imagePlaceholder flex-shrink-0 overflow-hidden">
+                        <?php if (!empty($row->cover_image)): ?>
+                            <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
+                                class="w-full h-full object-cover">
+                        <?php else: ?>
+                            <div class="flex items-center justify-center h-full">
+                                ไม่มีรูป
+                            </div>
+                        <?php endif; ?>
                     </div>
-                    <?php endif; ?>
+                    <div class="flex-1 flex px-8 py-5">
+                        <div class="flex-1 flex flex-col">
+                            <div class="flex-1 pr-4">
+                                <h3 class="text-lg font-medium text-gray-800"><?= $row->event_name ?></td>
+                                </h3>
+                                <p class="text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
+                                    <?= $row->event_detail ?>
+                                </p>
+                            </div>
+                            <div>
+                                <?php
+                                $start = date("d M Y H:i", strtotime($row->start_date));
+                                $end   = date("d M Y H:i", strtotime($row->end_date));
+                                ?>
+
+                                <div class="mt-auto pt-4">
+                                    <div class="border-t border-gray-200 mb-3"></div>
+                                    <div class="text-sm text-gray-500 flex items-center gap-2">
+                                        <span></span>
+                                        <span><?= $start ?> - <?= $end ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center min-w-[120px]">
+                            <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span>
+                            <span class="text-sm font-medium text-gray-800 mb-3"><?= (int)$row->approved_count ?> /
+                                <?= $row->event_capacity ?> </span>
+                            <a class="bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
+                                href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
+                                จัดการ
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex-1 flex px-8 py-5">
-                    <div class="flex-1 pr-4">
-                        <h3 class="text-lg font-medium text-gray-800"><?= $row->event_name ?></td>
-                        </h3>
-                        <p class="text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
-                            <?= $row->event_detail ?>
-                        </p>
-                    </div>
-                    <div class="flex flex-col items-center justify-center min-w-[120px]">
-                        <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span>
-                        <span class="text-sm font-medium text-gray-800 mb-3"><?= (int)$row->approved_count ?> /
-                            <?= $row->event_capacity ?> </span>
-                        <a class="bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
-                            href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
-                            จัดการ
-                        </a>
-                    </div>
-                </div>
-            </div>
 
 
             <?php } ?>
