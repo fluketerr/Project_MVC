@@ -18,7 +18,8 @@ if (isset($_POST['join'])) {
     }
 
     $event_id = $_POST['event_id'];
-    $countCapacity = countCapacity($event_id);
+    $event = getEvetById($event_id)->fetch_object();
+    $countCapacity = countCapacity((int)$event_id);
 
     if ($event->event_status === 'Open' && $countCapacity->count_uid < $countCapacity->event_capacity) {
         joinEvent($user_id, $event_id);

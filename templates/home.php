@@ -10,21 +10,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Prompt', 'sans-serif'],
-                    },
-                    colors: {
-                        btnGreen: '#22c55e',
-                        btnGreenHover: '#16a34a',
-                        cardBg: '#ffffff',
-                        imagePlaceholder: '#dcdcdc'
-                    }
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Prompt', 'sans-serif'],
+                },
+                colors: {
+                    btnGreen: '#22c55e',
+                    btnGreenHover: '#16a34a',
+                    cardBg: '#ffffff',
+                    imagePlaceholder: '#dcdcdc'
                 }
             }
         }
+    }
     </script>
 </head>
 
@@ -103,77 +103,77 @@
             </div>
         </div>
         <?php if ($data['result'] != []) { ?>
-            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4
+        <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4
                     [&::-webkit-scrollbar]:w-2 
                   [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
                     [&::-webkit-scrollbar-thumb]:rounded-full
         ">
 
-                <?php while ($row = $data['result']->fetch_object()) { ?>
+            <?php while ($row = $data['result']->fetch_object()) { ?>
 
-                    <div class="bg-white/40 backdrop-blur-sm rounded-2xl flex min-h-[170px]
+            <div class="bg-white/40 backdrop-blur-sm rounded-2xl flex min-h-[170px]
             overflow-hidden border border-white/40
             shadow-md hover:shadow-xl hover:bg-white/60
             transition-all duration-300">
 
-                        <!-- รูป -->
-                        <div class="w-[260px] flex-shrink-0 bg-gray-200">
-                            <?php if (!empty($row->cover_image)): ?>
-                                <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
-                                    class="w-full h-full object-cover">
-                            <?php else: ?>
-                                <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                                    ไม่มีรูป
-                                </div>
-                            <?php endif; ?>
-                        </div>
+                <!-- รูป -->
+                <div class="w-[260px] flex-shrink-0 bg-gray-200">
+                    <?php if (!empty($row->cover_image)): ?>
+                    <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
+                        class="w-full h-full object-cover">
+                    <?php else: ?>
+                    <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                        ไม่มีรูป
+                    </div>
+                    <?php endif; ?>
+                </div>
 
-                        <!-- เนื้อหา -->
-                        <div class="flex-1 flex justify-between px-8 py-6">
+                <!-- เนื้อหา -->
+                <div class="flex-1 flex justify-between px-8 py-6">
 
-                            <!-- ฝั่งซ้าย -->
-                            <div class="flex flex-col flex-1 pr-6 min-w-0">
+                    <!-- ฝั่งซ้าย -->
+                    <div class="flex flex-col flex-1 pr-6 min-w-0">
 
-                                <!-- ชื่อ -->
-                                <h3 class="text-xl font-semibold text-gray-800 truncate">
-                                    <?= htmlspecialchars($row->event_name) ?>
-                                </h3>
+                        <!-- ชื่อ -->
+                        <h3 class="text-xl font-semibold text-gray-800 truncate">
+                            <?= htmlspecialchars($row->event_name) ?>
+                        </h3>
 
-                                <!-- รายละเอียด -->
-                                <p class="text-sm text-gray-600 mt-2 leading-relaxed line-clamp-2">
-                                    <?= htmlspecialchars($row->event_detail) ?>
-                                </p>
+                        <!-- รายละเอียด -->
+                        <p class="text-sm text-gray-600 mt-2 leading-relaxed line-clamp-2">
+                            <?= htmlspecialchars($row->event_detail) ?>
+                        </p>
 
-                                <!-- เวลาด้านล่าง -->
-                                <?php
+                        <!-- เวลาด้านล่าง -->
+                        <?php
                                 $start = date("d M Y H:i", strtotime($row->start_date));
                                 $end   = date("d M Y H:i", strtotime($row->end_date));
                                 ?>
 
-                                <div class="mt-auto pt-4">
-                                    <div class="border-t border-gray-200 mb-3"></div>
-                                    <div class="text-sm text-gray-500 flex items-center gap-2">
-                                        <span></span>
-                                        <span><?= $start ?> - <?= $end ?></span>
-                                    </div>
-                                </div>
-
+                        <div class="mt-auto pt-4">
+                            <div class="border-t border-gray-200 mb-3"></div>
+                            <div class="text-sm text-gray-500 flex items-center gap-2">
+                                <span></span>
+                                <span><?= $start ?> - <?= $end ?></span>
                             </div>
+                        </div>
 
-                            <!-- ฝั่งขวา -->
-                            <div class="w-[160px] flex-shrink-0 flex flex-col items-center justify-center
+                    </div>
+
+                    <!-- ฝั่งขวา -->
+                    <div class="w-[160px] flex-shrink-0 flex flex-col items-center justify-center
                     bg-white/60 rounded-xl px-4 py-4 shadow-inner">
 
-                                <span class="text-xs text-gray-500 uppercase tracking-wide">
-                                    ผู้เข้าร่วม
-                                </span>
+                        <span class="text-xs text-gray-500 uppercase tracking-wide">
+                            ผู้เข้าร่วม
+                        </span>
 
-                                <span class="text-lg font-bold text-gray-800 my-2">
-                                    <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
-                                </span>
+                        <span class="text-lg font-bold text-gray-800 my-2">
+                            <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
+                        </span>
 
-                                <?php if (isset($_SESSION['user_id'])) { ?>
-                                    <?php if ($row->event_status === 'Open' && strtotime($row->end_date) > time()): ?>
+                        <?php if (isset($_SESSION['user_id'])) { ?>
+                        <?php if ($row->event_status === 'Open' && strtotime($row->end_date) > time()): ?>
 
                                         <form method="POST" action="" class="w-full flex justify-center">
                                             <input type="hidden" name="event_id" value="<?= $row->eid ?>">
@@ -195,24 +195,24 @@
                                         </div>
 
                                     <?php endif; ?>
-                                <?php } else { ?>
-                                    <a href="/login" class="w-full text-center bg-green-500 hover:bg-green-600
+                        <?php } else { ?>
+                        <a href="/login" class="w-full text-center bg-green-500 hover:bg-green-600
                           text-white text-sm font-medium
                           py-2 rounded-full shadow
                           transition duration-200">
-                                        เข้าร่วม
-                                    </a>
-                                <?php } ?>
+                            เข้าร่วม
+                        </a>
+                        <?php } ?>
 
-                            </div>
-
-                        </div>
                     </div>
 
-                <?php } ?>
+                </div>
             </div>
+
+            <?php } ?>
+        </div>
         <?php } else { ?>
-            <p>ไม่มีข้อมูล</p>
+        <p>ไม่มีข้อมูล</p>
         <?php } ?>
 
 
