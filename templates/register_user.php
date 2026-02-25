@@ -295,11 +295,11 @@
         <div class="field sel-wrap">
         <label for="gender">เพศ</label>
         <div class="input-wrap">
-            <select id="gender" name="gender" required>
-                <option value="">เลือกเพศ</option>
-                <option value="Male">ชาย</option>
-                <option value="Female">หญิง</option>
-                <option value="Other">อื่นๆ</option>
+            <select>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
             </select>
         </div>
         </div>
