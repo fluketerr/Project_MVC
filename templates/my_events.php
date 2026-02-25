@@ -41,14 +41,17 @@
                 <form method="GET">
                     <input type="hidden" name="page" value="my_events">
                     <label for="">สถานะ : </label>
-                    <select name="status">
-                        <option value="">ทั้งหมด</option>
+                    <select name="status" class="bg-white text-sm text-gray-600
+                      rounded-full px-2
+                      border border-gray-200
+                      shadow-sm focus:ring-2 focus:ring-green-400 appearance-none"
+                      onchange="this.form.submit()">
+                        <option value=""> ทั้งหมด</option>
                         <option value="wait" <?= ($_GET['status'] ?? '') == 'wait' ? 'selected' : '' ?>>รออนุมัติ</option>
                         <option value="approved" <?= ($_GET['status'] ?? '') == 'approved' ? 'selected' : '' ?>>อนุมัติแล้ว</option>
                         <option value="rejected" <?= ($_GET['status'] ?? '') == 'rejected' ? 'selected' : '' ?>>ปฏิเสธ</option>
                     </select>
 
-                    <button type="submit">กรอง</button>
                 </form>
             </div>
             <p><?= $_SESSION['message'] ?? '';
