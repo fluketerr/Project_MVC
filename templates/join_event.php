@@ -62,8 +62,8 @@
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
-                    <p class="text-xs text-slate-500 mb-1 overflow-y-clip">สัดส่วนเพศ</p>
-                    <div style="width: 200px;">
+                    <p class="text-xs text-slate-500 mb-1 overflow-y-clip justify-center">สัดส่วนเพศ</p>
+                    <div class="w-full">
                         <canvas id="PieChart"></canvas>
                     </div>
 
@@ -74,11 +74,10 @@
                         new Chart(ctx, {
                             type: 'pie',
                             data: {
-                                labels: ['ชาย', 'หญิง', 'อื่นๆ'],
                                 datasets: [{
                                     data: [<?=json_encode((int)($data['maleCount'] ?? 0)) ?>, <?= json_encode((int)($data['femaleCount'] ?? 0)) ?>, <?= json_encode((int)($data['otherCount'] ?? 0)) ?>],
                                     backgroundColor: ['#6594B1', '#DDAED3', '#4b5563']
-                                }]
+                                }],labels: ['ชาย', 'หญิง', 'อื่นๆ']
                             }
                         });
                     </script>
