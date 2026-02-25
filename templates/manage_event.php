@@ -115,45 +115,62 @@
                             </div>
                         <?php endwhile; ?>
                     <?php endif; ?>
-                    </div>
+                </div>
             </div>
             <div class="flex flex-col items-center justify-center pt-4">
 
-                <form action="/check_otp" method="POST"
-                    class="bg-white/70 p-8 rounded-2xl
-               border border-gray-100 
-               flex items-end gap-6">
+                <?php
+                $isExpired = strtotime($row->end_date) <= time();
+                $isClosed  = $row->event_status === 'Closed';
+                ?>
 
-                    <input type="hidden" name="eid" value="<?= (int)$row->eid ?>">
+                <?php if (!$isClosed && !$isExpired): ?>
 
-                    <!-- UID -->
-                    <div class="flex flex-col">
-                        <label class="text-sm text-gray-500 mb-2">UID</label>
-                        <input type="text" name="uid"
-                            class="w-40 border border-gray-300 rounded-lg px-3 py-2
-                       focus:ring-2 focus:ring-blue-400 focus:outline-none
-                       text-center"
-                            required>
+                    <form action="/check_otp" method="POST"
+                        class="bg-white/70 p-8 rounded-2xl
+                                border border-gray-100 
+                                flex items-end gap-6">
+
+                        <input type="hidden" name="eid" value="<?= (int)$row->eid ?>">
+
+                        <!-- UID -->
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-500 mb-2">UID</label>
+                            <input type="text" name="uid"
+                                class="w-40 border border-gray-300 rounded-lg px-3 py-2
+                                        focus:ring-2 focus:ring-blue-400 focus:outline-none
+                                        text-center"
+                                required>
+                        </div>
+
+                        <!-- OTP -->
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-500 mb-2">OTP</label>
+                            <input type="tel" name="otp" maxlength="6"
+                                class="w-48 border border-gray-300 rounded-lg px-3 py-2
+                                focus:ring-2 focus:ring-blue-400 focus:outline-none
+                                text-center tracking-widest font-semibold"
+                                required>
+                        </div>
+
+                        <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-600 
+                            text-white px-6 py-2 rounded-lg 
+                            transition shadow">
+                            เช็คชื่อ
+                        </button>
+
+                    </form>
+
+                <?php else: ?>
+
+                    <div class="bg-red-100 border border-red-200
+                                text-red-600 px-6 py-4 rounded-2xl
+                                text-center font-medium shadow">
+                        กิจกรรมนี้ปิดแล้ว ไม่สามารถเช็คชื่อได้
                     </div>
 
-                    <!-- OTP -->
-                    <div class="flex flex-col">
-                        <label class="text-sm text-gray-500 mb-2">OTP</label>
-                        <input type="tel" name="otp" maxlength="6"
-                            class="w-48 border border-gray-300 rounded-lg px-3 py-2
-                       focus:ring-2 focus:ring-blue-400 focus:outline-none
-                       text-center tracking-widest font-semibold"
-                            required>
-                    </div>
-
-                    <!-- Button -->
-                    <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-600 
-                   text-white px-6 py-2 rounded-lg 
-                   transition shadow">
-                        เช็คชื่อ
-                    </button>
-                </form>
+                <?php endif; ?>
                 <?php if (isset($_SESSION['notice'])):
 
                     $type = $_SESSION['notice_type'] ?? 'success';

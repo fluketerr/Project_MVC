@@ -2,12 +2,14 @@
 
 unset($_SESSION['eid']);
 
-$keyword = $_GET['keyword'] ?? '';
-$start   = $_GET['start'] ?? '';
-$end     = $_GET['end'] ?? '';
+$keyword = $_POST['keyword'] ?? '';
+$start   = $_POST['start'] ?? '';
+$end     = $_POST['end'] ?? '';
 $user_id = $_SESSION['user_id'] ?? null;
 
 /* ---------------------- JOIN (ต้องมาก่อน render) ---------------------- */
+autoCloseEvent(); 
+
 if (isset($_POST['join'])) {
 
     if (!$user_id) {
@@ -18,7 +20,7 @@ if (isset($_POST['join'])) {
     $event_id = $_POST['event_id'];
     $countCapacity = countCapacity($event_id);
 
-    if ($countCapacity->count_uid < $countCapacity->event_capacity) {
+    if ($event->event_status === 'Open' && $countCapacity->count_uid < $countCapacity->event_capacity) {
         joinEvent($user_id, $event_id);
     }
 

@@ -5,6 +5,12 @@ function getEvents(): mysqli_result|bool
     $conn = getConnection();
     $sql = "select e.*,
                (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
                    SELECT COUNT(*)
                    FROM Registrations r
                    WHERE r.eid = e.eid
@@ -100,16 +106,18 @@ function getEvetByCreateUid(int $uid)
 
 function insertEvent($event, $conn): int | bool
 {
-    $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, create_uid) 
-    VALUES (?, ?, ?, ?, ?,?)';
+    $str = 'Open';
+    $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, event_status, create_uid) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        'ssssis',
+        'ssssiss',
         $event['name'],
         $event['detail'],
         $event['start'],
         $event['end'],
         $event['capacity'],
+        $str,
         $event['create_uid']
     );
 
@@ -330,4 +338,16 @@ function countCapacity($eid)
     $stmt->bind_param('ii', $eid, $eid);
     $stmt->execute();
     return $stmt->get_result()->fetch_object();
+}
+
+function autoCloseEvent()
+{
+    $conn = getConnection();
+
+    $sql = "UPDATE events
+            SET event_status = 'Closed'
+            WHERE end_date < NOW()
+            AND event_status = 'Open'";
+
+    $conn->query($sql);
 }

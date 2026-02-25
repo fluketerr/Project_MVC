@@ -57,8 +57,31 @@
                     <div class="flex-1 flex px-8 py-5">
                         <div class="flex-1 flex flex-col">
                             <div class="flex-1 pr-4">
-                                <h3 class="text-lg font-medium text-gray-800"><?= $row->event_name ?></td>
-                                </h3>
+                                <?php
+                                $isExpired = strtotime($row->end_date) <= time();
+                                $isClosed  = $row->event_status === 'Closed';
+                                ?>
+
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-medium text-gray-800">
+                                        <?= $row->event_name ?>
+                                    </h3>
+
+                                    <?php if ($isClosed || $isExpired): ?>
+                                        <span class="px-2 py-1 text-xs font-semibold
+                         bg-red-100 text-red-600
+                         rounded-full">
+                                            ปิดแล้ว
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="px-2 py-1 text-xs font-semibold
+                         bg-green-100 text-green-600
+                         rounded-full">
+                                            เปิดรับสมัคร
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+
                                 <p class="text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
                                     <?= $row->event_detail ?>
                                 </p>
