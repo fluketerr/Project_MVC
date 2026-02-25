@@ -5,7 +5,7 @@ declare(strict_types=1);
 $hostname = 'localhost';
 $dbName = 'project_regisevent';
 $username = 'demo';
-$password = 'abc123';
+$password = '1234';
 $conn = new mysqli($hostname, $username, $password, $dbName);
 
 function getConnection(): mysqli

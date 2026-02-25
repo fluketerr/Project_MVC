@@ -231,14 +231,14 @@
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
         <circle cx="12" cy="7" r="4"/>
       </svg>
-      <input type="text" placeholder="Email" name="email" id="email">
+      <input type="text" placeholder="Email" name="email" id="email" required>
     </div>
     <div class="input-wrapPassword">
       <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <rect x="3" y="11" width="18" height="11" rx="2"/>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
       </svg>
-      <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password">
+      <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password" required>
       <button class="eye-btn" onclick="togglePw()" type="button">
         <svg id="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
