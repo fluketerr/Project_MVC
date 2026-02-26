@@ -344,10 +344,14 @@ function autoCloseEvent()
 {
     $conn = getConnection();
 
-    $sql = "UPDATE events
-            SET event_status = 'Closed'
-            WHERE end_date < NOW()
-            AND event_status = 'Open'";
+    $sql = "
+        UPDATE events
+        SET event_status = 
+            CASE
+                WHEN end_date < NOW() THEN 'Closed'
+                ELSE 'Open'
+            END
+    ";
 
     $conn->query($sql);
 }
