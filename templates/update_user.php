@@ -293,6 +293,7 @@
         font-weight: 600;
         cursor: pointer;
         letter-spacing: 0.04em;
+        text-align: center;
         transition: background .2s, transform .1s;
     }
 
@@ -379,9 +380,34 @@
                 </div>
                
             </div>
+            <button class="btn-save" type="submit">บันทึก</button>
         </form>
+        <script>
+                // you can also give your form an id="myForm" and use getElementById)
+                const form = document.querySelector('form');
 
-        <button class="btn-save">บันทึก</button>
+                form.addEventListener('submit', function(event) {
+
+                event.preventDefault(); 
+
+                const formData = new FormData(this);
+
+                //Send the data to your PHP controller in the background
+                fetch(window.location.href, { 
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        //If the server says it saved successfully, redirect to home!
+                        window.location.href = '/home'; 
+                    } else {
+                        alert('มีบางอย่างผิดพลาดระหว่าง save');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+            </script>
     </div>
 
     <script>

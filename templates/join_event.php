@@ -75,9 +75,10 @@
                             type: 'pie',
                             data: {
                                 datasets: [{
-                                    data: [<?=json_encode((int)($data['maleCount'] ?? 0)) ?>, <?= json_encode((int)($data['femaleCount'] ?? 0)) ?>, <?= json_encode((int)($data['otherCount'] ?? 0)) ?>],
+                                    data: [<?= json_encode((int)($data['maleCount'] ?? 0)) ?>, <?= json_encode((int)($data['femaleCount'] ?? 0)) ?>, <?= json_encode((int)($data['otherCount'] ?? 0)) ?>],
                                     backgroundColor: ['#6594B1', '#DDAED3', '#4b5563']
-                                }],labels: ['ชาย', 'หญิง', 'อื่นๆ']
+                                }],
+                                labels: ['ชาย', 'หญิง', 'อื่นๆ']
                             }
                         });
                     </script>

@@ -86,7 +86,7 @@
                       border border-gray-200
                       shadow-sm focus:ring-2 focus:ring-green-400">
 
-                    <button title="ล้างกดค้นหา" type="reset" onclick="window.location.href='home'" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
+                    <button title="ล้างการค้นหา" type="reset" onclick="window.location.href='home'" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
