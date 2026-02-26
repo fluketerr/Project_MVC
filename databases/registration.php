@@ -104,7 +104,7 @@ function cancelEvent(int $uid, int $eid): bool
 
 function generateOTP($uid, $eid) {
     $secret = "MySecretKey2026";
-    $timeWindow = floor(time() / 120);
+    $timeWindow = floor(time() / 10);
 
     $data = $uid . $eid . $timeWindow . $secret;
     $hash = hash('sha256', $data);
