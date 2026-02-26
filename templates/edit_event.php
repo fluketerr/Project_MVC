@@ -36,13 +36,14 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
     </div>
 
     <main class="flex flex-col flex-1 w-full">
-        <div class="text-4xl px-3 pt-6">
-            แก้ไขกิจกรรม
-        </div>
         <?php $event = $data['event']->fetch_object() ?>
 
         <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem]
-shadow-sm border border-white/50 p-16 overflow-y-auto">
+                    shadow-sm border border-[#213C51]/50 p-16 overflow-y-auto
+                    [&::-webkit-scrollbar]:w-2
+                  [&::-webkit-scrollbar-thumb]:bg-[#213C51]
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+">
 
             <form action="update_event" method="POST" enctype="multipart/form-data">
 

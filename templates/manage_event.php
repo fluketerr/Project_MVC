@@ -35,10 +35,7 @@
     </div>
     <main class="flex flex-col flex-1 w-full overflow-x-auto">
         <?php $row = $data['event']->fetch_object(); ?>
-        <div class="text-4xl px-3 pt-6">
-            กิจกรรม
-        </div>
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 p-8 flex flex-col overflow-y-hidden">
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-hidden">
 
             <!-- Header Section -->
             <div class="flex gap-8">
