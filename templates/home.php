@@ -38,8 +38,8 @@
     <div
         class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
 
-        <div name="nev" class="px-8 py-6 flex items-end gap-4 flex-shrink-0">
-            <div class="w-full max-w-5xl">
+        <div name="nev" class="absolute w-[81%] rounded-t-[2rem] px-8 py-6 flex items-end gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
+            <div class="w-full max-w-5xl ">
                 <form method="POST" class="flex items-center gap-3">
 
                     <!-- ช่องค้นหา -->
@@ -86,7 +86,7 @@
                       border border-gray-200
                       shadow-sm focus:ring-2 focus:ring-green-400">
 
-                    <button type="reset" onclick="window.location.href='home'" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
+                    <button title="ล้างกดค้นหา" type="reset" onclick="window.location.href='home'" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -102,12 +102,13 @@
                     [&::-webkit-scrollbar]:w-2 
                   [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
                     [&::-webkit-scrollbar-thumb]:rounded-full
+                    [&::-webkit-scrollbar-track]:mt-[13vh]
         ">
-
+                    <div class="mb-14" >ㅤ</div>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 
-                    <div class="bg-white/40 backdrop-blur-sm rounded-2xl flex min-h-[170px]
-            overflow-hidden border border-white/40
+                    <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex min-h-[170px]
+            overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
             transition-all duration-300">
 

@@ -59,12 +59,17 @@
 
         </div>
         <?php if ($data['result'] && $data['result']->num_rows > 0) { ?>
-            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4">
+            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4
+                    [&::-webkit-scrollbar]:w-2 
+                  [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+                ">
 
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 
-                    <div class="bg-white/35 rounded-2xl flex min-h-[150px] overflow-hidden shadow-sm --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
-                            hover:bg-white transition-colors">
+                    <div class="bg-white/30 rounded-2xl flex min-h-[150px] overflow-hidden --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
+                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl" 
+                            >
                         <div class="w-[280px] bg-imagePlaceholder flex-shrink-0">
                             <?php if (!empty($row->cover_image)): ?>
                                 <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover">

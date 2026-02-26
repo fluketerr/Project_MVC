@@ -104,7 +104,7 @@
             <div class="mt-4 ">
                 <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2 
                     [&::-webkit-scrollbar]:h-1 
-                  [&::-webkit-scrollbar-thumb]:bg-[#4b5563]/60
+                  [&::-webkit-scrollbar-thumb]:bg-white/75
                     [&::-webkit-scrollbar-thumb]:rounded-full
                 ">
                     <?php if (!empty($data['pictures'])): ?>
