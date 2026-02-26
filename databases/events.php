@@ -16,7 +16,7 @@ function getEvents(): mysqli_result|bool
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count from events e
-            where e.status != 'Closed'";
+            where e.event_status != 'Closed'";
     $result = $conn->query($sql);
 
     return $result;
