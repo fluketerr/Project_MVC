@@ -460,10 +460,10 @@
                     </div>
                 </div>
             </div>
-        </form>
-
         <div class="links-row"><a href="/login">มีบัญชีอยู่แล้ว?</a></div>
         <button class="btn-register">สมัครสมาชิก</button>
+        </form>
+
     </div>
 
     <script>
