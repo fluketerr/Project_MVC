@@ -34,13 +34,8 @@
         <?php include 'sideNav_event.php'; ?>
     </div>
     <main class="flex flex-col flex-1 w-full">
-
-        <div class="text-4xl px-3 pt-6">
-            ผู้เข้าร่วม
-        </div>
-
         <!-- แผ่นขาวหลัก -->
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 p-8 flex flex-col">
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col">
 
             <!-- message -->
             <?php if (!empty($_SESSION['message'])): ?>
@@ -63,7 +58,7 @@
 
                 <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
                     <p class="text-xs text-slate-500 mb-1 overflow-y-clip justify-center">สัดส่วนเพศ</p>
-                    <div class="w-full">
+                    <div class="w-full max-h-36">
                         <canvas id="PieChart"></canvas>
                     </div>
 
@@ -79,6 +74,19 @@
                                     backgroundColor: ['#6594B1', '#DDAED3', '#4b5563']
                                 }],
                                 labels: ['ชาย', 'หญิง', 'อื่นๆ']
+                            },
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        display: true,
+                                        position: 'right',
+                                        labels: {
+                                            padding: 20,
+                                            boxWidth: 40
+                                        }
+                                    }
+                                },
+                                maintainAspectRatio: false 
                             }
                         });
                     </script>

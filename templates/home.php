@@ -32,11 +32,11 @@
     class="bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
-        <?php include 'sideNav_home.php'; ?>
+        
     </div>
 
     <div
-        class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
+        class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
         <div name="nev" class="absolute w-[81%] rounded-t-[2rem] px-8 py-6 flex items-end gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
             <div class="w-full max-w-5xl ">

@@ -34,7 +34,7 @@
         <?php include 'sideNav_home.php'; ?>
     </div>
 
-    <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
+    <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start gap-4 flex-shrink-0">
             <div class="relative w-[320px] gap-2">

@@ -37,11 +37,8 @@
     </div>
     <main class="flex flex-col flex-1 w-full ">
 
-        <div class="text-4xl px-3 pt-6">
-            คำขอเข้าร่วม
-        </div>
         <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] 
-            shadow-sm border border-white/50 p-8 flex flex-col gap-6 ">
+            shadow-sm border border-[#213C51]/50 p-8 flex flex-col gap-6 ">
             <!-- Flash Message -->
             <?php if (!empty($_SESSION['message'])): ?>
             <div class="bg-green-100 text-green-700 px-4 py-3 rounded-xl shadow">
@@ -52,8 +49,8 @@
 
             <!-- Title -->
             <div class="flex justify-between items-center">
-                <h2 class="text-2xl font-semibold">
-
+                <h2 class="text-2xl">
+                    คำขอเข้าร่วม
                 </h2>
                 <span class="text-gray-500 text-sm">
                     <?= $data['regis']->num_rows ?> รายการ

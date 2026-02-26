@@ -30,7 +30,7 @@
     </div>
 
     <div
-        class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
+        class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#213C51]/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start flex-shrink-0">
 
