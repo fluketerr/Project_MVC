@@ -3,9 +3,21 @@
 function getEvents(): mysqli_result|bool
 {
     $conn = getConnection();
-    $sql = "select * from events";
+    $sql = "select e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count from events e";
     $result = $conn->query($sql);
-    
+
     return $result;
 }
 
@@ -20,7 +32,13 @@ function getNotinEvets(int $uid): mysqli_result|bool
                    FROM Pictures p
                    WHERE p.eid = e.eid
                    LIMIT 1
-               ) AS cover_image
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
         FROM Events e
         WHERE e.eid NOT IN (
                 SELECT eid
@@ -49,10 +67,10 @@ function getEvetById(int $eid): mysqli_result|bool
                ) AS approved_count 
             from events e where eid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i',$eid);
+    $stmt->bind_param('i', $eid);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     return $result;
 }
 
@@ -86,25 +104,29 @@ function getEvetByCreateUid(int $uid)
     return $stmt->get_result();
 }
 
-function insertEvent($event, $conn):int | bool
+function insertEvent($event, $conn): int | bool
 {
-    $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, create_uid) 
-    VALUES (?, ?, ?, ?, ?,?)';
+    $str = 'Open';
+    $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, event_status, create_uid) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        'ssssis',
-        $event['name'], 
-        $event['detail'], 
-        $event['start'],$event['end'],
+        'ssssiss',
+        $event['name'],
+        $event['detail'],
+        $event['start'],
+        $event['end'],
         $event['capacity'],
-        $event['create_uid']);
+        $str,
+        $event['create_uid']
+    );
 
     $stmt->execute();
-    
-    if($stmt->affected_rows > 0){
+
+    if ($stmt->affected_rows > 0) {
         $eid = $stmt->insert_id;
         return $eid;
-    }else{
+    } else {
         return false;
     }
 }
@@ -117,24 +139,181 @@ function deleteEventById(int $id, $conn): bool
     $stmt->execute();
     return $stmt->affected_rows > 0;
 }
-function searchEvents($keyword, $start, $end)
+function searchEvents($keyword, $start, $end, $uid)
 {
     global $conn;
 
-    $sql = "SELECT * FROM Events WHERE 1";
+    $sql = "";
+
+    if ($keyword != '' && $uid != "") {
+        $keyword = strtolower($keyword);
+        $sql = "
+                SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
+                FROM Events e
+                WHERE e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
+                AND LOWER(e.event_name) LIKE '%$keyword%' ";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $uid, $uid);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+  if ($start != '' && $end != '') {
+
+        $sql = "
+            SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count FROM Events e
+            WHERE start_date >= ?
+              AND end_date <= ?
+              and e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
+                
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssii", $start, $end, $uid, $uid);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    
+    if ($start != '') {
+
+        $sql = "
+            SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count 
+                    FROM Events e
+            WHERE start_date >= ?
+            and e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sii", $start, $uid, $uid);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    
+    if ($end != '') {
+
+        $sql = "
+            SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
+                 FROM Events e
+            WHERE end_date <= ?
+            and e.create_uid != ?
+                AND e.eid NOT IN (
+                SELECT eid
+                FROM registrations
+                WHERE uid = ?
+                                )
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sii", $end, $uid, $uid);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+
+
+    return $conn->query($sql);
+}
+
+function searchEventsPublic($keyword, $start, $end)
+{
+    global $conn;
+
+    $sql = "
+        SELECT e.*,
+               (
+                   SELECT picture_name
+                   FROM Pictures p
+                   WHERE p.eid = e.eid
+                   LIMIT 1
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
+        FROM Events e
+        WHERE 1=1
+    ";
 
     if ($keyword != '') {
         $keyword = strtolower($keyword);
-        $sql .= " AND LOWER(event_name) LIKE '%$keyword%'";
+        $sql .= " AND LOWER(e.event_name) LIKE '%$keyword%' ";
     }
 
     if ($start != '' && $end != '') {
-        $sql .= " AND start_date >= '$start'
-                  AND end_date <= '$end'";
+        $sql .= " AND e.start_date >= '$start'
+                  AND e.end_date <= '$end' ";
     }
 
     return $conn->query($sql);
 }
+
 function joinEvent($user_id, $event_id)
 {
     global $conn;
@@ -145,3 +324,30 @@ function joinEvent($user_id, $event_id)
     return $conn->query($sql);
 }
 
+function countCapacity($eid)
+{
+    global $conn;
+
+    $sql = "select e.*,
+                    COALESCE((select count(uid) 
+                    from   registrations
+                    where  eid = ?), 0) as count_uid
+            from  events e
+            where eid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $eid, $eid);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_object();
+}
+
+function autoCloseEvent()
+{
+    $conn = getConnection();
+
+    $sql = "UPDATE events
+            SET event_status = 'Closed'
+            WHERE end_date < NOW()
+            AND event_status = 'Open'";
+
+    $conn->query($sql);
+}

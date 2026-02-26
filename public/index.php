@@ -25,7 +25,7 @@ require_once INCLUDES_DIR . '/database.php';
 //dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 
 // whitelist page
-const PUBLIC_ROUTES = ['/', '/login', '/register_user']; 
+const PUBLIC_ROUTES = ['/', '/login', '/register_user', '/user-chgpwd', '/users','/home']; 
 
 if (in_array(strtolower($_SERVER['REQUEST_URI']), PUBLIC_ROUTES)) {
     dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

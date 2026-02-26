@@ -1,7 +1,5 @@
-<?php
-// Side Navigation Component
-?>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,31 +16,27 @@
                     fontFamily: {
                         sans: ['Prompt', 'sans-serif'],
                     },
-                    colors: {
-                        btnGreen: '#22c55e',
-                        btnGreenHover: '#16a34a',
-                        cardBg: '#ffffff',
-                        imagePlaceholder: '#dcdcdc'
-                    }
                 }
             }
         }
     </script>
 </head>
 
-<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
+<body
+    class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
         <?php include 'sideNav_allEvents.php'; ?>
     </div>
 
-    <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
+    <div
+        class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start flex-shrink-0">
-        
+
             <a class="w-14 h-14 bg-[#6594B1]  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
                 href="/create_event">
-                +
+                <svg fill="white" width="30" height="30" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><path d="M17,11H13V7a1,1,0,0,0-1-1h0a1,1,0,0,0-1,1v4H7a1,1,0,0,0-1,1H6a1,1,0,0,0,1,1h4v4a1,1,0,0,0,1,1h0a1,1,0,0,0,1-1V13h4a1,1,0,0,0,1-1h0A1,1,0,0,0,17,11Z"/></svg>
             </a>
 
         </div>
@@ -61,16 +55,57 @@
                         <?php endif; ?>
                     </div>
                     <div class="flex-1 flex px-8 py-5">
-                        <div class="flex-1 pr-4">
-                            <h3 class="text-lg font-medium text-gray-800"><?= $row->event_name ?></td></h3>
-                            <p class="text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
-                                <?= $row->event_detail ?>
-                            </p>
+                        <div class="flex-1 flex flex-col">
+                            <div class="flex-1 pr-4">
+                                <?php
+                                $isExpired = strtotime($row->end_date) <= time();
+                                $isClosed  = $row->event_status === 'Closed';
+                                ?>
+
+                                <div class="flex items-center gap-2">
+                                    <h3 class="text-lg font-medium text-gray-800">
+                                        <?= $row->event_name ?>
+                                    </h3>
+
+                                    <?php if ($isClosed || $isExpired): ?>
+                                        <span class="px-2 py-1 text-xs font-semibold
+                         bg-red-100 text-red-600
+                         rounded-full">
+                                            ปิดแล้ว
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="px-2 py-1 text-xs font-semibold
+                         bg-green-100 text-green-600
+                         rounded-full">
+                                            เปิดรับสมัคร
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+
+                                <p class="text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
+                                    <?= $row->event_detail ?>
+                                </p>
+                            </div>
+                            <div>
+                                <?php
+                                $start = date("d M Y H:i", strtotime($row->start_date));
+                                $end   = date("d M Y H:i", strtotime($row->end_date));
+                                ?>
+
+                                <div class="mt-auto pt-4">
+                                    <div class="border-t border-gray-200 mb-3"></div>
+                                    <div class="text-sm text-gray-500 flex items-center gap-2">
+                                        <span></span>
+                                        <span><?= $start ?> - <?= $end ?></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="flex flex-col items-center justify-center min-w-[120px]">
                             <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span>
-                            <span class="text-sm font-medium text-gray-800 mb-3"><?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>   </span>
-                            <a class="bg-btnGreen hover:bg-btnGreenHover transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
+                            <span class="text-sm font-medium text-gray-800 mb-3"><?= (int)$row->approved_count ?> /
+                                <?= $row->event_capacity ?> </span>
+                            <a class="bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
                                 href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
                                 จัดการ
                             </a>
@@ -78,7 +113,7 @@
                     </div>
                 </div>
 
-                
+
             <?php } ?>
         </div>
     </div>

@@ -26,7 +26,13 @@ function getMyEvents($user_id, $status = '')
                    FROM Pictures p
                    WHERE p.eid = e.eid
                    LIMIT 1
-               ) AS cover_image
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r
+                   WHERE r.eid = e.eid
+                   AND r.status = 'approved'
+               ) AS approved_count
         FROM Registrations r
         JOIN Events e ON r.eid = e.eid
         WHERE r.uid = ?

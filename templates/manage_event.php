@@ -33,13 +33,12 @@
     <div class="">
         <?php include 'sideNav_event.php'; ?>
     </div>
-    <main class="flex flex-col flex-1 w-full ">
+    <main class="flex flex-col flex-1 w-full overflow-x-auto">
         <?php $row = $data['event']->fetch_object(); ?>
         <div class="text-4xl px-3 pt-6">
-            <?= $data['title'] ?>
+            กิจกรรม
         </div>
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] 
-            shadow-sm border border-white/50 p-8 flex flex-col gap-6 ">
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 p-8 flex flex-col overflow-y-hidden">
 
             <!-- Header Section -->
             <div class="flex gap-8">
@@ -49,7 +48,7 @@
 
                     <div class="w-[420px] h-[240px]">
                         <img src="/uploads/events/<?= $pic->picture_name ?>"
-                            class="w-full h-full object-cover">
+                            class="w-full h-full object-cover rounded-xl border border-gray-300">
                     </div>
 
                 <?php else: ?>
@@ -74,7 +73,7 @@
                     </div>
 
                     <!-- Capacity Section -->
-                    <div class="mt-6">
+                    <div class="mt-6 mb-6">
 
                         <div class="flex justify-between text-sm mb-2">
                             <span>ผู้เข้าร่วม</span>
@@ -102,55 +101,76 @@
             </div>
 
             <!-- Gallery Section -->
-            <div class="flex gap-6 mt-4">
-
-                <?php if (!empty($data['pictures'])): ?>
-                    <?php while ($pic = $data['pictures']->fetch_object()): ?>
-                        <div class="w-48 h-28 rounded-xl overflow-hidden shadow">
-                            <img src="/uploads/events/<?= $pic->picture_name ?>"
-                                class="w-full h-full object-cover">
-                        </div>
-                    <?php endwhile; ?>
-                <?php endif; ?>
-
+            <div class="mt-4 ">
+                <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2 
+                    [&::-webkit-scrollbar]:h-1 
+                  [&::-webkit-scrollbar-thumb]:bg-white/75
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+                ">
+                    <?php if (!empty($data['pictures'])): ?>
+                        <?php while ($pic = $data['pictures']->fetch_object()): ?>
+                            <div class="flex-shrink-0 w-44 h-28 rounded-xl overflow-hidden shadow snap-center">
+                                <img src="/uploads/events/<?= $pic->picture_name ?>"
+                                    class="w-full h-full object-cover">
+                            </div>
+                        <?php endwhile; ?>
+                    <?php endif; ?>
+                </div>
             </div>
-            <div class="flex flex-col items-center justify-center py-16">
+            <div class="flex flex-col items-center justify-center pt-4">
 
-                <form action="/check_otp" method="POST"
-                    class="bg-white p-8 rounded-2xl shadow-lg 
-               border border-gray-100 
-               flex items-end gap-6">
+                <?php
+                $isExpired = strtotime($row->end_date) <= time();
+                $isClosed  = $row->event_status === 'Closed';
+                ?>
 
-                    <input type="hidden" name="eid" value="<?= (int)$row->eid ?>">
+                <?php if (!$isClosed && !$isExpired): ?>
 
-                    <!-- UID -->
-                    <div class="flex flex-col">
-                        <label class="text-sm text-gray-500 mb-2">UID</label>
-                        <input type="text" name="uid"
-                            class="w-40 border border-gray-300 rounded-lg px-3 py-2
-                       focus:ring-2 focus:ring-blue-400 focus:outline-none
-                       text-center"
-                            required>
+                    <form action="/check_otp" method="POST"
+                        class="bg-white/70 p-8 rounded-2xl
+                                border border-gray-100 
+                                flex items-end gap-6">
+
+                        <input type="hidden" name="eid" value="<?= (int)$row->eid ?>">
+
+                        <!-- UID -->
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-500 mb-2">UID</label>
+                            <input type="text" name="uid"
+                                class="w-40 border border-gray-300 rounded-lg px-3 py-2
+                                        focus:ring-2 focus:ring-blue-400 focus:outline-none
+                                        text-center"
+                                required>
+                        </div>
+
+                        <!-- OTP -->
+                        <div class="flex flex-col">
+                            <label class="text-sm text-gray-500 mb-2">OTP</label>
+                            <input type="tel" name="otp" maxlength="6"
+                                class="w-48 border border-gray-300 rounded-lg px-3 py-2
+                                focus:ring-2 focus:ring-blue-400 focus:outline-none
+                                text-center tracking-widest font-semibold"
+                                required>
+                        </div>
+
+                        <button type="submit"
+                            class="bg-blue-500 hover:bg-blue-600 
+                            text-white px-6 py-2 rounded-lg 
+                            transition shadow">
+                            เช็คชื่อ
+                        </button>
+
+                    </form>
+
+                <?php else: ?>
+
+                    <div class="bg-red-100 border border-red-200
+                                text-red-600 px-6 py-4 rounded-2xl
+                                text-center font-medium shadow">
+                        กิจกรรมนี้ปิดแล้ว ไม่สามารถเช็คชื่อได้
                     </div>
 
-                    <!-- OTP -->
-                    <div class="flex flex-col">
-                        <label class="text-sm text-gray-500 mb-2">OTP</label>
-                        <input type="tel" name="otp" maxlength="6"
-                            class="w-48 border border-gray-300 rounded-lg px-3 py-2
-                       focus:ring-2 focus:ring-blue-400 focus:outline-none
-                       text-center tracking-widest font-semibold"
-                            required>
-                    </div>
-
-                    <!-- Button -->
-                    <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-600 
-                   text-white px-6 py-2 rounded-lg 
-                   transition shadow">
-                        เช็คชื่อ
-                    </button>
-                </form>
+                <?php endif; ?>
                 <?php if (isset($_SESSION['notice'])):
 
                     $type = $_SESSION['notice_type'] ?? 'success';
