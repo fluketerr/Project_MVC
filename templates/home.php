@@ -32,7 +32,7 @@
     class="bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
-        <?php include 'sideNav_home.php'; ?>
+        
     </div>
 
     <div
