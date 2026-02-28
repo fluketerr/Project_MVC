@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,9 +36,9 @@
     </div>
 
     <div
-        class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
+        class="flex-1 relative bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
-        <div name="nev" class="absolute w-[81%] rounded-t-[2rem] px-8 py-6 flex items-end gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
+        <div name="nev" class="absolute w-full rounded-t-[2rem] px-8 py-6 flex items-end gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
             <div class="w-full max-w-5xl ">
                 <form method="POST" class="flex items-center gap-3">
 
@@ -68,24 +67,30 @@
                     </div>
 
                     <!-- วันที่เริ่ม -->
-                    <a>วันแรก</a>
-                    <input type="date"
-                        name="start"
-                        value="<?= $_POST['start'] ?? '' ?>"
-                        class="bg-white text-sm text-gray-600
-                      rounded-full px-4 py-2
-                      border border-gray-200
-                      shadow-sm focus:ring-2 focus:ring-green-400">
+                    <div class="bg-white rounded-full pl-4 shadow-sm">
+                        <a>วันแรก</a>
+                        <input type="date"
+                            name="start"
+                            value="<?= $_POST['start'] ?? '' ?>"
+                            class="bg-white text-sm text-gray-600
+                        rounded-full px-4 py-2
+                        border border-gray-200
+                        shadow-sm focus:ring-2 focus:ring-green-400"
+                            onchange="this.form.submit()">
+                    </div>
 
                     <!-- วันที่สิ้นสุด -->
-                    <a>วันสุดท้าย</a>
-                    <input type="date"
-                        name="end"
-                        value="<?= $_POST['end'] ?? '' ?>"
-                        class="bg-white text-sm text-gray-600
-                      rounded-full px-4 py-2
-                      border border-gray-200
-                      shadow-sm focus:ring-2 focus:ring-green-400">
+                    <div class="bg-white rounded-full pl-4 shadow-sm">
+                        <a>วันสุดท้าย</a>
+                        <input type="date"
+                            name="end"
+                            value="<?= $_POST['end'] ?? '' ?>"
+                            class="bg-white text-sm text-gray-600
+                        rounded-full px-4 py-2
+                        border border-gray-200
+                        shadow-sm focus:ring-2 focus:ring-green-400"
+                            onchange="this.form.submit()">
+                    </div>
 
                     <button title="ล้างการค้นหา" type="reset" onclick="window.location.href='home'" class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -105,7 +110,7 @@
                     [&::-webkit-scrollbar-thumb]:rounded-full
                     [&::-webkit-scrollbar-track]:mt-[13vh]
         ">
-                    <div class="mb-14" >ㅤ</div>
+                <div class="mb-14">ㅤ</div>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 
                     <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex min-h-[170px]
