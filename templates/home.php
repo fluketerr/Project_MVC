@@ -37,9 +37,9 @@
     </div>
 
     <div
-        class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
+        class="flex-1 relative bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
-        <div name="nev" class="absolute w-[81%] rounded-t-[2rem] px-8 py-6 flex items-end gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
+        <div name="nev" class="absolute w-full rounded-t-[2rem] px-8 py-6 flex items-end gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
             <div class="w-full max-w-5xl ">
                 <form method="POST" class="flex items-center gap-3">
 
