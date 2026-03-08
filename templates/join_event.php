@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
-
     <script>
         tailwind.config = {
             theme: {
@@ -35,13 +34,8 @@
         <?php include 'sideNav_event.php'; ?>
     </div>
     <main class="flex flex-col flex-1 w-full">
-
-        <div class="text-4xl px-3 pt-6">
-            <?= $data['title'] ?>
-        </div>
-
         <!-- แผ่นขาวหลัก -->
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-white/50 p-8 flex flex-col">
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col">
 
             <!-- message -->
             <?php if (!empty($_SESSION['message'])): ?>
@@ -51,7 +45,6 @@
                 <?php unset($_SESSION['message']); ?>
             <?php endif; ?>
 
-            <h2 class="text-xl font-bold mb-4">ผู้เข้าร่วมกิจกรรม</h2>
 
             <!-- ===== stat cards ===== -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
@@ -64,7 +57,39 @@
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-4 shadow-sm">
-                    <p class="text-xs text-slate-500 mb-1">สัดส่วนเพศ</p>
+                    <p class="text-xs text-slate-500 mb-1 overflow-y-clip justify-center">สัดส่วนเพศ</p>
+                    <div class="w-full max-h-36">
+                        <canvas id="PieChart"></canvas>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                    <script>
+                        const ctx = document.getElementById('PieChart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                datasets: [{
+                                    data: [<?= json_encode((int)($data['maleCount'] ?? 0)) ?>, <?= json_encode((int)($data['femaleCount'] ?? 0)) ?>, <?= json_encode((int)($data['otherCount'] ?? 0)) ?>],
+                                    backgroundColor: ['#6594B1', '#DDAED3', '#4b5563']
+                                }],
+                                labels: ['ชาย', 'หญิง', 'อื่นๆ']
+                            },
+                            options: {
+                                plugins: {
+                                    legend: {
+                                        display: true,
+                                        position: 'right',
+                                        labels: {
+                                            padding: 20,
+                                            boxWidth: 40
+                                        }
+                                    }
+                                },
+                                maintainAspectRatio: false 
+                            }
+                        });
+                    </script>
                     <p class="text-sm font-medium">
                         ชาย <?= (int)($data['maleCount'] ?? 0) ?> |
                         หญิง <?= (int)($data['femaleCount'] ?? 0) ?> |
@@ -105,7 +130,6 @@
                         ค้นหา
                     </button>
                 </div>
-            </form>
             </form>
 
             <!-- ===== participants scroll ===== -->

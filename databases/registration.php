@@ -26,25 +26,24 @@ function getMyEvents($user_id, $status = '')
                    FROM Pictures p
                    WHERE p.eid = e.eid
                    LIMIT 1
-               ) AS cover_image
+               ) AS cover_image,
+               (
+                   SELECT COUNT(*)
+                   FROM Registrations r2
+                   WHERE r2.eid = e.eid
+                   AND r2.status = 'approved'
+               ) AS approved_count
         FROM Registrations r
         JOIN Events e ON r.eid = e.eid
         WHERE r.uid = ?
+        AND (? = '' OR r.status = ?)
+        ORDER BY e.eid DESC
     ";
-
-    if ($status != '') {
-        $sql .= " AND r.status = ?";
-    }
-
-    $sql .= " ORDER BY e.eid DESC";
 
     $stmt = $conn->prepare($sql);
 
-    if ($status != '') {
-        $stmt->bind_param("is", $user_id, $status);
-    } else {
-        $stmt->bind_param("i", $user_id);
-    }
+    // ต้อง bind status 2 ครั้ง
+    $stmt->bind_param("iss", $user_id, $status, $status);
 
     $stmt->execute();
 
