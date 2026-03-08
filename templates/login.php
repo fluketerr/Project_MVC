@@ -281,7 +281,7 @@
       </div>
 
       <div class="links-row">
-        <a href="/register_user">ยังไม่มีบัญชี?</a>
+        <a href="/user_register">ยังไม่มีบัญชี?</a>
       </div>
 
       <button class="btn-login" type="submit">เข้าสู่ระบบ</button>
