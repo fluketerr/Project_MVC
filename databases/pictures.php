@@ -6,6 +6,7 @@ function getPictureById(int $eid, $conn): mysqli_result | bool
     $stmt->bind_param('i', $eid);
     $stmt->execute();
     $result = $stmt->get_result();
+
     return $result;
 }
 
@@ -16,7 +17,7 @@ function getPictureByPid(int $pid, mysqli $conn): ?array
     $stmt->bind_param("i", $pid);
     $stmt->execute();
     $result = $stmt->get_result();
-
+    
     return $result->fetch_assoc() ?: null;
 }
 
@@ -24,11 +25,13 @@ function insertPicture(string $picture_name, string $eid, $conn): bool
 {
     $sql = 'insert into Pictures (picture_name, eid) VALUES (?, ?)';
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('si', $picture_name, $eid);
+    $stmt->bind_param('ss', $picture_name, $eid);
     $stmt->execute();
     if ($stmt->affected_rows > 0) {
+        
         return true;
     } else {
+        
         return false;
     }
 }

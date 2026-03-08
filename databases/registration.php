@@ -5,7 +5,7 @@ function getPendingRegisByEventId(int $eid, mysqli $conn): mysqli_result|bool
                    u.uid, u.name, u.email, u.birthday,
                    u.tel, u.job, u.gender, u.address
             FROM Registrations r
-            JOIN Users u ON r.uid = u.uid
+            JOIN users u ON r.uid = u.uid
             WHERE r.eid = ? AND r.status = 'wait'";
 
     $stmt = $conn->prepare($sql);
@@ -100,7 +100,7 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
     if ($keyword !== '') {
         $sql = "SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
                 FROM Registrations r
-                JOIN Users u ON r.uid = u.uid
+                JOIN users u ON r.uid = u.uid
                 WHERE r.eid = ?
                 AND r.status = 'approved'
                 AND (u.name LIKE ? OR u.email LIKE ? OR u.tel LIKE ?)";
@@ -112,7 +112,7 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
     } else {
         $sql = "SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
                 FROM Registrations r
-                JOIN Users u ON r.uid = u.uid
+                JOIN users u ON r.uid = u.uid
                 WHERE r.eid = ?
                 AND r.status = 'approved'";
 

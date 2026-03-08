@@ -167,7 +167,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 WHERE e.create_uid != ?
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM egistrations
                 WHERE uid = ?
                                 )
                 AND LOWER(e.event_name) LIKE '%$keyword%' 
@@ -201,7 +201,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM egistrations
                 WHERE uid = ?
                                 )
                 
@@ -236,7 +236,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM egistrations
                 WHERE uid = ?
                                 )
         ";
@@ -270,7 +270,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM egistrations
                 WHERE uid = ?
                                 )
         ";
@@ -338,8 +338,9 @@ function countCapacity($eid)
 
     $sql = "select e.*,
                     COALESCE((select count(uid) 
-                    from   registrations
-                    where  eid = ?), 0) as count_uid
+                    from   Registrations
+                    where  eid = ?
+                    and status = 'approved' ), 0) as count_uid
             from  Events e
             where eid = ?";
     $stmt = $conn->prepare($sql);
