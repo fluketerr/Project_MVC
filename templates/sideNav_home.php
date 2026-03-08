@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-<aside id="side-menu" class="flex flex-col w-64 h-screen left-0 top-0 md:bg-transparent md:bg-none bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] z-20 absolute md:static">
+<aside id="side-menu" class="hidden lg:flex flex-col w-64 h-screen left-0 top-0 md:bg-transparent lg:bg-none bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] z-20 absolute lg:static">
 
     <div class="w-64 flex items-center justify-center pt-6">
         <a href="/" class="">
@@ -149,7 +149,7 @@
 
                     <div class="flex flex-col">
                         <?php $_SESSION['name'] = getUserNameByEmail($_SESSION['user_email']) ?>
-                        <a href="/update_user" class="text-sm font-semibold text-slate-800"><span
+                        <a href="/user_update" class="text-sm font-semibold text-slate-800"><span
                                 class="text-base"><?= isset($_SESSION['name']) ? $_SESSION['name'] : 'Update User' ?></span></a>
                         <span class="text-xs text-slate-500">UID:
                             <?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Update User' ?></span>

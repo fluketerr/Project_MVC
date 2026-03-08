@@ -34,11 +34,18 @@
         <?php include 'sideNav_home.php'; ?>
     </div>
 
-    <div class="flex-1 bg-white/75 my-4 lg:mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
+    <div class="flex-1 bg-white/75 lg:my-4 lg:mr-4 lg:rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start gap-4 flex-shrink-0">
             <div class="relative w-[320px] gap-2">
-                <form method="GET">
+                <form method="GET" class="flex gap-3">
+                     <div class="flex lg:hidden items-center justify-start">
+                        <button type="button" onclick="openMenu();">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                                <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z"/>
+                             </svg>
+                        </button>
+                    </div>
                     <input type="hidden" name="page" value="my_events">
                     <label for="">สถานะ : </label>
                     <select name="status" class="bg-white text-sm text-gray-600
@@ -66,120 +73,15 @@
                 ">
 
                 <?php while ($row = $data['result']->fetch_object()) { ?>
-                    <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex lg:flex-row flex-col lg:min-h-[170px]
-            lg:overflow-hidden border border-white/50
-            shadow-md hover:shadow-xl hover:bg-white/60
-            transition-all duration-300">
-
-                        <!-- รูป -->
-                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 flex-shrink-0 bg-gray-200 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
-                            <?php
-                            $imgPath = 'uploads/events/' . $row->cover_image;
-                            if (!empty($row->cover_image) && file_exists($imgPath)): ?>
-                                <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
-                                    class="w-full h-full">
-                            <?php else: ?>
-                                <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm min-h-[190px]">
-                                    <svg class="rounded-t-2xl" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
-                                        <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
-                                        <circle cx="8.5" cy="8.5" r="1.5" fill="white" fill-opacity="0.7" />
-                                    </svg>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-
-                        <!-- เนื้อหา -->
-                        <div class="flex-1 flex flex-col lg:flex-row justify-between px-8 py-6">
-
-                            <!-- ฝั่งซ้าย -->
-                            <div class="flex lg:flex-col flex-1 lg:pr-6 min-w-0">
-
-                                <div class="w-2/3">
-                                    <!-- ชื่อ -->
-                                    <h3 class="text-xl font-semibold text-gray-800 truncate">
-                                        <?= htmlspecialchars($row->event_name) ?>
-                                    </h3>
-
-                                    <!-- รายละเอียด -->
-                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed lg:line-clamp-2">
-                                        <?= htmlspecialchars($row->event_detail) ?>
-                                    </p>
-                                </div>
-
-                                <!-- เวลาด้านล่าง -->
-                                <?php
-                                $start = date("d M Y H:i", strtotime($row->start_date));
-                                $end   = date("d M Y H:i", strtotime($row->end_date));
-                                ?>
-
-                                <div class="lg:mt-auto lg:pt-4 flex flex-row lg:flex-none lg:flex-col">
-                                    <div class="lg:border-t border-r border-gray-200 mb-3"></div>
-                                    <div class="text-sm text-gray-500 flex lg:items-center gap-2">
-                                        <span></span>
-                                        <span><?= $start ?> -<br class="lg:hidden"> <?= $end ?></span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <!-- ฝั่งขวา -->
-                            <div class="lg:w-[10vw] flex lg:flex-col items-center lg:justify-center justify-between
-                    bg-white/60 rounded-xl px-4 lg:py-4 shadow-inner">
-
-                                <div class="flex-col items-center justify-center w-2/3">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide justify-center">
-                                        ผู้เข้าร่วม
-                                    </span>
-                                    <br>
-                                    <span class="text-lg font-bold text-gray-800 my-2">
-                                        <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
-                                    </span>
-                                </div>
-
-                                <?php if (isset($_SESSION['user_id'])) { ?>
-                                    <?php if ($row->event_status === 'Open' && strtotime($row->end_date) > time()): ?>
-
-                                        <form method="POST" action="" class="w-full flex lg:justify-center justify-end">
-                                            <input type="hidden" name="event_id" value="<?= $row->eid ?>">
-                                            <button type="submit" name="join"
-                                                class="lg:w-full w-1/2 bg-green-500 hover:bg-green-600
-                                                        text-white text-sm font-medium
-                                                        py-2 rounded-full shadow
-                                                        transition duration-200">
-                                                เข้าร่วม
-                                            </button>
-                                        </form>
-
-                                    <?php else: ?>
-
-                                        <div class="lg:w-full w-1/2 text-center bg-gray-400
-                                                    text-white text-sm font-medium
-                                                    py-2 rounded-full shadow">
-                                            หมดเวลา
-                                        </div>
-
-                                    <?php endif; ?>
-                                <?php } else { ?>
-                                    <a href="/login" class="lg:w-full w-1/2 text-center bg-green-500 hover:bg-green-600
-                          text-white text-sm font-medium
-                          py-2 rounded-full shadow
-                          transition duration-200">
-                                        เข้าร่วม
-                                    </a>
-                                <?php } ?>
-
-                            </div>
-
-                        </div>
-                    </div>
                     <!--my event-->
                     <div class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
                             hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[50vh] lg:flex-row flex-col lg:min-h-[170px]
             lg:overflow-hidden" 
                             >
                         <div class="lg:w-[20vw] lg:h-full w-full h-1/2 bg-imagePlaceholder flex-shrink-0 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
-                            <?php if (!empty($row->cover_image) && file_exists($imgPath)): ?>
+                            <?php 
+                            $imgPath = 'uploads/events/' . $row->cover_image;
+                            if (!empty($row->cover_image) && file_exists($imgPath)): ?>
                                 <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover">
                             <?php else: ?>
                                 <div class="w-full h-full flex items-center justify-center text-gray-40 ">
