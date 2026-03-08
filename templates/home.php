@@ -119,7 +119,7 @@
             transition-all duration-300">
 
                         <!-- รูป -->
-                        <div class="lg:w-[20vw] lg:h-full w-full max-h-72 h-1/2 flex-shrink-0 bg-gray-200 lg:rounded-l-xl lg:rounded-r-none   rounded-t-xl">
+                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 flex-shrink-0 bg-gray-200 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl over">
                             <?php
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
