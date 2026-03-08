@@ -215,7 +215,7 @@
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
                                 <span class="text-sm text-gray-600 mb-0.5">สถานะ</span>
 
-                                <div class="flex gap-2 mb-3 flex-col">
+                                <div class="flex gap-2 mb-3 lg:flex-col flex-row">
                                     <div class="flex flex-row gap-2 mb-3">
                                         <?php
                                         $statusColor = '';
