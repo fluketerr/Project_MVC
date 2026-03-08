@@ -36,7 +36,7 @@
 
     <div class="flex-1 bg-white/75 lg:my-4 lg:mr-4 lg:rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
-        <div class="px-8 py-6 flex items-start gap-4 flex-shrink-0">
+        <div class="lg:px-8 px-3 py-6 flex items-start gap-4 flex-shrink-0">
             <div class="relative w-[320px] gap-2">
                 <form method="GET" class="flex gap-3">
                      <div class="flex lg:hidden items-center justify-start">
@@ -66,7 +66,7 @@
 
         </div>
         <?php if ($data['result'] && $data['result']->num_rows > 0) { ?>
-            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4
+            <div class="overflow-y-auto lg:px-8 pb-8 flex flex-col gap-4
                     [&::-webkit-scrollbar]:w-2 
                   [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
                     [&::-webkit-scrollbar-thumb]:rounded-full
@@ -75,16 +75,16 @@
                 <?php while ($row = $data['result']->fetch_object()) { ?>
                     <!--my event-->
                     <div class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
-                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[50vh] lg:flex-row flex-col lg:min-h-[170px]
+                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[40vh] lg:flex-row flex-col lg:min-h-[170px]
             lg:overflow-hidden" 
                             >
-                        <div class="lg:w-[20vw] lg:h-full w-full max-h-64 h-1/2 bg-imagePlaceholder flex-shrink-0 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
+                        <div class="lg:w-[20vw] lg:h-full w-full max-h-44 h-1/3 bg-imagePlaceholder flex-shrink-0 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
                             <?php 
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
                                 <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover">
                             <?php else: ?>
-                                <div class="w-full h-full flex items-center justify-center text-gray-40 ">
+                                <div class="w-full h-full flex items-center justify-center text-gray-40 bg-gray-500 rounded-t-xl lg:rounded-r-none ">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
                                         <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
@@ -93,13 +93,13 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="flex-1 flex px-8 py-5 flex-col lg:flex-row">
+                        <div class="lg:flex-1 flex px-8 py-5 flex-col lg:flex-row">
                             <div class="flex lg:flex-col flex-1 lg:pr-4 min-w-0">
-                                <div class="w-2/3">
+                                <div class="lg:w-2/3 h-1/3 pb-4">
                                     <h3 class="text-lg font-medium text-gray-800 truncate">
                                         <?= htmlspecialchars($row->event_name) ?>
                                     </h3>
-                                    <p class="text-[12px] text-gray-500 mt-1 leading-relaxed line-clamp-2">
+                                    <p class="text-[12px] text-gray-500 mt-1 leading-relaxed lg:line-clamp-2">
                                         <?= htmlspecialchars($row->event_detail) ?>
                                     </p>
                                 </div>
@@ -111,7 +111,7 @@
 
                                 <div class="lg:mt-auto lg:pt-4 flex flex-row lg:flex-none lg:flex-col">
                                     <div class="lg:border-t border-l border-gray-200 mb-3"></div>
-                                    <div class="text-sm text-gray-500 flex items-center gap-2">
+                                    <div class="text-sm text-gray-500 flex lg:items-center gap-2">
                                         <span></span>
                                         <span><?= $start ?> - <?= $end ?></span>
                                     </div>

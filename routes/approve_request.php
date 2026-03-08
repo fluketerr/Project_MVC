@@ -1,6 +1,5 @@
 <?php
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $rid = (int)$_POST['rid'];
