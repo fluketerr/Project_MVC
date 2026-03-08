@@ -140,7 +140,7 @@
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
                                 <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
-                                    class="w-full h-full obj">
+                                    class="w-full h-full object-cover">
                             <?php else: ?>
                                 <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm min-h-[190px]">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
