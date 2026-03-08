@@ -119,12 +119,12 @@
             transition-all duration-300">
 
                         <!-- รูป -->
-                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 flex-shrink-0 bg-gray-200 lg:rounded-l-xl lg:rounded-r-none   rounded-t-xl">
+                        <div class="lg:w-[20vw] lg:h-full w-full max-h-72 h-1/2 flex-shrink-0 bg-gray-200 lg:rounded-l-xl lg:rounded-r-none   rounded-t-xl">
                             <?php
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
                                 <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
-                                    class="w-full h-full">
+                                    class="w-full h-full object-cover">
                             <?php else: ?>
                                 <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm min-h-[190px]">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

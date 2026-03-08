@@ -22,8 +22,7 @@
     </script>
 </head>
 
-<body
-    class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
+<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
         <?php include 'sideNav_allEvents.php'; ?>
@@ -43,8 +42,8 @@
 
         <div class="flex-1 overflow-y-auto px-8 pb-8 flex flex-col gap-4">
             <?php while ($row = $data['result']->fetch_object()) { ?>
-                <div class="bg-white rounded-2xl flex h-[150px] overflow-hidden shadow-sm">
-                    <div class="w-[280px] h-[150px] bg-imagePlaceholder flex-shrink-0 overflow-hidden">
+                <div class="bg-white rounded-2xl flex  overflow-hidden shadow-sm">
+                    <div class="w-[20vw] max-h-72 bg-imagePlaceholder flex-shrink-0 overflow-hidden">
                         <?php if (!empty($row->cover_image)): ?>
                             <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
                                 class="w-full h-full object-cover">
