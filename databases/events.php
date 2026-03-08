@@ -18,7 +18,7 @@ function getEvents(): mysqli_result|bool
                ) AS approved_count from Events e
            where e.event_status != 'Closed'";
     $result = $conn->query($sql);
-
+    $conn->close();
     return $result;
 }
 
@@ -54,8 +54,9 @@ function getNotinEvents(int $uid): mysqli_result|bool
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $uid, $uid);
     $stmt->execute();
+    $result = $stmt->get_result();
 
-    return $stmt->get_result();
+    return $result;
 }
 
 function getEventById(int $eid): mysqli_result|bool
@@ -72,6 +73,7 @@ function getEventById(int $eid): mysqli_result|bool
     $stmt->bind_param('i', $eid);
     $stmt->execute();
     $result = $stmt->get_result();
+    $conn->close();
 
     return $result;
 }
@@ -102,8 +104,10 @@ function getEventByCreateUid(int $uid)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $uid);
     $stmt->execute();
+    $result = $stmt->get_result();
+    $conn->close();
 
-    return $stmt->get_result();
+    return $result; 
 }
 
 function insertEvent($event, $conn): int | bool
@@ -167,7 +171,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 WHERE e.create_uid != ?
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM egistrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
                 AND LOWER(e.event_name) LIKE '%$keyword%' 
@@ -201,7 +205,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM egistrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
                 
@@ -236,7 +240,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM egistrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
         ";
@@ -270,7 +274,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM egistrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
         ";
@@ -319,7 +323,10 @@ function searchEventsPublic($keyword, $start, $end)
                   AND e.end_date <= '$end' ";
     }
 
-    return $conn->query($sql);
+    $result = $conn->query($sql);
+    $conn->close();
+
+    return $result;
 }
 
 function joinEvent($user_id, $event_id)
@@ -329,7 +336,9 @@ function joinEvent($user_id, $event_id)
     $sql = "INSERT INTO Registrations (uid, eid, status)
             VALUES ('$user_id', '$event_id', 'wait')";
 
-    return $conn->query($sql);
+    $result = $conn->query($sql);
+    $conn->close();
+    return $result;
 }
 
 function countCapacity($eid)
@@ -339,8 +348,7 @@ function countCapacity($eid)
     $sql = "select e.*,
                     COALESCE((select count(uid) 
                     from   Registrations
-                    where  eid = ?
-                    and status = 'approved' ), 0) as count_uid
+                    where  eid = ?), 0) as count_uid
             from  Events e
             where eid = ?";
     $stmt = $conn->prepare($sql);
@@ -390,6 +398,8 @@ function updateEvent(array $event, mysqli $conn): bool
     );
 
     $stmt->execute();
+    $result = $stmt->affected_rows >= 0;
+    $conn->close();
 
-    return $stmt->affected_rows >= 0;
+    return $result;
 }
