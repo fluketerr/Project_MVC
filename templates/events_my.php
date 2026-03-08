@@ -78,7 +78,7 @@
                             hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[50vh] lg:flex-row flex-col lg:min-h-[170px]
             lg:overflow-hidden" 
                             >
-                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 bg-imagePlaceholder flex-shrink-0 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
+                        <div class="lg:w-[20vw] lg:h-full w-full max-h-64 h-1/2 bg-imagePlaceholder flex-shrink-0 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
                             <?php 
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
