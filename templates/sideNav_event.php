@@ -43,9 +43,9 @@
 
         let active = 0; // 0 = left, 1 = right
 
-        if (currentPage === "/events" || currentPage === "/join_event" || currentPage === "/request_event" ||
-            currentPage === "/update_event" ||
-            currentPage === "/edit_event" || currentPage === "/manage_event") {
+        if (currentPage === "/events" || currentPage === "/event_join" || currentPage === "/event_request" ||
+            currentPage === "/event_update" ||
+            currentPage === "/event_edit" || currentPage === "/event_manage") {
             active = 1;
             switchEl.style.backgroundColor = "#6594B1";
             slider.style.transform = "translateX(89%)";
@@ -100,25 +100,25 @@
     <nav class="flex flex-col h-full">
         <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
-                <a href="/manage_event" id="manage_event"
+                <a href="/event_manage" id="manage_event"
                     class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">กิจกรรม</span>
                 </a>
             </li>
             <li class="m-0">
-                <a href="/join_event" id="join_event" class=" flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all
+                <a href="/event_join" id="join_event" class=" flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all
                     duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">ผู้เข้าร่วม</span>
                 </a>
             </li>
             <li class="m-0">
-                <a href="/request_event" id="request_event"
+                <a href="/event_request" id="request_event"
                     class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">คำขอเข้าร่วม</span>
                 </a>
             </li>
             <li class="m-0">
-                <a href="/edit_event" id="edit_event"
+                <a href="/event_edit" id="edit_event"
                     class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">แก้ไขกิจกรรม</span>
                 </a>
@@ -126,10 +126,10 @@
         </ul>
         <script>
         const routeMap = {
-            "/manage_event": "manage_event",
-            "/join_event": "join_event",
-            "/request_event": "request_event",
-            "/edit_event": "edit_event"
+            "/event_manage": "manage_event",
+            "/event_join": "join_event",
+            "/event_request": "request_event",
+            "/event_edit": "edit_event"
         };
 
         const activeId = routeMap[currentPage];

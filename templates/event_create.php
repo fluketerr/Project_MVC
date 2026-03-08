@@ -49,7 +49,7 @@
     <!-- ยังไม่ได้กรอกให้แสดงของตัวเอง -->
     <main class="items-center justify-center">
 
-        <form action="create_event" method="POST" enctype="multipart/form-data">
+        <form action="event_create" method="POST" enctype="multipart/form-data">
             <div class="min-h-screen flex items-center justify-center p-8">
                 <div class="w-full max-w-4xl bg-gray-200/75 rounded-3xl p-10 shadow-lg">
                     <div class="flex items-center mb-6 ">

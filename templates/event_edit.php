@@ -45,7 +45,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                     [&::-webkit-scrollbar-thumb]:rounded-full
 ">
 
-            <form action="update_event" method="POST" enctype="multipart/form-data">
+            <form action="event_update" method="POST" enctype="multipart/form-data">
 
                 <input type="hidden" name="eid" value="<?= (int)$event->eid ?>">
 

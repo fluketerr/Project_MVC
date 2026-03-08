@@ -108,7 +108,7 @@
             </li>
             <?php if (isset($_SESSION['user_email'])) { ?>
                 <li class="m-0">
-                    <a id="my_events" href="/my_events"
+                    <a id="my_events" href="/events_my"
                         class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
                         <span class="text-base">กิจกรรมที่ฉันเข้าร่วม</span>
                     </a>
@@ -120,7 +120,7 @@
             const routeMap = {
                 "/": "home",
                 "/home": "home",
-                "/my_events": "my_events"
+                "/events_my": "events_my"
             };
 
             const activeId = routeMap[currentPage];
