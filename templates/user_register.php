@@ -29,14 +29,11 @@
         font-family: 'Sarabun', sans-serif;
         min-height: 100vh;
         background: linear-gradient(to bottom, #EEEEEE, #888888);
-        overflow: hidden;
+        overflow-x: hidden;
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
-    /* ─── BG: fixed full-screen, rotated inner wrapper ─── */
+    /* ─── BG ─── */
     .bg {
         position: fixed;
         inset: 0;
@@ -70,77 +67,36 @@
         flex-shrink: 0;
     }
 
-    .bg-row:nth-child(odd) {
-        animation: slideL 50s linear infinite;
-    }
+    .bg-row:nth-child(odd)  { animation: slideL 50s linear infinite; }
+    .bg-row:nth-child(even) { animation: slideR 55s linear infinite; }
+    .bg-row:nth-child(3n+1) { animation-duration: 20s; }
+    .bg-row:nth-child(3n+2) { animation-duration: 25s; }
+    .bg-row:nth-child(5n)   { animation-duration: 16s; }
 
-    .bg-row:nth-child(even) {
-        animation: slideR 55s linear infinite;
-    }
+    @keyframes slideL { from { transform: translateX(0) }    to { transform: translateX(-50%) } }
+    @keyframes slideR { from { transform: translateX(-50%) } to { transform: translateX(0) } }
 
-    .bg-row:nth-child(3n+1) {
-        animation-duration: 20s;
-    }
+    .word { display: inline-flex; align-items: baseline; margin-right: 0.3em; }
+    .w-c1 .fill    { color: #213C51; }
+    .w-c2 .fill    { color: #DDAED3; }
+    .w-c1 .outline { -webkit-text-stroke: 2px #213C51; -webkit-text-fill-color: transparent; }
+    .w-c2 .outline { -webkit-text-stroke: 2px #DDAED3; -webkit-text-fill-color: transparent; }
 
-    .bg-row:nth-child(3n+2) {
-        animation-duration: 25s;
-    }
-
-    .bg-row:nth-child(5n) {
-        animation-duration: 16s;
-    }
-
-    @keyframes slideL {
-        from {
-            transform: translateX(0)
-        }
-
-        to {
-            transform: translateX(-50%)
-        }
-    }
-
-    @keyframes slideR {
-        from {
-            transform: translateX(-50%)
-        }
-
-        to {
-            transform: translateX(0)
-        }
-    }
-
-    .word {
-        display: inline-flex;
-        align-items: baseline;
-        margin-right: 0.3em;
-    }
-
-    .w-c1 .fill {
-        color: #213C51;
-    }
-
-    .w-c2 .fill {
-        color: #DDAED3;
-    }
-
-    .w-c1 .outline {
-        -webkit-text-stroke: 2px #213C51;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .w-c2 .outline {
-        -webkit-text-stroke: 2px #DDAED3;
-        -webkit-text-fill-color: transparent;
-    }
-
-    /* ─── Panel — semi-transparent so bg shows through ─── */
-    .panel {
+    /* ─── Page wrapper ─── */
+    .page-wrapper {
         position: relative;
         z-index: 10;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 16px;
+    }
+
+    /* ─── Panel ─── */
+    .panel {
         width: 100%;
         max-width: 580px;
-        margin: 20px;
         padding: 28px 44px 32px;
         display: flex;
         flex-direction: column;
@@ -161,21 +117,14 @@
         margin-bottom: 10px;
         width: fit-content;
     }
-
-    .back-link:hover {
-        opacity: 0.7;
-    }
+    .back-link:hover { opacity: 0.7; }
 
     .logo {
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
     }
-
-    .logo svg {
-        width: 90px;
-        height: 90px;
-    }
+    .logo svg { width: 90px; height: 90px; }
 
     .form-grid {
         display: grid;
@@ -184,9 +133,7 @@
         margin-bottom: 12px;
     }
 
-    .col-full {
-        grid-column: 1 / -1;
-    }
+    .col-full { grid-column: 1 / -1; }
 
     .field {
         display: flex;
@@ -217,12 +164,7 @@
         box-shadow: 0 0 0 3px rgba(107, 143, 191, .15);
     }
 
-    .input-icon {
-        color: #7a8499;
-        flex-shrink: 0;
-        width: 16px;
-        height: 16px;
-    }
+    .input-icon { color: #7a8499; flex-shrink: 0; width: 16px; height: 16px; }
 
     .input-wrap input,
     .input-wrap select {
@@ -231,30 +173,23 @@
         background: transparent;
         padding: 12px 0;
         font-family: 'Sarabun', sans-serif;
-        font-size: 14px;
+        font-size: max(16px, 14px); /* prevent iOS zoom */
         color: #1a1a2e;
         outline: none;
         appearance: none;
         -webkit-appearance: none;
+        min-width: 0;
     }
 
-    .input-wrap input::placeholder {
-        color: #b0b6c4;
-    }
+    .input-wrap input::placeholder { color: #b0b6c4; }
 
     .input-wrap select {
         color: #1a1a2e;
         cursor: pointer;
     }
 
-    .sel-wrap {
-        position: relative;
-    }
-
-    .sel-wrap .input-wrap {
-        padding-right: 32px;
-    }
-
+    .sel-wrap { position: relative; }
+    .sel-wrap .input-wrap { padding-right: 32px; }
     .sel-wrap::after {
         content: '';
         position: absolute;
@@ -267,7 +202,6 @@
         pointer-events: none;
     }
 
-    /* textarea address */
     .input-wrap.area {
         align-items: flex-start;
         padding: 10px 12px;
@@ -278,16 +212,15 @@
         border: none;
         background: transparent;
         font-family: 'Sarabun', sans-serif;
-        font-size: 14px;
+        font-size: max(16px, 14px);
         color: #1a1a2e;
         outline: none;
         resize: none;
         min-height: 64px;
+        width: 100%;
     }
 
-    .input-wrap.area textarea::placeholder {
-        color: #b0b6c4;
-    }
+    .input-wrap.area textarea::placeholder { color: #b0b6c4; }
 
     .eye-btn {
         background: none;
@@ -297,11 +230,10 @@
         color: #7a8499;
         display: flex;
         align-items: center;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
     }
-
-    .eye-btn:hover {
-        color: #333;
-    }
+    .eye-btn:hover { color: #333; }
 
     .links-row {
         display: flex;
@@ -317,10 +249,7 @@
         text-underline-offset: 2px;
         opacity: 0.8;
     }
-
-    .links-row a:hover {
-        opacity: 1;
-    }
+    .links-row a:hover { opacity: 1; }
 
     .btn-register {
         width: 100%;
@@ -335,165 +264,172 @@
         cursor: pointer;
         letter-spacing: 0.04em;
         transition: background .2s, transform .1s;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    .btn-register:hover  { background: var(--btn-h); }
+    .btn-register:active { transform: scale(.98); }
+
+    /* ─── Mobile tweaks ─── */
+    @media (max-width: 540px) {
+        .panel {
+            padding: 22px 18px 28px;
+            border-radius: 16px;
+        }
+
+        /* Stack 2-col grid to single column */
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        /* col-full is already 1-col, no change needed */
+        .col-full {
+            grid-column: 1;
+        }
+
+        .logo svg {
+            width: 70px;
+            height: 70px;
+        }
+        .logo { margin-bottom: 14px; }
     }
 
-    .btn-register:hover {
-        background: var(--btn-h);
-    }
-
-    .btn-register:active {
-        transform: scale(.98);
+    @media (max-width: 360px) {
+        .panel { padding: 18px 14px 24px; }
     }
     </style>
 </head>
 
-<body class="overflow-y-auto">
+<body>
 
-    <!-- BG -->
     <div class="bg">
         <div class="bg-inner" id="bgInner"></div>
     </div>
 
-    <!-- PANEL -->
-    <div class="panel">
-        <a href="/login" class="back-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="15 18 9 12 15 6" />
-            </svg>
-            Back
-        </a>
+    <div class="page-wrapper">
+        <div class="panel">
+            <a href="/login" class="back-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+                Back
+            </a>
 
-        <div class="logo">
-            <?php include 'logo.php' ?>
-        </div>
-
-        <form method="POST" action="">
-            <div class="form-grid">
-                <div class="field col-full">
-                    <label>อีเมล</label>
-                    <div class="input-wrap">
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                </div>
-                <div class="field">
-                    <label>ชื่อ</label>
-                    <div class="input-wrap"><input type="text" id="first_name" name="first_name" require></div>
-                </div>
-                <div class="field">
-                    <label>นามสกุล</label>
-                    <div class="input-wrap"><input type="text" id="last_name" name="last_name" required></div>
-                </div>
-                <div class="field">
-                    <label>เบอร์โทร</label>
-                    <div class="input-wrap"><input type="text" id="tel" name="tel" required></div>
-                </div>
-                <div class="field">
-                    <label>วันเกิด</label>
-                    <div class="input-wrap"><input type="date" id="birthday" name="birthday" required></div>
-                </div>
-                <div class="field sel-wrap">
-                    <label for="job">อาชีพ</label>
-                    <div class="input-wrap">
-                        <select id="job" name="job" required>
-                            <option value=" " disabled selected>เลือกอาชีพ</option>
-                            <option value="Student">นักเรียน</option>
-                            <option value="Designer">นักออกแบบ</option>
-                            <option value="Developer">ผู้พัฒนา</option>
-                            <option value="Programmer">โปรแกรมเมอร์</option>
-                            <option value="Manager">ผู้จัดการ</option>
-                            <option value="Teacher">ครู/อาจารย์</option>
-                            <option value="Engineer">วิศวกร</option>
-                            <option value="Self-employed">ฟรีแลนซ์</option>
-                            <option value="Unemployed">ว่างงาน</option>
-                            <option value="Other">อื่นๆ</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="field sel-wrap">
-                    <label for="gender">เพศ</label>
-                    <div class="input-wrap">
-                        <select id="gender" name="gender" required>
-                            <option value="" disabled selected>Select Gender</option>
-                            <option value="Male">ชาย</option>
-                            <option value="Female">หญิง</option>
-                            <option value="Other">อื่นๆ</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="field col-full">
-                    <label for="address">ที่อยู่</label>
-                    <div class="input-wrap area">
-                        <textarea placeholder="" id="address" name="address" required></textarea>
-                    </div>
-                </div>
-                <div class="field">
-                    <label for="password">รหัสผ่าน</label>
-                    <div class="input-wrap">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" />
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                        </svg>
-                        <input type="password" id="password" name="password" required>
-                        <button id="eye1" class="eye-btn" onclick="togglePw1('pw1','e1')" type="button">
-                            <svg id="e1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                width="18" height="18">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                <circle cx="12" cy="12" r="3" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="field">
-                    <label>ยืนยันรหัสผ่าน</label>
-                    <div class="input-wrap">
-                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" />
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                        </svg>
-                        <input type="password" id="confirm_password" name="confirm_password" required>
-                        <button id="eye2" class="eye-btn" onclick="togglePw2('pw2','e2')" type="button">
-                            <svg id="e2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                width="18" height="18">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                <circle cx="12" cy="12" r="3" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+            <div class="logo">
+                <?php include 'logo.php' ?>
             </div>
-        <div class="links-row"><a href="/login">มีบัญชีอยู่แล้ว?</a></div>
-        <button class="btn-register">สมัครสมาชิก</button>
-        </form>
 
+            <form method="POST" action="">
+                <div class="form-grid">
+                    <div class="field col-full">
+                        <label>อีเมล</label>
+                        <div class="input-wrap">
+                            <input type="email" id="email" name="email" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>ชื่อ</label>
+                        <div class="input-wrap"><input type="text" id="first_name" name="first_name" required autocomplete="given-name"></div>
+                    </div>
+                    <div class="field">
+                        <label>นามสกุล</label>
+                        <div class="input-wrap"><input type="text" id="last_name" name="last_name" required autocomplete="family-name"></div>
+                    </div>
+                    <div class="field">
+                        <label>เบอร์โทร</label>
+                        <div class="input-wrap"><input type="tel" id="tel" name="tel" required autocomplete="tel"></div>
+                    </div>
+                    <div class="field">
+                        <label>วันเกิด</label>
+                        <div class="input-wrap"><input type="date" id="birthday" name="birthday" required></div>
+                    </div>
+                    <div class="field sel-wrap">
+                        <label for="job">อาชีพ</label>
+                        <div class="input-wrap">
+                            <select id="job" name="job" required>
+                                <option value=" " disabled selected>เลือกอาชีพ</option>
+                                <option value="Student">นักเรียน</option>
+                                <option value="Designer">นักออกแบบ</option>
+                                <option value="Developer">ผู้พัฒนา</option>
+                                <option value="Programmer">โปรแกรมเมอร์</option>
+                                <option value="Manager">ผู้จัดการ</option>
+                                <option value="Teacher">ครู/อาจารย์</option>
+                                <option value="Engineer">วิศวกร</option>
+                                <option value="Self-employed">ฟรีแลนซ์</option>
+                                <option value="Unemployed">ว่างงาน</option>
+                                <option value="Other">อื่นๆ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field sel-wrap">
+                        <label for="gender">เพศ</label>
+                        <div class="input-wrap">
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">ชาย</option>
+                                <option value="Female">หญิง</option>
+                                <option value="Other">อื่นๆ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field col-full">
+                        <label for="address">ที่อยู่</label>
+                        <div class="input-wrap area">
+                            <textarea placeholder="" id="address" name="address" required></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="password">รหัสผ่าน</label>
+                        <div class="input-wrap">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <input type="password" id="password" name="password" required autocomplete="new-password">
+                            <button class="eye-btn" onclick="togglePw('password','e1')" type="button" aria-label="Toggle password">
+                                <svg id="e1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>ยืนยันรหัสผ่าน</label>
+                        <div class="input-wrap">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <input type="password" id="confirm_password" name="confirm_password" required autocomplete="new-password">
+                            <button class="eye-btn" onclick="togglePw('confirm_password','e2')" type="button" aria-label="Toggle confirm password">
+                                <svg id="e2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="links-row"><a href="/login">มีบัญชีอยู่แล้ว?</a></div>
+                <button class="btn-register" type="submit">สมัครสมาชิก</button>
+            </form>
+        </div>
     </div>
 
     <script>
     const wordSets = [
-        [['HACKATHON', 'c1'],['PARTY', 'c2'],['EVENT', 'c1'],['COMMUNITY', 'c2'],['MEETING', 'c1'],['MIXER', 'c2'],['WORK', 'c1'],['BALL', 'c2']],
-        [['CHARITY', 'c2'],['WORK', 'c1'],['MIXER', 'c2'],['PARTY', 'c1'],['EVENT', 'c2'],['HACKATHON', 'c1'],['COMMUNITY', 'c2'],['MEETING', 'c1']],
-        [['COMMUNITY', 'c1'],['MEETING', 'c2'],['HACKATHON', 'c1'],['WORK', 'c2'],['PARTY', 'c1'],['CHARITY', 'c2'],['MIXER', 'c1'],['EVENT', 'c2']],
-        [['EVENT', 'c2'],['MIXER', 'c1'],['PARTY', 'c2'],['CHARITY', 'c1'],['MEETING', 'c2'],['WORK', 'c1'],['BALL', 'c2'],['HACKATHON', 'c1']],
-        [['PARTY', 'c1'],['COMMUNITY', 'c2'],['HACKATHON', 'c1'],['MEETING', 'c2'],['WORK', 'c1'],['EVENT', 'c2'],['MIXER', 'c1'],['CHARITY', 'c2']],
-        [['MIXER', 'c2'],['EVENT', 'c1'],['CHARITY', 'c2'],['PARTY', 'c1'],['MEETING', 'c2'],['COMMUNITY', 'c1'],['WORK', 'c2'],['BALL', 'c1']],
-        [['HACKATHON', 'c2'],['COMMUNITY', 'c1'],['WORK', 'c2'],['MIXER', 'c1'],['EVENT', 'c2'],['PARTY', 'c1'],['BALL', 'c1'],['MEETING', 'c2']],
-        [['PARTY', 'c1'],['MEETING', 'c2'],['CHARITY', 'c1'],['HACKATHON', 'c2'],['MIXER', 'c1'],['WORK', 'c2'],['EVENT', 'c1'],['COMMUNITY', 'c2']],
-        [['EVENT', 'c2'],['PARTY', 'c1'],['COMMUNITY', 'c2'],['WORK', 'c1'],['HACKATHON', 'c2'],['MEETING', 'c1'],['CHARITY', 'c2'],['MIXER', 'c1']],
-        [['WORK', 'c1'],['MIXER', 'c2'],['PARTY', 'c1'],['COMMUNITY', 'c2'],['MEETING', 'c1'],['CHARITY', 'c2'],['BALL', 'c2'],['EVENT', 'c1']],
-        [['BALL', 'c1'],['HACKATHON', 'c2'],['EVENT', 'c1'],['MIXER', 'c2'],['PARTY', 'c1'],['COMMUNITY', 'c2'],['WORK', 'c1'],['CHARITY', 'c2']],
-        [['MEETING', 'c2'],['CHARITY', 'c1'],['BALL', 'c2'],['PARTY', 'c1'],['HACKATHON', 'c2'],['EVENT', 'c1'],['MIXER', 'c2'],['WORK', 'c1']],
-        [['HACKATHON', 'c1'],['BALL', 'c2'],['COMMUNITY', 'c1'],['MEETING', 'c2'],['WORK', 'c1'],['PARTY', 'c2'],['EVENT', 'c1'],['MIXER', 'c2']],
-        [['MIXER', 'c1'],['CHARITY', 'c2'],['PARTY', 'c1'],['BALL', 'c2'],['HACKATHON', 'c1'],['WORK', 'c2'],['COMMUNITY', 'c1'],['MEETING', 'c2']],
-        [['EVENT', 'c2'],['MEETING', 'c1'],['MIXER', 'c2'],['CHARITY', 'c1'],['PARTY', 'c2'],['BALL', 'c1'],['HACKATHON', 'c2'],['WORK', 'c1']],
-        [['COMMUNITY', 'c2'],['WORK', 'c1'],['PARTY', 'c2'],['EVENT', 'c1'],['MIXER', 'c2'],['MEETING', 'c1'],['CHARITY', 'c2'],['BALL', 'c1']],
-        [['BALL', 'c1'],['PARTY', 'c2'],['HACKATHON', 'c1'],['COMMUNITY', 'c2'],['WORK', 'c1'],['MIXER', 'c2'],['EVENT', 'c1'],['MEETING', 'c2']],
-        [['CHARITY', 'c1'],['EVENT', 'c2'],['MEETING', 'c1'],['BALL', 'c2'],['PARTY', 'c1'],['HACKATHON', 'c2'],['WORK', 'c1'],['MIXER', 'c2']],
-        [['WORK', 'c2'],['COMMUNITY', 'c1'],['BALL', 'c2'],['MIXER', 'c1'],['CHARITY', 'c2'],['EVENT', 'c1'],['PARTY', 'c2'],['HACKATHON', 'c1']],
-        [['PARTY', 'c1'],['HACKATHON', 'c2'],['MEETING', 'c1'],['WORK', 'c2'],['BALL', 'c1'],['COMMUNITY', 'c2'],['MIXER', 'c1'],['CHARITY', 'c2']],
-        [['MIXER', 'c2'],['BALL', 'c1'],['EVENT', 'c2'],['PARTY', 'c1'],['COMMUNITY', 'c2'],['HACKATHON', 'c1'],['MEETING', 'c2'],['WORK', 'c1']],
-        [['HACKATHON', 'c1'],['CHARITY', 'c2'],['WORK', 'c1'],['MEETING', 'c2'],['MIXER', 'c1'],['BALL', 'c2'],['PARTY', 'c1'],['EVENT', 'c2']],
-        [['EVENT', 'c1'],['COMMUNITY', 'c2'],['PARTY', 'c1'],['HACKATHON', 'c2'],['CHARITY', 'c1'],['MIXER', 'c2'],['BALL', 'c1'],['WORK', 'c2']],
-        [['WORK', 'c2'],['MEETING', 'c1'],['BALL', 'c2'],['EVENT', 'c1'],['COMMUNITY', 'c2'],['PARTY', 'c1'],['HACKATHON', 'c2'],['MIXER', 'c1']],
-        [['BALL', 'c2'],['MIXER', 'c1'],['HACKATHON', 'c2'],['CHARITY', 'c1'],['WORK', 'c2'],['EVENT', 'c1'],['MEETING', 'c2'],['COMMUNITY', 'c1']],
+        [['HACKATHON','c1'],['PARTY','c2'],['EVENT','c1'],['COMMUNITY','c2'],['MEETING','c1'],['MIXER','c2'],['WORK','c1'],['BALL','c2']],
+        [['CHARITY','c2'],['WORK','c1'],['MIXER','c2'],['PARTY','c1'],['EVENT','c2'],['HACKATHON','c1'],['COMMUNITY','c2'],['MEETING','c1']],
+        [['COMMUNITY','c1'],['MEETING','c2'],['HACKATHON','c1'],['WORK','c2'],['PARTY','c1'],['CHARITY','c2'],['MIXER','c1'],['EVENT','c2']],
+        [['EVENT','c2'],['MIXER','c1'],['PARTY','c2'],['CHARITY','c1'],['MEETING','c2'],['WORK','c1'],['BALL','c2'],['HACKATHON','c1']],
+        [['PARTY','c1'],['COMMUNITY','c2'],['HACKATHON','c1'],['MEETING','c2'],['WORK','c1'],['EVENT','c2'],['MIXER','c1'],['CHARITY','c2']],
+        [['MIXER','c2'],['EVENT','c1'],['CHARITY','c2'],['PARTY','c1'],['MEETING','c2'],['COMMUNITY','c1'],['WORK','c2'],['BALL','c1']],
+        [['HACKATHON','c2'],['COMMUNITY','c1'],['WORK','c2'],['MIXER','c1'],['EVENT','c2'],['PARTY','c1'],['BALL','c1'],['MEETING','c2']],
+        [['PARTY','c1'],['MEETING','c2'],['CHARITY','c1'],['HACKATHON','c2'],['MIXER','c1'],['WORK','c2'],['EVENT','c1'],['COMMUNITY','c2']],
+        [['EVENT','c2'],['PARTY','c1'],['COMMUNITY','c2'],['WORK','c1'],['HACKATHON','c2'],['MEETING','c1'],['CHARITY','c2'],['MIXER','c1']],
+        [['WORK','c1'],['MIXER','c2'],['PARTY','c1'],['COMMUNITY','c2'],['MEETING','c1'],['CHARITY','c2'],['BALL','c2'],['EVENT','c1']],
     ];
 
     const inner = document.getElementById('bgInner');
@@ -503,34 +439,19 @@
         let html = '';
         for (let r = 0; r < 4; r++) {
             pat.forEach(([word, cls]) => {
-                html +=
-                    `<span class="word w-${cls}"><span class="fill">${word[0]}</span><span class="outline">${word.slice(1)}</span></span>`;
+                html += `<span class="word w-${cls}"><span class="fill">${word[0]}</span><span class="outline">${word.slice(1)}</span></span>`;
             });
         }
         row.innerHTML = html;
         inner.appendChild(row);
     });
 
-    function togglePw1(id, iconId) {
-        const inp = document.getElementById("password");
-        const ico = document.getElementById("e1");
+    function togglePw(inputId, iconId) {
+        const inp = document.getElementById(inputId);
+        const ico = document.getElementById(iconId);
         if (inp.type === 'password') {
             inp.type = 'text';
-            ico.innerHTML =
-                `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
-        } else {
-            inp.type = 'password';
-            ico.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
-        }
-    }
-
-    function togglePw2(id, iconId) {
-        const inp = document.getElementById("confirm_password");
-        const ico = document.getElementById("e2");
-        if (inp.type === 'password') {
-            inp.type = 'text';
-            ico.innerHTML =
-                `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+            ico.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
         } else {
             inp.type = 'password';
             ico.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
