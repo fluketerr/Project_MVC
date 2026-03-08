@@ -72,7 +72,7 @@
             transition-all duration-300">
 
                         <!-- รูป -->
-                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 flex-shrink-0 bg-gray-200 lg:rounded-l-xl lg:rounded-r-none   rounded-t-xl">
+                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 flex-shrink-0 bg-gray-200 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
                             <?php
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
@@ -80,7 +80,7 @@
                                     class="w-full h-full">
                             <?php else: ?>
                                 <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm min-h-[190px]">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="rounded-t-2xl" width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
                                         <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
                                         <circle cx="8.5" cy="8.5" r="1.5" fill="white" fill-opacity="0.7" />
@@ -174,16 +174,20 @@
                         </div>
                     </div>
                     <!--my event-->
-                    <div class="bg-white/30 rounded-2xl flex min-h-96 overflow-hidden --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
-                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl lg:flex-row flex-col lg:min-h-[170px]
+                    <div class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
+                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[50vh] lg:flex-row flex-col lg:min-h-[170px]
             lg:overflow-hidden" 
                             >
-                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 bg-imagePlaceholder flex-shrink-0">
-                            <?php if (!empty($row->cover_image)): ?>
+                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 bg-imagePlaceholder flex-shrink-0 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
+                            <?php if (!empty($row->cover_image) && file_exists($imgPath)): ?>
                                 <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover">
                             <?php else: ?>
-                                <div class="w-full h-full flex items-center justify-center text-gray-400">
-                                    ไม่มีรูป
+                                <div class="w-full h-full flex items-center justify-center text-gray-40 ">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
+                                        <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
+                                        <circle cx="8.5" cy="8.5" r="1.5" fill="white" fill-opacity="0.7" />
+                                    </svg>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -289,11 +293,14 @@
                                 <?php } ?>
                             </div>
 
-                            <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
-                                <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span>
-                                <span class="text-sm font-medium text-gray-800 mb-3">
+                            <div class="lg:w-[10vw] flex lg:flex-col items-center lg:justify-center justify-between
+                    bg-white/60 rounded-xl px-4 lg:py-4 shadow-inner">
+                                <div>
+                                    <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span><br>
+                                    <span class="text-sm font-medium text-gray-800 mb-3">
                                     <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
-                                </span>
+                                    </span>
+                                </div>
                                 <form method="POST">
                                     <input type="hidden" name="event_id" value="<?= $row->eid ?>">
                                     <button type="submit" name="cancel" class="bg-red-500 hover:bg-red-700 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">ยกเลิกการเข้าร่วม</button>
