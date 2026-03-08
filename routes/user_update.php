@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         // Pass current POST data back so the user doesn't lose their typing
-        renderView('update_user', [
+        renderView('user_update', [
             'first_name' => $_POST['first_name'],
             'last_name'  => $_POST['last_name'],
             'user'       => $_POST, 
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // --- GET Request: Display Form ---
-    renderView('update_user', [
+    renderView('user_update', [
         'first_name' => $currentFirstName,
         'last_name'  => $currentLastName,
         'user'       => $currentUser
