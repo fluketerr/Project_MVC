@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-<aside class="flex flex-col w-64 bg-transparent h-screen left-0 top-0">
+<aside id="side-menu" class="flex flex-col w-64 md:bg-transparent md:bg-none bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_75%)] h-screen left-0 top-0 z-20 absolute md:static">
 
     <div class="w-full grid grid-cols-[1fr_1fr_1fr_1fr_1fr] items-center gap-4 px-5 pt-6">
         <a class="w-7 h-7 bg-[#6594B1]  rounded-full flex items-center justify-center text-sm font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
@@ -64,6 +64,36 @@
                 window.location.href = "/home";
             }
         });
+
+        //swipemenu for phone
+            const menu = document.getElementById('side-menu');
+
+            let startX = 0;
+            let endX = 0;
+            const threshold = 60; // Min distance for a swipe
+
+            const openMenu = () => {
+                menu.classList.replace('hidden', 'flex');
+            };
+
+            const closeMenu = () => {
+                menu.classList.replace('flex', 'hidden');
+            };
+
+            document.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            });
+
+            document.addEventListener('touchend', e => {
+                endX = e.changedTouches[0].clientX;
+                const diffX = endX - startX;
+
+                if (diffX > threshold && startX < 50) {
+                    openMenu();
+                } else if (diffX < -threshold) {
+                    closeMenu();
+                }
+            });
         </script>
     </div>
 

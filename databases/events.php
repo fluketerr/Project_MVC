@@ -16,7 +16,7 @@ function getEvents(): mysqli_result|bool
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count from events e
-            where e.event_status != 'Closed'";
+           where e.event_status != 'Closed'";
     $result = $conn->query($sql);
 
     return $result;
@@ -47,6 +47,7 @@ function getNotinEvets(int $uid): mysqli_result|bool
                 WHERE uid = ?
         )
         AND e.create_uid != ?
+        and e.event_status != 'Closed'
         ORDER BY e.eid DESC
     ";
 
@@ -169,7 +170,8 @@ function searchEvents($keyword, $start, $end, $uid)
                 FROM registrations
                 WHERE uid = ?
                                 )
-                AND LOWER(e.event_name) LIKE '%$keyword%' ";
+                AND LOWER(e.event_name) LIKE '%$keyword%' 
+                and e.event_status != 'Closed'";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ii', $uid, $uid);
         $stmt->execute();
@@ -191,10 +193,12 @@ function searchEvents($keyword, $start, $end, $uid)
                    FROM Registrations r
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
-               ) AS approved_count FROM Events e
-            WHERE start_date >= ?
-              AND end_date <= ?
-              and e.create_uid != ?
+               ) AS approved_count 
+                FROM Events e
+                WHERE start_date >= ?
+                AND end_date <= ?
+                and e.create_uid != ?
+                and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
                 FROM registrations
@@ -226,9 +230,10 @@ function searchEvents($keyword, $start, $end, $uid)
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count 
-                    FROM Events e
-            WHERE start_date >= ?
-            and e.create_uid != ?
+                FROM Events e
+                WHERE start_date >= ?
+                and e.create_uid != ?
+                and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
                 FROM registrations
@@ -260,8 +265,9 @@ function searchEvents($keyword, $start, $end, $uid)
                    AND r.status = 'approved'
                ) AS approved_count
                  FROM Events e
-            WHERE end_date <= ?
-            and e.create_uid != ?
+                WHERE end_date <= ?
+                and e.create_uid != ?
+                and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
                 FROM registrations
@@ -300,6 +306,7 @@ function searchEventsPublic($keyword, $start, $end)
                ) AS approved_count
         FROM Events e
         WHERE 1=1
+        and e.event_status != 'Closed'
     ";
 
     if ($keyword != '') {
