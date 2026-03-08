@@ -35,7 +35,7 @@
     </div>
     <main class="flex flex-col flex-1 w-full">
         <!-- แผ่นขาวหลัก -->
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col">
+        <div class="flex-1 bg-white/75 lg:my-4 lg:mr-4 lg:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col">
 
             <!-- message -->
             <?php if (!empty($_SESSION['message'])): ?>

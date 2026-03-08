@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-<aside id="side-menu" class="flex flex-col w-64 md:bg-transparent md:bg-none bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_75%)] h-screen left-0 top-0 z-20 absolute md:static">
+<aside id="side-menu" class="flex flex-col w-64 md:bg-transparent md:bg-none bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_75%)] h-screen left-0 top-0 z-20 absolute md:static transition-all">
 
     <div class="w-full grid grid-cols-[1fr_1fr_1fr_1fr_1fr] items-center gap-4 px-5 pt-6">
         <a class="w-7 h-7 bg-[#6594B1]  rounded-full flex items-center justify-center text-sm font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
@@ -73,11 +73,13 @@
             const threshold = 60; // Min distance for a swipe
 
             const openMenu = () => {
-                menu.classList.replace('hidden', 'flex');
+                //menu.classList.replace('hidden', 'flex');
+                menu.style.transform = "translateX(0%)";
             };
 
             const closeMenu = () => {
-                menu.classList.replace('flex', 'hidden');
+                //menu.classList.replace('flex', 'hidden');
+                menu.style.transform = "translateX(-100%)";
             };
 
             document.addEventListener('touchstart', e => {

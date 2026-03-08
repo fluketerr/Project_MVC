@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-<aside id="side-menu" class="hidden lg:flex flex-col w-64 h-screen left-0 top-0 md:bg-transparent lg:bg-none bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] z-20 absolute lg:static">
+<aside id="side-menu" class="flex flex-col w-64 h-screen left-0 top-0 md:bg-transparent lg:bg-none bg-[#F5D0ED]/90 backdrop-blur-sm z-20 absolute lg:static transition-all">
 
     <div class="w-64 flex items-center justify-center pt-6">
         <a href="/" class="">
@@ -74,11 +74,13 @@
             const threshold = 60; // Min distance for a swipe
 
             const openMenu = () => {
-                menu.classList.replace('hidden', 'flex');
+                //menu.classList.replace('hidden', 'flex');
+                menu.style.transform = "translateX(0%)";
             };
 
             const closeMenu = () => {
-                menu.classList.replace('flex', 'hidden');
+                //menu.classList.replace('flex', 'hidden');
+                menu.style.transform = "translateX(-100%)";
             };
 
             document.addEventListener('touchstart', e => {
@@ -108,7 +110,7 @@
             </li>
             <?php if (isset($_SESSION['user_email'])) { ?>
                 <li class="m-0">
-                    <a id="my_events" href="/events_my"
+                    <a id="events_my" href="/events_my"
                         class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
                         <span class="text-base">กิจกรรมที่ฉันเข้าร่วม</span>
                     </a>

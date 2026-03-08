@@ -35,15 +35,22 @@
     </div>
     <main class="flex flex-col flex-1 w-full overflow-x-auto">
         <?php $row = $data['event']->fetch_object(); ?>
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-hidden">
+        <div class="flex-1 bg-white/75 lg:my-4 lg:mr-4 lg:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-hidden">
 
             <!-- Header Section -->
-            <div class="flex gap-8">
+            <div class="flex gap-8 flex-col lg:flex-row">
+                <div class="flex lg:hidden items-center justify-start">
+                    <button type="button" onclick="openMenu();">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                            <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                        </svg>
+                    </button>
+                </div>
 
                 <!-- Cover Image -->
                 <?php if (!empty($data['pictures']) && $pic = $data['pictures']->fetch_object()): ?>
 
-                    <div class="w-[420px] h-[240px]">
+                    <div class="lg:w-[420px] h-[240px]">
                         <img src="/uploads/events/<?= $pic->picture_name ?>"
                             class="w-full h-full object-cover rounded-xl border border-gray-300">
                     </div>
