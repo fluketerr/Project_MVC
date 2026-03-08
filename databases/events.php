@@ -73,7 +73,7 @@ function getEventById(int $eid): mysqli_result|bool
     $stmt->bind_param('i', $eid);
     $stmt->execute();
     $result = $stmt->get_result();
-    $conn->close();
+    
 
     return $result;
 }
@@ -399,7 +399,7 @@ function updateEvent(array $event, mysqli $conn): bool
 
     $stmt->execute();
     $result = $stmt->affected_rows >= 0;
-    $conn->close();
+    
 
     return $result;
 }

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $eid = $_GET['eid'] ?? '';
 $page = $_GET['page'] ?? '';
 $_SESSION['eid'] = $eid;

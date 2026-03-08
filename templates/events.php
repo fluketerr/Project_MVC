@@ -137,6 +137,7 @@
                                 href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_join">
                                 สถิติ
                             </a>
+                            
                         </div>
                     </div>
                 </div>

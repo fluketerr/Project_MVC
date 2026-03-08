@@ -129,7 +129,7 @@
         ">
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 
-                    <a class="bg-white/30 backdrop-blur-sm rounded-2xl flex lg:flex-row flex-col lg:min-h-[170px]
+                    <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex lg:flex-row flex-col lg:min-h-[170px]
             lg:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
             transition-all duration-300">
@@ -243,7 +243,7 @@
                             </div>
 
                         </div>
-                    </a>
+                    </div>
 
                 <?php } ?>
             </div>
