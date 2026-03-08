@@ -2,7 +2,7 @@
 function getUsers(): mysqli_result|bool
 {
     global $conn;
-    $sql = 'select * from users';
+    $sql = 'select * from Users';
     $result = $conn->query($sql);
     $conn->close();
     return $result;
@@ -10,7 +10,7 @@ function getUsers(): mysqli_result|bool
 function updateStudentPassword(int $id, string $hashed_password): bool
 {
     global $conn;
-    $sql = 'update users set password = ? where uid = ?';
+    $sql = 'update Users set password = ? where uid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('si', $hashed_password, $id);
     $stmt->execute();
@@ -20,7 +20,7 @@ function updateStudentPassword(int $id, string $hashed_password): bool
 function updateUserPassword(int $id, string $hashed_password): bool
 {
     global $conn;
-    $sql = 'update users set password = ? where uid = ?';
+    $sql = 'update Users set password = ? where uid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('si', $hashed_password, $id);
     $stmt->execute();
@@ -30,7 +30,7 @@ function updateUserPassword(int $id, string $hashed_password): bool
 function getUsersById(int $id): mysqli_result|bool
 {
     global $conn;
-    $sql = 'select * from users where uid = ?';
+    $sql = 'select * from Users where uid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -41,7 +41,7 @@ function getUsersById(int $id): mysqli_result|bool
 function getUserIdByEmail(string $email): int
 {
     global $conn;
-    $sql = 'select uid from users where email = ?';
+    $sql = 'select uid from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
     $stmt->execute();
@@ -56,7 +56,7 @@ function getUserIdByEmail(string $email): int
 function getUserNameByEmail(string $email): mysqli_result|string
 {
     global $conn;
-    $sql = 'select name from users where email = ?';
+    $sql = 'select name from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
     $stmt->execute();
@@ -71,7 +71,7 @@ function getUserNameByEmail(string $email): mysqli_result|string
 function checkLogin(string $email, string $password): bool
 {
     global $conn;
-    $sql = 'select password from users where email = ?';
+    $sql = 'select password from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
     $stmt->execute();
@@ -88,7 +88,7 @@ function registerUser(string $name, string $email, string $password, string $bir
 {
     global $conn;
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = 'insert into users (name, email, password, birthday, tel, job, gender, address) values (?, ?, ?, ?, ?, ?, ?, ?)';
+    $sql = 'insert into Users (name, email, password, birthday, tel, job, gender, address) values (?, ?, ?, ?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ssssssss', $name, $email, $hashed_password, $birthday, $tel, $job, $gender, $address);
     return $stmt->execute();
@@ -97,7 +97,7 @@ function registerUser(string $name, string $email, string $password, string $bir
 function checkEmailExists(string $email): bool
 {
     global $conn;
-    $sql = 'select uid from users where email = ?';
+    $sql = 'select uid from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
     $stmt->execute();
@@ -121,7 +121,7 @@ function isValidBirthday(string $birthday): bool
 function updateUserData(int $uid, string $name, string $birthday, string $tel, string $job , string $gender, string $address): int
 {
     global $conn;
-    $sql = 'UPDATE users SET name = ?, birthday = ?, tel = ?, job = ?, gender = ?, address = ? WHERE uid = ?';
+    $sql = 'UPDATE Users SET name = ?, birthday = ?, tel = ?, job = ?, gender = ?, address = ? WHERE uid = ?';
     $stmt = $conn->prepare($sql); 
     
     $stmt->bind_param('ssssssi', $name, $birthday, $tel, $job, $gender, $address, $uid);
@@ -135,7 +135,7 @@ function updateCheckIn(string $uid,string $eid):bool
     global $conn;
     $status = 'approved';
     $time = date('Y-m-d H:i:s');
-    $sql = 'update registrations set checkin_time = ? where uid = ? and eid = ? and status = ?';
+    $sql = 'update Registrations set checkin_time = ? where uid = ? and eid = ? and status = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('siis',$time, $uid, $eid,$status);
     $stmt->execute();

@@ -15,7 +15,7 @@ function getEvents(): mysqli_result|bool
                    FROM Registrations r
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
-               ) AS approved_count from events e
+               ) AS approved_count from Events e
            where e.event_status != 'Closed'";
     $result = $conn->query($sql);
 
@@ -67,7 +67,7 @@ function getEventById(int $eid): mysqli_result|bool
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count 
-            from events e where eid = ?";
+            from Events e where eid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $eid);
     $stmt->execute();
@@ -340,7 +340,7 @@ function countCapacity($eid)
                     COALESCE((select count(uid) 
                     from   registrations
                     where  eid = ?), 0) as count_uid
-            from  events e
+            from  Events e
             where eid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $eid, $eid);
@@ -353,7 +353,7 @@ function autoCloseEvent()
     $conn = getConnection();
 
     $sql = "
-        UPDATE events
+        UPDATE Events
         SET event_status = 
             CASE
                 WHEN end_date < NOW() THEN 'Closed'

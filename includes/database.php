@@ -7,6 +7,7 @@ $dbName = 'project_regisevent';
 $username = 'demo';
 $password = '1234';
 $conn = new mysqli($hostname, $username, $password, $dbName);
+$conn->set_charset("utf8mb4");
 
 function getConnection(): mysqli
 {   

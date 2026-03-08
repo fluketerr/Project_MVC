@@ -1,7 +1,7 @@
 <?php
 function getPictureById(int $eid, $conn): mysqli_result | bool
 {
-    $sql = 'select * from pictures where eid = ?';
+    $sql = 'select * from Pictures where eid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $eid);
     $stmt->execute();
@@ -11,7 +11,7 @@ function getPictureById(int $eid, $conn): mysqli_result | bool
 
 function getPictureByPid(int $pid, mysqli $conn): ?array
 {
-    $sql = "SELECT * FROM pictures WHERE pid = ?";
+    $sql = "SELECT * FROM Pictures WHERE pid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $pid);
     $stmt->execute();
@@ -35,7 +35,7 @@ function insertPicture(string $picture_name, string $eid, $conn): bool
 
 function deletePictureById(int $id, $conn): bool
 {
-    $sql = 'delete from pictures where eid = ?';
+    $sql = 'delete from Pictures where eid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
     $stmt->execute();
@@ -44,7 +44,7 @@ function deletePictureById(int $id, $conn): bool
 
 function deletePictureByPid(int $pid, mysqli $conn): bool
 {
-    $sql = "DELETE FROM pictures WHERE pid = ?";
+    $sql = "DELETE FROM Pictures WHERE pid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $pid);
     $stmt->execute();
