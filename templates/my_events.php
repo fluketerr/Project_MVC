@@ -34,7 +34,7 @@
         <?php include 'sideNav_home.php'; ?>
     </div>
 
-    <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
+    <div class="flex-1 bg-white/75 my-4 lg:mr-4 rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
         <div class="px-8 py-6 flex items-start gap-4 flex-shrink-0">
             <div class="relative w-[320px] gap-2">
@@ -173,11 +173,12 @@
 
                         </div>
                     </div>
-
-                    <!--<div class="bg-white/30 rounded-2xl flex min-h-[150px] overflow-hidden --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
-                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl" 
+                    <!--my event-->
+                    <div class="bg-white/30 rounded-2xl flex min-h-96 overflow-hidden --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
+                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl lg:flex-row flex-col lg:min-h-[170px]
+            lg:overflow-hidden" 
                             >
-                        <div class="w-[280px] bg-imagePlaceholder flex-shrink-0">
+                        <div class="lg:w-[20vw] lg:h-full w-full h-1/2 bg-imagePlaceholder flex-shrink-0">
                             <?php if (!empty($row->cover_image)): ?>
                                 <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover">
                             <?php else: ?>
@@ -186,22 +187,24 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="flex-1 flex px-8 py-5">
-                            <div class="flex flex-col flex-1 pr-4 min-w-0">
-                                <h3 class="text-lg font-medium text-gray-800 truncate">
-                                    <?= htmlspecialchars($row->event_name) ?>
-                                </h3>
-                                <p class="text-[12px] text-gray-500 mt-1 leading-relaxed line-clamp-2">
-                                    <?= htmlspecialchars($row->event_detail) ?>
-                                </p>
+                        <div class="flex-1 flex px-8 py-5 flex-col lg:flex-row">
+                            <div class="flex lg:flex-col flex-1 lg:pr-4 min-w-0">
+                                <div class="w-2/3">
+                                    <h3 class="text-lg font-medium text-gray-800 truncate">
+                                        <?= htmlspecialchars($row->event_name) ?>
+                                    </h3>
+                                    <p class="text-[12px] text-gray-500 mt-1 leading-relaxed line-clamp-2">
+                                        <?= htmlspecialchars($row->event_detail) ?>
+                                    </p>
+                                </div>
 
                                 <?php
                                 $start = date("d M Y H:i", strtotime($row->start_date));
                                 $end   = date("d M Y H:i", strtotime($row->end_date));
                                 ?>
 
-                                <div class="mt-auto pt-4">
-                                    <div class="border-t border-gray-200 mb-3"></div>
+                                <div class="lg:mt-auto lg:pt-4 flex flex-row lg:flex-none lg:flex-col">
+                                    <div class="lg:border-t border-l border-gray-200 mb-3"></div>
                                     <div class="text-sm text-gray-500 flex items-center gap-2">
                                         <span></span>
                                         <span><?= $start ?> - <?= $end ?></span>
@@ -297,7 +300,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
 
                 <?php } ?>
             </div>
