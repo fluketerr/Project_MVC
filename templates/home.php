@@ -112,7 +112,7 @@
         ">
                 <div class="mb-14">ㅤ</div>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
-
+                   
                     <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex lg:flex-row flex-col lg:min-h-[170px]
             lg:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
@@ -220,7 +220,7 @@
 
                         </div>
                     </div>
-
+                    
                 <?php } ?>
             </div>
         <?php } else { ?>
