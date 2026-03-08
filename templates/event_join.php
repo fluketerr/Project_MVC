@@ -117,7 +117,7 @@
             </div>
 
             <!-- ===== search ===== -->
-            <form method="GET" action="/join_event" class="mb-4">
+            <form method="GET" action="/event_join" class="mb-4">
                 <div class="relative max-w-lg">
                     <input
                         type="text"
