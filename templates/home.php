@@ -200,7 +200,7 @@
                                         ผู้เข้าร่วม
                                     </span>
                                   
-                                    <span class="text-lg font-bold text-gray-800 my-2">
+                                    <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap">
                                         <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
                                     </span>
                                 </div>

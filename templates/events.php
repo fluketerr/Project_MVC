@@ -35,7 +35,7 @@
             <div class="flex xl:hidden items-center justify-start">
                 <button id="openMenuBtn" type="button" onclick="openMenu();">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
-                        <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z"/>
+                        <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
                     </svg>
                 </button>
             </div>
@@ -54,7 +54,7 @@
                 <div class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
                             hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[30vh] xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden">
-                    <div class="xl:w-[20vw] xl:h-full w-full max-h-48 h-1/2 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
+                    <div class="xl:w-[18vw] xl:h-full w-full max-h-48 h-1/2 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
                         <?php
                         $imgPath = 'uploads/events/' . $row->cover_image;
                         if (!empty($row->cover_image) && file_exists($imgPath)): ?>
@@ -70,15 +70,15 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="xl:flex-1 flex px-8 py-5 flex-col xl:flex-row">
-                        <div class="flex-1 flex flex-col">
-                            <div class="xl:pr-4 justify-end">
+                    <div class="flex-1 flex px-8 py-5 flex-col xl:flex-row">
+                        <div class="flex flex-1 flex-col">
+                            
                                 <?php
                                 $isExpired = strtotime($row->end_date) <= time();
                                 $isClosed  = $row->event_status === 'Closed';
                                 ?>
 
-                                <div class="flex flex-col">
+                                <div class="flex flex-col w-2/3 flex-1">
                                     <div class="flex items-start gap-2 flex-row">
 
                                         <h3 class="text-lg font-medium text-gray-800">
@@ -101,26 +101,24 @@
                                     </div>
 
 
-                                    <p class="flex-1 text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
+                                    <p class="grow text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
                                         <?= $row->event_detail ?>
                                     </p>
                                 </div>
-                                <div class="">
-                                    <?php
-                                    $start = date("d M Y H:i", strtotime($row->start_date));
-                                    $end   = date("d M Y H:i", strtotime($row->end_date));
-                                    ?>
 
-                                    <div class="flex mt-auto py-4 items-end">
-                                        <div class="border-t border-gray-200 mb-3"></div>
-                                        <div class="text-sm text-gray-500 flex items-center gap-2">
-                                            <span></span>
-                                            <span><?= $start ?> - <?= $end ?></span>
-                                        </div>
+                                <?php
+                                $start = date("d M Y H:i", strtotime($row->start_date));
+                                $end   = date("d M Y H:i", strtotime($row->end_date));
+                                ?>
+
+                                <div class="">
+                                    <div class="border-t border-white/50 mb-3"></div>
+                                    <div class="text-sm text-gray-500 flex gap-2">
+                                        <span></span>
+                                        <span><?= $start ?> - <?= $end ?></span>
                                     </div>
                                 </div>
 
-                            </div>
                         </div>
                         <div class="flex xl:flex-col items-center xl:justify-center justify-between min-w-[120px] gap-3">
                             <div class="flex flex-col">
@@ -128,16 +126,17 @@
                                 <span class="text-sm font-medium text-gray-800 mb-3"><?= (int)$row->approved_count ?> /
                                     <?= $row->event_capacity ?> </span>
                             </div>
+                            <div class="flex gap-2">
+                                <a class="w-20 bg-blue-500 hover:bg-blue-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
+                                    href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_join">
+                                    สถิติ
+                                </a>
 
-                            <a class="w-20 bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
-                                href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
-                                จัดการ
-                            </a>
-                            
-                            <a class="w-20 bg-blue-500 hover:bg-blue-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
-                                href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_join">
-                                สถิติ
-                            </a>
+                                <a class="w-20 bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
+                                    href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
+                                    จัดการ
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
