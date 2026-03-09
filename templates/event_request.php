@@ -10,21 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: {
-                    sans: ['Prompt', 'sans-serif'],
-                },
-                colors: {
-                    btnGreen: '#22c55e',
-                    btnGreenHover: '#16a34a',
-                    cardBg: '#ffffff',
-                    imagePlaceholder: '#dcdcdc'
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        btnGreen: '#22c55e',
+                        btnGreenHover: '#16a34a',
+                        cardBg: '#ffffff',
+                        imagePlaceholder: '#dcdcdc'
+                    }
                 }
             }
         }
-    }
     </script>
 </head>
 
@@ -37,14 +37,22 @@
     </div>
     <main class="flex flex-col flex-1 w-full ">
 
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] 
+        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] 
             shadow-sm border border-[#213C51]/50 p-8 flex flex-col gap-6 ">
+            <div class="flex xl:hidden items-center justify-start">
+                <button id="openMenuBtn" type="button" onclick="openMenu();">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                        <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                    </svg>
+                </button>
+            </div>
+
             <!-- Flash Message -->
             <?php if (!empty($_SESSION['message'])): ?>
-            <div class="bg-green-100 text-green-700 px-4 py-3 rounded-xl shadow">
-                <?= $_SESSION['message'] ?>
-                <?php unset($_SESSION['message']); ?>
-            </div>
+                <div class="bg-green-100 text-green-700 px-4 py-3 rounded-xl shadow">
+                    <?= $_SESSION['message'] ?>
+                    <?php unset($_SESSION['message']); ?>
+                </div>
             <?php endif; ?>
 
             <!-- Title -->
@@ -59,11 +67,11 @@
 
             <?php if ($data['regis']->num_rows > 0): ?>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <?php while ($row = $data['regis']->fetch_object()): ?>
+                    <?php while ($row = $data['regis']->fetch_object()): ?>
 
-                <div class="bg-white rounded-2xl shadow-md p-6 
+                        <div class="bg-white rounded-2xl shadow-md p-6 
                         hover:shadow-lg transition cursor-pointer" onclick="openModal(
                     '<?= htmlspecialchars($row->name) ?>',
                     '<?= htmlspecialchars($row->email) ?>',
@@ -75,89 +83,89 @@
                     '<?= $row->status ?>'
                 )">
 
-                    <!-- Basic Info -->
-                    <div class="mb-4">
-                        <h3 class="text-lg font-semibold">
-                            <?= htmlspecialchars($row->name) ?>
-                        </h3>
-                        <p class="text-sm text-gray-600">
-                            <?= htmlspecialchars($row->email) ?>
-                        </p>
-                        <p class="text-sm text-gray-600">
-                            <?= htmlspecialchars($row->tel) ?>
-                        </p>
-                    </div>
+                            <!-- Basic Info -->
+                            <div class="mb-4">
+                                <h3 class="text-lg font-semibold">
+                                    <?= htmlspecialchars($row->name) ?>
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    <?= htmlspecialchars($row->email) ?>
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    <?= htmlspecialchars($row->tel) ?>
+                                </p>
+                            </div>
 
-                    <!-- Status Badge -->
-                    <div class="mb-4">
-                        <?php if ($row->status === 'pending'): ?>
-                        <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
-                            รออนุมัติ
-                        </span>
-                        <?php endif; ?>
-                    </div>
+                            <!-- Status Badge -->
+                            <div class="mb-4">
+                                <?php if ($row->status === 'pending'): ?>
+                                    <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
+                                        รออนุมัติ
+                                    </span>
+                                <?php endif; ?>
+                            </div>
 
-                    <!-- Action Buttons -->
-                    <div class="flex gap-3" onclick="event.stopPropagation()">
+                            <!-- Action Buttons -->
+                            <div class="flex gap-3" onclick="event.stopPropagation()">
 
-                        <form method="POST" action="/approve_request">
-                            <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
-                            <button class="px-4 py-1 rounded-full text-sm 
+                                <form method="POST" action="/approve_request">
+                                    <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
+                                    <button class="px-4 py-1 rounded-full text-sm 
                                        bg-green-500 hover:bg-green-600 
                                        text-white transition">
-                                อนุมัติ
-                            </button>
-                        </form>
+                                        อนุมัติ
+                                    </button>
+                                </form>
 
-                        <form method="POST" action="/reject_request">
-                            <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
-                            <button class="px-4 py-1 rounded-full text-sm 
+                                <form method="POST" action="/reject_request">
+                                    <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
+                                    <button class="px-4 py-1 rounded-full text-sm 
                                        bg-red-500 hover:bg-red-600 
                                        text-white transition">
-                                ปฏิเสธ
-                            </button>
-                        </form>
+                                        ปฏิเสธ
+                                    </button>
+                                </form>
 
-                    </div>
+                            </div>
+
+                        </div>
+
+                    <?php endwhile; ?>
 
                 </div>
 
-                <?php endwhile; ?>
-
-            </div>
-
             <?php else: ?>
 
-            <div class="text-center text-gray-500 py-10">
-                ไม่มีคำขอที่รออนุมัติ
-            </div>
+                <div class="text-center text-gray-500 py-10">
+                    ไม่มีคำขอที่รออนุมัติ
+                </div>
 
             <?php endif; ?>
 
         </div>
     </main>
     <script>
-    function openModal(name, email, tel, birthday, job, gender, address, status) {
+        function openModal(name, email, tel, birthday, job, gender, address, status) {
 
-        document.getElementById("modalName").innerText = name;
-        document.getElementById("modalEmail").innerText = email;
-        document.getElementById("modalTel").innerText = tel;
-        document.getElementById("modalBirthday").innerText = birthday;
-        document.getElementById("modalJob").innerText = job;
-        document.getElementById("modalGender").innerText = gender;
-        document.getElementById("modalAddress").innerText = address;
-        document.getElementById("modalStatus").innerText = status;
+            document.getElementById("modalName").innerText = name;
+            document.getElementById("modalEmail").innerText = email;
+            document.getElementById("modalTel").innerText = tel;
+            document.getElementById("modalBirthday").innerText = birthday;
+            document.getElementById("modalJob").innerText = job;
+            document.getElementById("modalGender").innerText = gender;
+            document.getElementById("modalAddress").innerText = address;
+            document.getElementById("modalStatus").innerText = status;
 
-        const modal = document.getElementById("userModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-    }
+            const modal = document.getElementById("userModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+        }
 
-    function closeModal() {
-        const modal = document.getElementById("userModal");
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-    }
+        function closeModal() {
+            const modal = document.getElementById("userModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
     </script>
 
     <div id="userModal" class="fixed inset-0 bg-black/40 hidden 

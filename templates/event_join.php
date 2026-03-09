@@ -35,7 +35,14 @@
     </div>
     <main class="flex flex-col flex-1 w-full">
         <!-- แผ่นขาวหลัก -->
-        <div class="flex-1 bg-white/75 lg:my-4 lg:mr-4 lg:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col">
+        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col">
+            <div class="flex xl:hidden items-center justify-start mb-2">
+                <button id="openMenuBtn" type="button" onclick="openMenu();">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                        <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                    </svg>
+                </button>
+            </div>
 
             <!-- message -->
             <?php if (!empty($_SESSION['message'])): ?>

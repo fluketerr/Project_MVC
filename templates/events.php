@@ -30,17 +30,17 @@
     </div>
 
     <div
-        class="flex-1 bg-white/75 lg:my-4 lg:mr-4 lg:rounded-[2rem] shadow-sm border border-[#213C51]/50 flex flex-col overflow-hidden">
+        class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 flex flex-col overflow-hidden">
         <div class="relative px-8 py-6 flex items-start flex-shrink-0">
-            <div class="flex lg:hidden items-center justify-start">
-                <button type="button" onclick="openMenu();">
+            <div class="flex xl:hidden items-center justify-start">
+                <button id="openMenuBtn" type="button" onclick="openMenu();">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
                         <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z"/>
                     </svg>
                 </button>
             </div>
 
-            <a class="fixed bottom-5 right-5 lg:static w-14 h-14 bg-[#6594B1]  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
+            <a class="fixed bottom-5 right-5 xl:static w-14 h-14 bg-[#6594B1]  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
                 href="/event_create">
                 <svg fill="white" width="30" height="30" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
                     <path d="M17,11H13V7a1,1,0,0,0-1-1h0a1,1,0,0,0-1,1v4H7a1,1,0,0,0-1,1H6a1,1,0,0,0,1,1h4v4a1,1,0,0,0,1,1h0a1,1,0,0,0,1-1V13h4a1,1,0,0,0,1-1h0A1,1,0,0,0,17,11Z" />
@@ -52,16 +52,16 @@
         <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4">
             <?php while ($row = $data['result']->fetch_object()) { ?>
                 <div class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
-                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[30vh] lg:flex-row flex-col lg:min-h-[170px]
-            lg:overflow-hidden">
-                    <div class="lg:w-[20vw] lg:h-full w-full max-h-48 h-1/2 bg-imagePlaceholder flex-shrink-0 lg:rounded-l-xl lg:rounded-r-none rounded-t-xl">
+                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[30vh] xl:flex-row flex-col xl:min-h-[170px]
+            xl:overflow-hidden">
+                    <div class="xl:w-[20vw] xl:h-full w-full max-h-48 h-1/2 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
                         <?php
                         $imgPath = 'uploads/events/' . $row->cover_image;
                         if (!empty($row->cover_image) && file_exists($imgPath)): ?>
                             <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
-                                class="w-full h-full object-cover rounded-t-xl lg:rounded-r-none">
+                                class="w-full h-full object-cover rounded-t-xl xl:rounded-r-none">
                         <?php else: ?>
-                            <div class="w-full h-full flex items-center justify-center text-gray-40 bg-gray-500 rounded-t-2xl lg:rounded-r-none">
+                            <div class="w-full h-full flex items-center justify-center text-gray-40 bg-gray-500 rounded-t-2xl xl:rounded-r-none">
                                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
                                     <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
@@ -70,9 +70,9 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="lg:flex-1 flex px-8 py-5 flex-col lg:flex-row">
+                    <div class="xl:flex-1 flex px-8 py-5 flex-col xl:flex-row">
                         <div class="flex-1 flex flex-col">
-                            <div class="lg:pr-4 justify-end">
+                            <div class="xl:pr-4 justify-end">
                                 <?php
                                 $isExpired = strtotime($row->end_date) <= time();
                                 $isClosed  = $row->event_status === 'Closed';
@@ -122,7 +122,7 @@
 
                             </div>
                         </div>
-                        <div class="flex lg:flex-col items-center lg:justify-center justify-between min-w-[120px] gap-3">
+                        <div class="flex xl:flex-col items-center xl:justify-center justify-between min-w-[120px] gap-3">
                             <div class="flex flex-col">
                                 <span class="text-sm text-gray-600">ผู้เข้าร่วม</span>
                                 <span class="text-sm font-medium text-gray-800 mb-3"><?= (int)$row->approved_count ?> /
