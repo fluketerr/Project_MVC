@@ -10,5 +10,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['message'] = "ปฏิเสธเรียบร้อย";
 }
 
-header("Location: /request_event");
+header("Location: /event_request");
 exit();

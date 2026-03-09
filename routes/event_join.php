@@ -72,7 +72,7 @@ if (!empty($ageBuckets)) {
     $topAgeCount = $ageBuckets[$topAgeRange];
 }
 
-renderView('join_event', [
+renderView('event_join', [
     'title' => 'Participants',
     'participants' => $participants,
     'maleCount' => $maleCount,
