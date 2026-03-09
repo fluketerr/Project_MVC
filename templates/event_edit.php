@@ -39,7 +39,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
         <?php $event = $data['event']->fetch_object() ?>
 
         <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem]
-                    shadow-sm border border-[#213C51]/50 xl:p-16 p-5 overflow-y-auto
+                    shadow-sm border border-[#213C51]/50 xl:p-10 p-5 overflow-y-auto
                     [&::-webkit-scrollbar]:w-2
                   [&::-webkit-scrollbar-thumb]:bg-[#213C51]
                     [&::-webkit-scrollbar-thumb]:rounded-full
@@ -60,7 +60,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                     <!-- image-->
                     <div class="space-y-10">
 
-                        <h2 class="text-2xl font-semibold text-[#1E293B]">รูปภาพกิจกรรม</h2>
+                        <h2 class="xl:mt-0 mt-5 text-2xl font-semibold text-[#1E293B]">รูปภาพกิจกรรม</h2>
                         <div>
                             <label class="block mb-3 font-medium text-[#1E293B]">เพิ่มรูปใหม่</label>
                             <input type="file"
@@ -101,7 +101,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                     <div class="space-y-5">
 
                         <div>
-                            <label class="block mb-2 font-medium text-[#1E293B]">ชื่องาน</label>
+                            <label class=" block mb-2 font-medium text-[#1E293B]">ชื่องาน</label>
                             <input type="text"
                                 name="event_name"
                                 value="<?= $event->event_name ?>"

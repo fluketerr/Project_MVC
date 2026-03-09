@@ -35,7 +35,11 @@
     </div>
     <main class="flex flex-col flex-1 w-full overflow-x-auto">
         <?php $row = $data['event']->fetch_object(); ?>
-        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-auto">
+        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-auto
+                [&::-webkit-scrollbar]:w-2
+                [&::-webkit-scrollbar-thumb]:bg-[#213C51]
+                [&::-webkit-scrollbar-thumb]:rounded-full
+        ">
 
             <!-- Header Section -->
             <div class="flex gap-8 flex-col xl:flex-row">
