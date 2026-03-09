@@ -74,17 +74,19 @@
 
                 <?php while ($row = $data['result']->fetch_object()) { ?>
                     <!--my event-->
-                    <div class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
-                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[40vh] xl:flex-row flex-col xl:min-h-[170px]
-            xl:overflow-hidden" 
+                    
+                    <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col
+            xl:overflow-hidden border border-white/50
+            shadow-md hover:shadow-xl hover:bg-white/60
+            transition-all duration-300" 
                             >
-                        <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/3 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
+                        <div class="xl:w-[25vw] xl:h-full w-full max-h-44 h-1/3 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                             <?php 
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
-                                <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover">
+                                <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>" class="w-full h-full object-cover xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
                             <?php else: ?>
-                                <div class="w-full h-full flex items-center justify-center text-gray-40 bg-gray-500 rounded-t-xl xl:rounded-r-none ">
+                                <div class="w-full h-full flex items-center justify-center text-gray-40 bg-gray-500 min-h-[190px] rounded-t-xl xl:rounded-r-none ">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
                                         <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
@@ -118,6 +120,7 @@
                                 </div>
                             </div>
 
+                            <div class="flex flex-row-reverse justify-between">
                             <div class="w-[140px] flex-shrink-0 flex flex-col items-center justify-center">
                                 <span class="text-sm text-gray-600 mb-0.5">สถานะ</span>
 
@@ -193,6 +196,7 @@
                                         <span class="text-sm font-medium text-green-600">เข้างานแล้ว</span>
                                     <?php } ?>
                                 <?php } ?>
+                            </div>
                             </div>
 
                             <div class="xl:w-[10vw] flex xl:flex-col items-center xl:justify-center justify-between

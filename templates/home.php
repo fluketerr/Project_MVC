@@ -43,104 +43,106 @@
     <div
         class="flex-1 relative bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
-        <div name="nev" class="sticky w-full rounded-t-[2rem] xl:px-8 py-6 flex items-end xl:gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
-            <div class="w-full max-w-5xl ">
-                <form method="POST" class="flex flex-col xl:flex-row items-center gap-3">
-                    
-                    <div id="openMenuBtn" class="flex gap-3 w-full">
-                        <div class="flex xl:hidden items-center justify-start pl-5">
-                            <button type="button" onclick="openMenu();">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
-                                    <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <!-- ช่องค้นหา -->
-                        <div class="relative flex-1">
-                            <input
-                                type="text"
-                                name="keyword"
-                                placeholder="ค้นหา ชื่อกิจกรรม"
-                                value="<?= $_POST['keyword'] ?? '' ?>"
-                                class="w-full bg-white text-sm text-gray-700 
+
+        <?php if ($data['result'] != []) { ?>
+            <div class="overflow-y-auto overflow-x-hidden pb-8 flex flex-col gap-4
+                    [&::-webkit-scrollbar]:w-2
+                    [&::-webkit-scrollbar-track]:mt-[15vh]
+                  [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+        ">
+                <div name="nev" class="sticky top-0 w-full xl:px-8 pt-5 pb-4 flex items-end xl:gap-4 flex-shrink-0 z-10 backdrop-blur-lg">
+                    <div class="w-full max-w-5xl ">
+                        <form method="POST" class="flex flex-col xl:flex-row items-center gap-3">
+
+                            <div id="openMenuBtn" class="flex gap-3 w-full">
+                                <div class="flex xl:hidden items-center justify-start pl-5">
+                                    <button type="button" onclick="openMenu();">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                                            <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!-- ช่องค้นหา -->
+                                <div class="relative flex-1">
+                                    <input
+                                        type="text"
+                                        name="keyword"
+                                        placeholder="ค้นหา ชื่อกิจกรรม"
+                                        value="<?= $_POST['keyword'] ?? '' ?>"
+                                        class="w-full bg-white text-sm text-gray-700 
                         rounded-full py-2.5 pl-5 pr-10 
                         outline-none shadow-sm 
                         placeholder-gray-400
                         border border-gray-200
                         focus:ring-2 focus:ring-green-400">
 
-                            <!-- ไอคอน -->
-                            <button type="submit"
-                                class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </button>
-                        
-                        </div>
+                                    <!-- ไอคอน -->
+                                    <button type="submit"
+                                        class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                        </svg>
+                                    </button>
 
-                        <button title="ล้างการค้นหา" type="reset" onclick="window.location.href='home'" class="xl:hidden flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
+                                </div>
 
-                    <div class="flex xl:gap-3">
-                        <!-- วันที่เริ่ม -->
-                        <div class="bg-white rounded-full pl-4 shadow-sm items-center flex">
-                            <a class="text-xs xl:text-sm xl:w-14">วันแรก</a>
-                            <input type="date"
-                                name="start"
-                                value="<?= $_POST['start'] ?? '' ?>"
-                                class="bg-white text-xs xl:text-sm text-gray-600
+                                <button title="ล้างการค้นหา" type="reset" onclick="window.location.href='home'" class="xl:hidden flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="flex xl:gap-3">
+                                <!-- วันที่เริ่ม -->
+                                <div class="bg-white rounded-full pl-4 shadow-sm items-center flex">
+                                    <a class="text-xs xl:text-sm xl:w-14">วันแรก</a>
+                                    <input type="date"
+                                        name="start"
+                                        value="<?= $_POST['start'] ?? '' ?>"
+                                        class="bg-white text-xs xl:text-sm text-gray-600
                             rounded-full px-4 py-2
                             border border-gray-200
                             shadow-sm focus:ring-2 focus:ring-green-400"
-                                onchange="this.form.submit()">
-                        </div>
+                                        onchange="this.form.submit()">
+                                </div>
 
-                        <!-- วันที่สิ้นสุด -->
-                        <div class="bg-white rounded-full pl-4 shadow-sm items-center flex">
-                            <a class="text-xs xl:text-sm xl:w-20">วันสุดท้าย</a>
-                            <input type="date"
-                                name="end"
-                                value="<?= $_POST['end'] ?? '' ?>"
-                                class="bg-white text-xs xl:text-sm text-gray-600
+                                <!-- วันที่สิ้นสุด -->
+                                <div class="bg-white rounded-full pl-4 shadow-sm items-center flex">
+                                    <a class="text-xs xl:text-sm xl:w-20">วันสุดท้าย</a>
+                                    <input type="date"
+                                        name="end"
+                                        value="<?= $_POST['end'] ?? '' ?>"
+                                        class="bg-white text-xs xl:text-sm text-gray-600
                             rounded-full px-4 py-2
                             border border-gray-200
                             shadow-sm focus:ring-2 focus:ring-green-400"
-                                onchange="this.form.submit()">
-                        </div>
-                    
-                        <button title="ล้างการค้นหา" type="reset" onclick="window.location.href='home'" class="hidden xl:flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
+                                        onchange="this.form.submit()">
+                                </div>
 
-                </form>
-            </div>
-            <p><?= $_SESSION['message'] ?? '';
-                unset($_SESSION['message']); ?></p>
-        </div>
-        <?php if ($data['result'] != []) { ?>
-            <div class="overflow-y-auto xl:px-8 pb-8 flex flex-col gap-4
-                    [&::-webkit-scrollbar]:w-2 
-                  [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
-                    [&::-webkit-scrollbar-thumb]:rounded-full
-        ">
+                                <button title="ล้างการค้นหา" type="reset" onclick="window.location.href='home'" class="hidden xl:flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:bg-gray-50 hover:text-red-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <p><?= $_SESSION['message'] ?? '';
+                        unset($_SESSION['message']); ?></p>
+                </div>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
-
+                <div class="px-8">
                     <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
             transition-all duration-300">
 
                         <!-- รูป -->
-                        <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/2 flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
+                        <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/2 flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                             <?php
                             $imgPath = 'uploads/events/' . $row->cover_image;
                             if (!empty($row->cover_image) && file_exists($imgPath)): ?>
@@ -199,7 +201,7 @@
                                     <span class="text-xs text-gray-500 uppercase tracking-wide justify-center">
                                         ผู้เข้าร่วม
                                     </span>
-                                  
+
                                     <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap">
                                         <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
                                     </span>
@@ -241,7 +243,7 @@
 
                         </div>
                     </div>
-
+                </div>
                 <?php } ?>
             </div>
         <?php } else { ?>

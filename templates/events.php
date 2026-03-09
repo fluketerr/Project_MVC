@@ -39,8 +39,7 @@
                     </svg>
                 </button>
             </div>
-
-            <a class="fixed bottom-5 right-5 xl:static w-14 h-14 bg-[#6594B1]  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
+            <a class="xl:sticky xl:top-0 fixed bottom-5 right-5 w-14 h-14 py-6 bg-[#6594B1]  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#213C51] hover:text-white transition-colors"
                 href="/event_create">
                 <svg fill="white" width="30" height="30" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
                     <path d="M17,11H13V7a1,1,0,0,0-1-1h0a1,1,0,0,0-1,1v4H7a1,1,0,0,0-1,1H6a1,1,0,0,0,1,1h4v4a1,1,0,0,0,1,1h0a1,1,0,0,0,1-1V13h4a1,1,0,0,0,1-1h0A1,1,0,0,0,17,11Z" />
@@ -49,10 +48,19 @@
 
         </div>
 
-        <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4">
+        <div class="overflow-y-auto px-8 xl:pb-8 flex flex-col gap-4 h-full
+                    [&::-webkit-scrollbar]:w-2
+                  [&::-webkit-scrollbar-thumb]:bg-[#213C51]
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+            ">
             <?php while ($row = $data['result']->fetch_object()) { ?>
-                <div class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
-                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[30vh] xl:flex-row flex-col xl:min-h-[170px]
+                <?php
+                $isExpired = strtotime($row->end_date) <= time();
+                $isClosed  = $row->event_status === 'Closed';
+                ?>
+                <div id="card" class="bg-white/30 rounded-2xl flex --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border 
+                            <?= ($isClosed || $isExpired) ? 'border-red-200' : 'border-green-200' ?>
+                            hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[45vh] xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden">
                     <div class="xl:w-[18vw] xl:h-full w-full max-h-48 h-1/2 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
                         <?php
@@ -71,53 +79,61 @@
                         <?php endif; ?>
                     </div>
                     <div class="flex-1 flex px-8 py-5 flex-col xl:flex-row">
-                        <div class="flex flex-1 flex-col">
-                            
-                                <?php
-                                $isExpired = strtotime($row->end_date) <= time();
-                                $isClosed  = $row->event_status === 'Closed';
-                                ?>
+                        <div class="flex flex-1 xl:flex-col flex-row">
 
-                                <div class="flex flex-col w-2/3 flex-1">
-                                    <div class="flex items-start gap-2 flex-row">
+                            <div class="flex flex-col xl:w-2/3 w-1/3 flex-1">
+                                <div class="flex items-start gap-2 flex-row">
 
-                                        <h3 class="text-lg font-medium text-gray-800">
-                                            <?= $row->event_name ?>
-                                        </h3>
+                                    <h3 class="text-lg font-medium text-gray-800 truncate">
+                                        <?= $row->event_name ?>
+                                    </h3>
 
-                                        <?php if ($isClosed || $isExpired): ?>
-                                            <span class="px-2 py-1 text-xs font-semibold
+                                    <?php if ($isClosed || $isExpired): ?>
+                                        <span class="hidden xl:inline-block px-2 py-1 text-xs font-semibold
                             bg-red-100 text-red-600
                             rounded-full">
-                                                ปิดแล้ว
-                                            </span>
+                                            ปิดแล้ว
                                         <?php else: ?>
-                                            <span class="px-2 py-1 text-xs font-semibold
+                                            <span class="hidden xl:inline-block px-2 py-1 text-xs font-semibold
                             bg-green-100 text-green-600
                             rounded-full">
                                                 เปิดรับสมัคร
                                             </span>
                                         <?php endif; ?>
-                                    </div>
-
-
-                                    <p class="grow text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg">
-                                        <?= $row->event_detail ?>
-                                    </p>
                                 </div>
 
-                                <?php
-                                $start = date("d M Y H:i", strtotime($row->start_date));
-                                $end   = date("d M Y H:i", strtotime($row->end_date));
-                                ?>
+                                <p class="grow text-[12px] text-gray-500 mt-1 leading-relaxed max-w-lg truncate">
+                                    <?= $row->event_detail ?>
+                                </p>
+                            </div>
 
-                                <div class="">
-                                    <div class="border-t border-white/50 mb-3"></div>
-                                    <div class="text-sm text-gray-500 flex gap-2">
-                                        <span></span>
-                                        <span><?= $start ?> - <?= $end ?></span>
-                                    </div>
+                            <?php
+                            $start = date("d M Y H:i", strtotime($row->start_date));
+                            $end   = date("d M Y H:i", strtotime($row->end_date));
+                            ?>
+
+                            <div class="w-2/3 xl:w-full">
+
+                                <?php if ($isClosed || $isExpired): ?>
+                                    <span class="xl:hidden inline-block px-2 py-1 text-xs font-semibold
+                            bg-red-100 text-red-600
+                            rounded-full">
+                                        ปิดแล้ว
+                                    </span>
+                                <?php else: ?>
+                                    <span class="xl:hidden inline-block px-2 py-1 text-xs font-semibold
+                            bg-green-100 text-green-600
+                            rounded-full">
+                                        เปิดรับสมัคร
+                                    </span>
+                                <?php endif; ?>
+
+                                <div class="xl:border-t border-l border-white/50 mb-3"></div>
+                                <div class="text-sm text-gray-500 flex gap-2">
+                                    <span></span>
+                                    <span><?= $start ?> - <?= $end ?></span>
                                 </div>
+                            </div>
 
                         </div>
                         <div class="flex xl:flex-col items-center xl:justify-center justify-between min-w-[120px] gap-3">
