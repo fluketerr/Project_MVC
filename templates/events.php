@@ -84,7 +84,7 @@
                             <div class="flex flex-col xl:w-2/3 w-1/3 flex-1">
                                 <div class="flex items-start gap-2 flex-row">
 
-                                    <h3 class="text-lg font-medium text-gray-800 truncate">
+                                    <h3 class="text-lg font-medium text-gray-800 max-w-48 truncate">
                                         <?= $row->event_name ?>
                                     </h3>
 
