@@ -44,7 +44,6 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                   [&::-webkit-scrollbar-thumb]:bg-[#213C51]
                     [&::-webkit-scrollbar-thumb]:rounded-full
 ">
-            >>>>>>> dd5f9aa66b78dfa3883733f04bae68e9b2cf2318
 
             <form action="event_update" method="POST" enctype="multipart/form-data">
                 <div class="flex xl:hidden items-center justify-start">

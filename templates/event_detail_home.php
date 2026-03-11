@@ -50,12 +50,7 @@
 
             <!-- Back -->
 
-
-            <!-- ── บน: รูปใหญ่ + info ── -->
-            <div class="flex gap-8 flex-col xl:flex-row">
-
-                <!-- รูปหลัก -->
-                <div class="flex xl:hidden items-center justify-start">
+            <div class="flex xl:hidden items-center justify-start">
                     <button id="openMenuBtn" type="button" onclick="openMenu();">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
                             <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
@@ -65,6 +60,13 @@
                 <a href="javascript:history.back()" class="text-sm text-gray-500 hover:text-gray-800 w-fit">
                     < ย้อนกลับ
                         </a>
+
+
+            <!-- ── บน: รูปใหญ่ + info ── -->
+            <div class="flex gap-8 flex-col xl:flex-row">
+
+                <!-- รูปหลัก -->
+                
 
                         <!-- Cover Image -->
                         <?php if (!empty($data['pictures']) && $pic = $data['pictures']->fetch_object()): ?>

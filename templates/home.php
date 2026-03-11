@@ -207,7 +207,7 @@
                                                 ผู้เข้าร่วม
                                             </span>
 
-                                            <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap">
+                                            <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap max-w-lg truncate">
                                                 <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
                                             </span>
                                         </div>
@@ -226,7 +226,7 @@
                                                 <form method="POST" action="" class="w-full flex xl:justify-center justify-end">
                                                     <input type="hidden" name="event_id" value="<?= $row->eid ?>">
                                                     <button type="submit" name="join" onclick="return confirmJoin('<?= $row->event_name ?>')"
-                                                        class="xl:w-full w-1/2 bg-green-500 hover:bg-green-600
+                                                        class="xl:w-full w-1/2 bg-green-500 hover:bg-green-600 shrink-0
                                                         text-white text-sm font-medium
                                                         py-2 rounded-full shadow
                                                         transition duration-200">
