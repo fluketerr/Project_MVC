@@ -1,13 +1,19 @@
 <?php
-$eid = $_SESSION['eid'];
-$event = getEventById($eid);
-$conn = getConnection();
+$eid = $_SESSION['eid'] ?? null;
 
-$eventResult = getEventById($eid);
-$picturesResult = getPictureById($eid, $conn);
+if (isset($_SESSION['eid'])) {
+    $event = getEventById($eid);
+    $conn = getConnection();
 
-renderView('event_edit', [
-    'title' => 'Edit Event',
-    'event' => $eventResult,
-    'pictures' => $picturesResult
-]);
+    $eventResult = getEventById($eid);
+    $picturesResult = getPictureById($eid, $conn);
+
+    renderView('event_edit', [
+        'title' => 'Edit Event',
+        'event' => $eventResult,
+        'pictures' => $picturesResult
+    ]);
+}else{
+    header("Location: /events");
+    exit();
+}

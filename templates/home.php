@@ -225,7 +225,7 @@
 
                                                 <form method="POST" action="" class="w-full flex xl:justify-center justify-end">
                                                     <input type="hidden" name="event_id" value="<?= $row->eid ?>">
-                                                    <button type="submit" name="join"
+                                                    <button type="submit" name="join" onclick="return confirmJoin('<?= $row->event_name ?>')"
                                                         class="xl:w-full w-1/2 bg-green-500 hover:bg-green-600
                                                         text-white text-sm font-medium
                                                         py-2 rounded-full shadow
@@ -266,7 +266,12 @@
             <p>ไม่มีข้อมูล</p>
         <?php } ?>
 
-
 </body>
+
+<script>
+    function confirmJoin(event_name) {
+        return confirm("ต้องการเข้าร่วม " + event_name + " มั้ย ?");
+    }
+</script>
 
 </html>

@@ -38,12 +38,13 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
     <main class="flex flex-col flex-1 w-full">
         <?php $event = $data['event']->fetch_object() ?>
 
-        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem]
-                    shadow-sm border border-[#213C51]/50 xl:p-10 p-5 overflow-y-auto
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem]
+                    shadow-sm border border-[#213C51]/50 p-16 overflow-y-auto
                     [&::-webkit-scrollbar]:w-2
                   [&::-webkit-scrollbar-thumb]:bg-[#213C51]
                     [&::-webkit-scrollbar-thumb]:rounded-full
 ">
+            >>>>>>> dd5f9aa66b78dfa3883733f04bae68e9b2cf2318
 
             <form action="event_update" method="POST" enctype="multipart/form-data">
                 <div class="flex xl:hidden items-center justify-start">
@@ -146,7 +147,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                                 ยกเลิก
                             </a>
 
-                            <button type="submit"
+                            <button type="submit" onclick="return confirmEdit()"
                                 class="px-10 py-3 rounded-full bg-gray-500 hover:bg-gray-600 text-white transition shadow ">
                                 บันทึก
                             </button>
@@ -168,6 +169,12 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                 <script>
                     function confirmDelete() {
                         return confirm("ต้องการลบกิจกรรมนี้มั้ย ?");
+                    }
+                </script>
+
+                <script>
+                    function confirmEdit() {
+                        return confirm("ต้องการบันทึกการแก้ไขกิจกรรมนี้มั้ย ?");
                     }
                 </script>
 
