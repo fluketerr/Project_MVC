@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-<aside id="side-menu" class="flex flex-col w-64 h-screen left-0 top-0 md:bg-transparent lg:bg-none bg-[#F5D0ED]/90 backdrop-blur-sm z-20 absolute lg:static transition-all">
+<aside id="side-menu" class="flex flex-col w-64 h-screen left-0 top-0 xl:bg-transparent xl:bg-none bg-[#F5D0ED]/90 backdrop-blur-sm z-20 absolute xl:static transition-all">
 
     <div class="w-64 flex items-center justify-center pt-6">
         <a href="/" class="">
@@ -38,6 +38,7 @@
             const switchEl = document.getElementById("switch");
             const slider = document.getElementById("slider");
             const islogin = <?= json_encode(isset($_SESSION['user_id'])); ?>;
+            const BigScreen = 1280;
             let currentPage = window.location.pathname;
 
             let active = 0; // 0 = left, 1 = right
@@ -65,7 +66,7 @@
                     window.location.href = "/login";
                 }
             });
-            
+
             //swipemenu for phone
             const menu = document.getElementById('side-menu');
 
@@ -83,18 +84,32 @@
                 menu.style.transform = "translateX(-100%)";
             };
 
-            document.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX;
-            });
+            if (window.innerWidth < BigScreen) {
+                document.addEventListener('touchstart', e => {
+                    startX = e.touches[0].clientX;
+                });
 
-            document.addEventListener('touchend', e => {
-                endX = e.changedTouches[0].clientX;
-                const diffX = endX - startX;
+                document.addEventListener('touchend', e => {
+                    endX = e.changedTouches[0].clientX;
+                    const diffX = endX - startX;
 
-                if (diffX > threshold && startX < 50) {
-                    openMenu();
-                } else if (diffX < -threshold) {
+                    if (diffX > threshold && startX < 50) {
+                        openMenu();
+                    } else if (diffX < -threshold) {
+                        closeMenu();
+                    }
+                });
+            }
+
+            //click outside menu
+            document.addEventListener('click', function(event) {
+                const openMenuBtn = document.getElementById("openMenuBtn");
+                const isClickInside = menu.contains(event.target);
+
+                if (!isClickInside && !openMenuBtn.contains(event.target) && window.innerWidth < BigScreen) {
                     closeMenu();
+                } else if (window.innerWidth >= BigScreen) {
+                    openMenu();
                 }
             });
         </script>

@@ -38,11 +38,11 @@
 
 <body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] flex flex-row justify-center">
 
-    <main class="items-center justify-center w-full lg:w-auto">
+    <main class="items-center justify-center w-full xl:w-auto">
 
         <form action="event_create" method="POST" enctype="multipart/form-data">
-            <div class="lg:min-h-screen flex items-center justify-center p-4 lg:p-8">
-                <div class="w-full lg:max-w-4xl bg-gray-200/75 rounded-3xl p-5 lg:p-10 shadow-lg">
+            <div class="xl:min-h-screen flex items-center justify-center p-4 xl:p-8">
+                <div class="w-full xl:max-w-4xl bg-gray-200/75 rounded-3xl p-5 xl:p-10 shadow-lg">
 
                     <!-- Header -->
                     <div class="flex items-center mb-6">
@@ -59,7 +59,7 @@
                                     <label for="imageInput" class="relative w-full h-full flex flex-col items-center justify-center cursor-pointer gap-1">
                                         <input type="file" name="event_picture[]" id="imageInput" multiple required class="absolute opacity-0 w-full h-full cursor-pointer">
                                         <span class="text-3xl text-gray-400">+</span>
-                                        <span class="text-sm text-gray-400 lg:hidden">แตะเพื่อเลือกรูปภาพ</span>
+                                        <span class="text-sm text-gray-400 xl:hidden">แตะเพื่อเลือกรูปภาพ</span>
                                     </label>
                                 </div>
                             </div>
@@ -87,14 +87,14 @@
                                         class="w-24 bg-white rounded-full px-4 py-2 border-none focus:ring-2 focus:ring-gray-400">
                                 </div>
 
-                                <div class="space-y-3 lg:w-[420px]">
+                                <div class="space-y-3 xl:w-[420px]">
                                     <p class="text-[#1E293B]">ระยะเวลากิจกรรม</p>
 
                                     <div>
                                         <p class="text-[#1E293B]/75 mb-1">&nbsp;&nbsp;&nbsp;เริ่ม</p>
                                         <div class="relative">
                                             <input type="datetime-local"
-                                                class="datetime-input lg:w-2/3 px-4 py-2 rounded-full bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                class="datetime-input xl:w-2/3 px-4 py-2 rounded-full bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                 name="start_date" required>
                                         </div>
                                     </div>
@@ -102,14 +102,14 @@
                                     <div>
                                         <p class="text-[#1E293B]/75 mb-1">&nbsp;&nbsp;&nbsp;ถึง</p>
                                         <input type="datetime-local"
-                                            class="datetime-input lg:w-2/3 px-4 py-2 rounded-full bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            class="datetime-input xl:w-2/3 px-4 py-2 rounded-full bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                             name="end_date" required>
                                     </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-[#1E293B] font-medium mb-1">รายละเอียด</label>
-                                    <textarea name="event_detail" placeholder="Insert Text here..." rows="5"
+                                    <textarea name="event_detail" placeholder="Insert Text here..." rows="5" required
                                         class="w-full bg-white rounded-2xl p-4 border-none focus:ring-2 focus:ring-gray-400 resize-none"></textarea>
                                 </div>
                             </div>

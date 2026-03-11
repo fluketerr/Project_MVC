@@ -38,23 +38,29 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
     <main class="flex flex-col flex-1 w-full">
         <?php $event = $data['event']->fetch_object() ?>
 
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem]
-                    shadow-sm border border-[#213C51]/50 p-16 overflow-y-auto
+        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem]
+                    shadow-sm border border-[#213C51]/50 xl:p-10 p-5 overflow-y-auto
                     [&::-webkit-scrollbar]:w-2
                   [&::-webkit-scrollbar-thumb]:bg-[#213C51]
                     [&::-webkit-scrollbar-thumb]:rounded-full
 ">
 
             <form action="event_update" method="POST" enctype="multipart/form-data">
-
+                <div class="flex xl:hidden items-center justify-start">
+                    <button id="openMenuBtn" type="button" onclick="openMenu();">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                            <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                        </svg>
+                    </button>
+                </div>
                 <input type="hidden" name="eid" value="<?= (int)$event->eid ?>">
 
-                <div class="grid grid-cols-2 gap-10 mb-5">
+                <div class="flex flex-col gap-10 mb-5">
 
-                    <!-- LEFT -->
+                    <!-- image-->
                     <div class="space-y-10">
 
-                        <h2 class="text-2xl font-semibold text-[#1E293B]">รูปภาพกิจกรรม</h2>
+                        <h2 class="xl:mt-0 mt-5 text-2xl font-semibold text-[#1E293B]">รูปภาพกิจกรรม</h2>
                         <div>
                             <label class="block mb-3 font-medium text-[#1E293B]">เพิ่มรูปใหม่</label>
                             <input type="file"
@@ -91,37 +97,38 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
                     </div>
 
-                    <!-- RIGHT -->
+                    <!-- imformation -->
                     <div class="space-y-5">
 
                         <div>
-                            <label class="block mb-2 font-medium text-[#1E293B]">ชื่องาน</label>
+                            <label class=" block mb-2 font-medium text-[#1E293B]">ชื่องาน</label>
                             <input type="text"
                                 name="event_name"
                                 value="<?= $event->event_name ?>"
                                 class="w-full px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
                         </div>
 
-                        <div>
-                            <label class="block mb-2 font-medium text-[#1E293B]">จำนวนผู้เข้าร่วม</label>
-                            <input type="number"
-                                name="event_capacity"
-                                value="<?= $event->event_capacity ?>"
-                                class="w-56 px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
-                        </div>
+                        <div class="flex xl:flex-row flex-col xl:gap-3">
+                            <div>
+                                <label class="block mb-2 font-medium text-[#1E293B]">จำนวนผู้เข้าร่วม</label>
+                                <input type="number"
+                                    name="event_capacity"
+                                    value="<?= $event->event_capacity ?>"
+                                    class="xl:w-40 w-1/4 px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
+                            </div>
+                            <div>
+                                <label class="block mb-2 font-medium text-[#1E293B]">ระยะเวลากิจกรรม</label>
+                                <div class="flex gap-6 xl:flex-row flex-col">
+                                    <input type="datetime-local"
+                                        name="start_date"
+                                        value="<?= str_replace(' ', 'T', substr($event->start_date, 0, 16)) ?>"
+                                        class="px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
 
-                        <div>
-                            <label class="block mb-3 font-medium text-[#1E293B]">ระยะเวลากิจกรรม</label>
-                            <div class="flex gap-6">
-                                <input type="datetime-local"
-                                    name="start_date"
-                                    value="<?= str_replace(' ', 'T', substr($event->start_date, 0, 16)) ?>"
-                                    class="px-5 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
-
-                                <input type="datetime-local"
-                                    name="end_date"
-                                    value="<?= str_replace(' ', 'T', substr($event->end_date, 0, 16)) ?>"
-                                    class="px-5 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
+                                    <input type="datetime-local"
+                                        name="end_date"
+                                        value="<?= str_replace(' ', 'T', substr($event->end_date, 0, 16)) ?>"
+                                        class="px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
+                                </div>
                             </div>
                         </div>
 
@@ -141,7 +148,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
                             <button type="submit"
                                 class="px-10 py-3 rounded-full bg-gray-500 hover:bg-gray-600 text-white transition shadow ">
-                                บันทึกการเปลี่ยนแปลง
+                                บันทึก
                             </button>
                         </div>
 
