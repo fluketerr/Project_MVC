@@ -135,121 +135,131 @@
                         unset($_SESSION['message']); ?></p>
                 </div>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
-                
-                <div class="px-8">
-                    <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail">
-                    <div  href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail"
-                    class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
+
+                    <div class="px-8">
+                        <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail">
+                            <div href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail"
+                                class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
             transition-all duration-300">
 
-                        <!-- รูป -->
-                        <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/2 flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
-                            <?php
-                            $imgPath = 'uploads/events/' . $row->cover_image;
-                            if (!empty($row->cover_image) && file_exists($imgPath)): ?>
-                                <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
-                                    class="w-full h-full object-cover xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
-                            <?php else: ?>
-                                <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm min-h-[190px] bg-gray-500 rounded-t-2xl xl:rounded-r-none">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
-                                        <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
-                                        <circle cx="8.5" cy="8.5" r="1.5" fill="white" fill-opacity="0.7" />
-                                    </svg>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-
-                        <!-- เนื้อหา -->
-                        <div class="flex-1 flex flex-col xl:flex-row justify-between px-8 py-6">
-
-                            <!-- ฝั่งซ้าย -->
-                            <div class="flex xl:flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-96">
-
-                                <div class="w-full">
-                                    <!-- ชื่อ -->
-                                    <h3 class="text-xl font-semibold text-gray-800 truncate">
-                                        <?= htmlspecialchars($row->event_name) ?>
-                                    </h3>
-
-                                    <!-- รายละเอียด -->
-                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed xl:line-clamp-2 truncate">
-                                        <?= htmlspecialchars($row->event_detail) ?>
-                                    </p>
+                                <!-- รูป -->
+                                <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/2 flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
+                                    <?php
+                                    $imgPath = 'uploads/events/' . $row->cover_image;
+                                    if (!empty($row->cover_image) && file_exists($imgPath)): ?>
+                                        <img src="/uploads/events/<?= htmlspecialchars($row->cover_image) ?>"
+                                            class="w-full h-full object-cover xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
+                                    <?php else: ?>
+                                        <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm min-h-[190px] bg-gray-500 rounded-t-2xl xl:rounded-r-none">
+                                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect width="24" height="24" rx="4" fill="white" fill-opacity="0.3" />
+                                                <path d="M4 16l4.5-4.5 3 3 4-4.5L20 16H4z" fill="white" fill-opacity="0.7" />
+                                                <circle cx="8.5" cy="8.5" r="1.5" fill="white" fill-opacity="0.7" />
+                                            </svg>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
 
-                                <!-- เวลาด้านล่าง -->
-                                <?php
-                                $start = date("d M Y H:i", strtotime($row->start_date));
-                                $end   = date("d M Y H:i", strtotime($row->end_date));
-                                ?>
+                                <!-- เนื้อหา -->
+                                <div class="flex-1 flex flex-col xl:flex-row justify-between px-8 py-6">
 
-                                <div class="xl:mt-auto pt-4 flex flex-row xl:flex-none justify-center xl:flex-col bg-white/20 rounded-xl xl:bg-transparent">
-                                    <div class="xl:border-t border-r border-gray-200 mb-3"></div>
-                                    <div class="text-sm text-gray-500 flex xl:items-center gap-2">
-                                        <span></span>
-                                        <span><h4><?= $start ?> - <?= $end ?></h4></span>
+                                    <!-- ฝั่งซ้าย -->
+                                    <div class="flex xl:flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-96">
+
+                                        <div class="w-full">
+                                            <!-- ชื่อ -->
+                                            <h3 class="text-xl font-semibold text-gray-800 truncate">
+                                                <?= htmlspecialchars($row->event_name) ?>
+                                            </h3>
+
+                                            <!-- รายละเอียด -->
+                                            <p class="text-sm text-gray-600 mt-2 leading-relaxed xl:line-clamp-2 truncate">
+                                                <?= htmlspecialchars($row->event_detail) ?>
+                                            </p>
+                                        </div>
+
+                                        <!-- เวลาด้านล่าง -->
+                                        <?php
+                                        $start = date("d M Y H:i", strtotime($row->start_date));
+                                        $end   = date("d M Y H:i", strtotime($row->end_date));
+                                        ?>
+
+                                        <div class="xl:mt-auto pt-4 flex flex-row xl:flex-none justify-center xl:flex-col bg-white/20 rounded-xl xl:bg-transparent">
+                                            <div class="xl:border-t border-r border-gray-200 mb-3"></div>
+                                            <div class="text-sm text-gray-500 flex xl:items-center gap-2">
+                                                <span></span>
+                                                <span>
+                                                    <h4><?= $start ?> - <?= $end ?></h4>
+                                                </span>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                </div>
 
-                            </div>
-
-                            <!-- ฝั่งขวา -->
-                            <div class="xl:w-[10vw] flex xl:flex-col items-center xl:justify-center justify-between
+                                    <!-- ฝั่งขวา -->
+                                    <div class="xl:w-[10vw] flex xl:flex-col items-center xl:justify-center justify-between
                     bg-white/60 rounded-xl px-4 xl:py-4 shadow-inner">
 
-                                <div class="pt-2 xl:pt-0 flex flex-col items-center justify-center w-2/3">
-                                    <span class="text-xs text-gray-500 uppercase tracking-wide justify-center">
-                                        ผู้เข้าร่วม
-                                    </span>
+                                        <div class="pt-2 xl:pt-0 flex flex-col items-center justify-center w-2/3">
+                                            <span class="text-xs text-gray-500 uppercase tracking-wide justify-center">
+                                                ผู้เข้าร่วม
+                                            </span>
 
-                                    <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap">
-                                        <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
-                                    </span>
-                                </div>
+                                            <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap">
+                                                <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
+                                            </span>
+                                        </div>
 
-                                <?php if (isset($_SESSION['user_id'])) { ?>
-                                    <?php if ($row->event_status === 'Open' && strtotime($row->end_date) > time()): ?>
+                                        <?php if (isset($_SESSION['user_id'])) { ?>
+                                            <?php if ($row->approved_count >= $row->event_capacity): ?>
 
-                                        <form method="POST" action="" class="w-full flex xl:justify-center justify-end">
-                                            <input type="hidden" name="event_id" value="<?= $row->eid ?>">
-                                            <button type="submit" name="join"
-                                                class="xl:w-full w-1/2 bg-green-500 hover:bg-green-600
+                                                <div class="xl:w-full w-1/2 text-center bg-red-500
+                                                text-white text-sm font-medium
+                                                    py-2 rounded-full shadow">
+                                                    เต็มแล้ว
+                                                </div>
+
+                                            <?php elseif ($row->event_status === 'Open' && strtotime($row->end_date) > time()): ?>
+
+                                                <form method="POST" action="" class="w-full flex xl:justify-center justify-end">
+                                                    <input type="hidden" name="event_id" value="<?= $row->eid ?>">
+                                                    <button type="submit" name="join"
+                                                        class="xl:w-full w-1/2 bg-green-500 hover:bg-green-600
                                                         text-white text-sm font-medium
                                                         py-2 rounded-full shadow
                                                         transition duration-200">
-                                                เข้าร่วม
-                                            </button>
-                                        </form>
+                                                        เข้าร่วม
+                                                    </button>
+                                                </form>
 
-                                    <?php else: ?>
+                                            <?php else: ?>
 
-                                        <div class="xl:w-full w-1/2 text-center bg-gray-400
+                                                <div class="xl:w-full w-1/2 text-center bg-gray-400
                                                     text-white text-sm font-medium
                                                     py-2 rounded-full shadow">
-                                            หมดเวลา
-                                        </div>
+                                                    หมดเวลา
+                                                </div>
 
-                                    <?php endif; ?>
-                                <?php } else { ?>
-                                    <a href="/login" class="xl:w-full w-1/2 text-center bg-green-500 hover:bg-green-600
+                                            <?php endif; ?>
+                                        <?php } else { ?>
+                                            <a href="/login" class="xl:w-full w-1/2 text-center bg-green-500 hover:bg-green-600
                           text-white text-sm font-medium
                           py-2 rounded-full shadow
                           transition duration-200">
-                                        เข้าร่วม
-                                    </a>
-                                <?php } ?>
+                                                เข้าร่วม
+                                            </a>
+                                        <?php } ?>
 
+                                    </div>
+
+                                </div>
                             </div>
+                        </a>
 
-                        </div>
                     </div>
-                    </a>
-                    
-                </div>
-                
+
                 <?php } ?>
             </div>
         <?php } else { ?>
