@@ -199,11 +199,11 @@
                             </div>
                             </div>
 
-                            <div class="xl:w-[10vw] flex xl:flex-col items-center xl:justify-center justify-between
+                            <div class="xl:w-[10vw] flex xl:flex-col items-center xl:justify-center justify-around
                     bg-white/60 rounded-xl px-4 xl:py-4 shadow-inner">
-                                <div>
-                                    <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span><br>
-                                    <span class="text-sm font-medium text-gray-800 mb-3">
+                                <div class="flex flex-col items-center my-2">
+                                    <span class="text-sm text-gray-600 mb-0.5">ผู้เข้าร่วม</span>
+                                    <span class="text-sm font-medium text-gray-800">
                                     <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
                                     </span>
                                 </div>

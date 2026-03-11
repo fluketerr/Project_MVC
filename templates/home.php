@@ -166,7 +166,7 @@
                                 <div class="flex-1 flex flex-col xl:flex-row justify-between px-8 py-6">
 
                                     <!-- ฝั่งซ้าย -->
-                                    <div class="flex xl:flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-96">
+                                    <div class="flex flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-96">
 
                                         <div class="w-full">
                                             <!-- ชื่อ -->
