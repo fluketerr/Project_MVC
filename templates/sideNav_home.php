@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-<aside id="side-menu" class="flex flex-col w-64 h-screen left-0 top-0 md:bg-transparent md:bg-none bg-[linear-gradient(90deg,#D9D9D9_0%,#DBC3D6_25%,#DDAED3_100%)] z-20 absolute md:static">
+<aside id="side-menu" class="flex flex-col w-64 h-screen left-0 top-0 xl:bg-transparent xl:bg-none bg-[#F5D0ED]/90 backdrop-blur-sm z-20 absolute xl:static transition-all">
 
     <div class="w-64 flex items-center justify-center pt-6">
         <a href="/" class="">
@@ -38,6 +38,7 @@
             const switchEl = document.getElementById("switch");
             const slider = document.getElementById("slider");
             const islogin = <?= json_encode(isset($_SESSION['user_id'])); ?>;
+            const BigScreen = 1280;
             let currentPage = window.location.pathname;
 
             let active = 0; // 0 = left, 1 = right
@@ -65,7 +66,7 @@
                     window.location.href = "/login";
                 }
             });
-            
+
             //swipemenu for phone
             const menu = document.getElementById('side-menu');
 
@@ -74,25 +75,41 @@
             const threshold = 60; // Min distance for a swipe
 
             const openMenu = () => {
-                menu.classList.replace('hidden', 'flex');
+                //menu.classList.replace('hidden', 'flex');
+                menu.style.transform = "translateX(0%)";
             };
 
             const closeMenu = () => {
-                menu.classList.replace('flex', 'hidden');
+                //menu.classList.replace('flex', 'hidden');
+                menu.style.transform = "translateX(-100%)";
             };
 
-            document.addEventListener('touchstart', e => {
-                startX = e.touches[0].clientX;
-            });
+            if (window.innerWidth < BigScreen) {
+                document.addEventListener('touchstart', e => {
+                    startX = e.touches[0].clientX;
+                });
 
-            document.addEventListener('touchend', e => {
-                endX = e.changedTouches[0].clientX;
-                const diffX = endX - startX;
+                document.addEventListener('touchend', e => {
+                    endX = e.changedTouches[0].clientX;
+                    const diffX = endX - startX;
 
-                if (diffX > threshold && startX < 50) {
-                    openMenu();
-                } else if (diffX < -threshold) {
+                    if (diffX > threshold && startX < 50) {
+                        openMenu();
+                    } else if (diffX < -threshold) {
+                        closeMenu();
+                    }
+                });
+            }
+
+            //click outside menu
+            document.addEventListener('click', function(event) {
+                const openMenuBtn = document.getElementById("openMenuBtn");
+                const isClickInside = menu.contains(event.target);
+
+                if (!isClickInside && !openMenuBtn.contains(event.target) && window.innerWidth < BigScreen) {
                     closeMenu();
+                } else if (window.innerWidth >= BigScreen) {
+                    openMenu();
                 }
             });
         </script>
@@ -108,7 +125,7 @@
             </li>
             <?php if (isset($_SESSION['user_email'])) { ?>
                 <li class="m-0">
-                    <a id="my_events" href="/my_events"
+                    <a id="events_my" href="/events_my"
                         class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#DBC3D6] hover:border-l-[#DDAED3]">
                         <span class="text-base">กิจกรรมที่ฉันเข้าร่วม</span>
                     </a>
@@ -120,7 +137,7 @@
             const routeMap = {
                 "/": "home",
                 "/home": "home",
-                "/my_events": "my_events"
+                "/events_my": "events_my"
             };
 
             const activeId = routeMap[currentPage];
@@ -149,7 +166,7 @@
 
                     <div class="flex flex-col">
                         <?php $_SESSION['name'] = getUserNameByEmail($_SESSION['user_email']) ?>
-                        <a href="/update_user" class="text-sm font-semibold text-slate-800"><span
+                        <a href="/user_update" class="text-sm font-semibold text-slate-800"><span
                                 class="text-base"><?= isset($_SESSION['name']) ? $_SESSION['name'] : 'Update User' ?></span></a>
                         <span class="text-xs text-slate-500">UID:
                             <?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Update User' ?></span>

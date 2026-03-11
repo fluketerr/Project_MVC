@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -20,7 +21,7 @@
     font-family: 'Sarabun', sans-serif;
     min-height: 100vh;
     background: linear-gradient(to bottom, #EEEEEE, #888888);
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
   }
 
@@ -64,21 +65,29 @@
   .w-c1 .outline { -webkit-text-stroke: 2px #213C51; -webkit-text-fill-color: transparent; }
   .w-c2 .outline { -webkit-text-stroke: 2px #DDAED3; -webkit-text-fill-color: transparent; }
 
-  /* ─── Login panel —─── */
-  .panel {
-    background-color: rgba(255, 255, 255, 0.9); 
-    position: absolute;
+  /* ─── Page wrapper ─── */
+  .page-wrapper {
+    position: relative;
     z-index: 10;
-    width: 50%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+
+  /* ─── Login panel ─── */
+  .panel {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 100%;
     max-width: 440px;
-    margin: 150px 50vw 100px 35vw;
     padding: 32px 24px 40px;
     display: flex;
     flex-direction: column;
-    min-height: 50vh;
     border-radius: 20px;
     border: solid 1px #6594B1;
- }
+  }
+
   /* Back */
   .back-link {
     display: inline-flex;
@@ -109,7 +118,7 @@
     margin-bottom: 14px;
   }
 
-  .input-wrapEmail{
+  .input-wrapEmail {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -120,12 +129,13 @@
     padding: 0 16px;
     transition: border-color .2s, box-shadow .2s;
   }
-  .input-wrapPassword{
-   display: flex;
+  .input-wrapPassword {
+    display: flex;
     align-items: center;
     gap: 10px;
     background: rgba(255,255,255,0.92);
     border: 1.5px solid #6594B1;
+    border-top: none;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 0 16px;
@@ -142,18 +152,7 @@
 
   .input-icon { color: #7a8499; flex-shrink: 0; width: 18px; height: 18px; }
 
-  .input-wrapEmail input {
-    flex: 1;
-    border: none;
-    background: transparent;
-    padding: 16px 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    color: #1a1a2e;
-    outline: none;
-  }
-  .input-wrapEmail input::placeholder { color: #aab0be; }
-
+  .input-wrapEmail input,
   .input-wrapPassword input {
     flex: 1;
     border: none;
@@ -163,12 +162,18 @@
     font-size: 15px;
     color: #1a1a2e;
     outline: none;
+    /* Prevent zoom on iOS */
+    font-size: max(16px, 15px);
+    min-width: 0;
   }
+  .input-wrapEmail input::placeholder,
   .input-wrapPassword input::placeholder { color: #aab0be; }
 
   .eye-btn {
     background: none; border: none; cursor: pointer;
     padding: 0; color: #7a8499; display: flex; align-items: center;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
   .eye-btn:hover { color: #333; }
 
@@ -203,58 +208,86 @@
     cursor: pointer;
     letter-spacing: 0.04em;
     transition: background .2s, transform .1s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
   .btn-login:hover  { background: var(--btn-h); }
   .btn-login:active { transform: scale(.98); }
+
+  /* ─── Mobile tweaks ─── */
+  @media (max-width: 480px) {
+    .panel {
+      padding: 24px 18px 32px;
+      border-radius: 16px;
+    }
+    .logo svg {
+      width: 80px;
+      height: 80px;
+    }
+    .logo {
+      margin-bottom: 22px;
+    }
+    .bg-row {
+      font-size: 16vw;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .panel {
+      padding: 20px 14px 28px;
+    }
+  }
 </style>
 </head>
 <body>
 
 <div class="bg" id="bg"></div>
 
-<div class="panel">
-  <a href="/home" class="back-link">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <polyline points="15 18 9 12 15 6"/>
-    </svg>
-    Back
-  </a>
-
-  <div class="logo">
-    <?php include 'logo.php'; ?>
-  </div>
-
-  <form action="login" method="post">
-  <div class="input-group">
-    <div class="input-wrapEmail">
-      <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
+<div class="page-wrapper">
+  <div class="panel">
+    <a href="/home" class="back-link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="15 18 9 12 15 6"/>
       </svg>
-      <input type="text" placeholder="Email" name="email" id="email" required>
-    </div>
-    <div class="input-wrapPassword">
-      <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="11" width="18" height="11" rx="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-      <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password" required>
-      <button class="eye-btn" onclick="togglePw()" type="button">
-        <svg id="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
-      </button>
-    </div>
-  </div>
+      Back
+    </a>
 
-  <div class="links-row">
-    <a href="/register_user">ยังไม่มีบัญชี?</a>
-  </div>
+    <div class="logo">
+      <?php include 'logo.php'; ?>
+    </div>
 
-  <button class="btn-login">เข้าสู่ระบบ</button>
+    <form action="login" method="post">
+      <div class="input-group">
+        <div class="input-wrapEmail">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <input type="text" placeholder="Email" name="email" id="email" required autocomplete="email">
+        </div>
+        <div class="input-wrapPassword">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <input type="password" name="password" id="password" placeholder="Password" autocomplete="current-password" required>
+          <button class="eye-btn" onclick="togglePw()" type="button" aria-label="Toggle password visibility">
+            <svg id="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="links-row">
+        <a href="/user_register">ยังไม่มีบัญชี?</a>
+      </div>
+
+      <button class="btn-login" type="submit">เข้าสู่ระบบ</button>
+    </form>
+  </div>
 </div>
-</form>
 
 <script>
   const rows = [

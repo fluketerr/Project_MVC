@@ -28,22 +28,33 @@
     </script>
 </head>
 
-<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex  overflow-hidden  font-sans text-gray-800">
+<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex  overflow-y-auto  font-sans text-gray-800">
 
     <div class="">
         <?php include 'sideNav_event.php'; ?>
     </div>
     <main class="flex flex-col flex-1 w-full overflow-x-auto">
         <?php $row = $data['event']->fetch_object(); ?>
-        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-hidden">
+        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-auto
+                [&::-webkit-scrollbar]:w-2
+                [&::-webkit-scrollbar-thumb]:bg-[#213C51]
+                [&::-webkit-scrollbar-thumb]:rounded-full
+        ">
 
             <!-- Header Section -->
-            <div class="flex gap-8">
+            <div class="flex gap-8 flex-col xl:flex-row">
+                <div class="flex xl:hidden items-center justify-start">
+                    <button id="openMenuBtn" type="button" onclick="openMenu();">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                            <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                        </svg>
+                    </button>
+                </div>
 
                 <!-- Cover Image -->
                 <?php if (!empty($data['pictures']) && $pic = $data['pictures']->fetch_object()): ?>
 
-                    <div class="w-[420px] h-[240px]">
+                    <div class="xl:w-[420px] h-[240px]">
                         <img src="/uploads/events/<?= $pic->picture_name ?>"
                             class="w-full h-full object-cover rounded-xl border border-gray-300">
                     </div>
@@ -60,13 +71,13 @@
                             <?= $row->event_name ?>
                         </h1>
 
-                        <p class="text-gray-500 text-sm">
+                        <h2 class="text-gray-500 text-sm">
                             <?= $row->start_date ?> - <?= $row->end_date ?>
-                        </p>
+                        </h2>
 
-                        <p class="text-gray-600 mt-4 max-w-xl">
+                        <h3 class="text-gray-600 mt-4 max-w-xl">
                             <?= $row->event_detail ?>
-                        </p>
+                        </h3>
                     </div>
 
                     <!-- Capacity Section -->
@@ -87,7 +98,7 @@
                         ?>
 
                         <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-blue-500 h-2 rounded-full"
+                            <div class="bg-[#213C51] h-2 rounded-full"
                                 style="width: <?= min(100, $percent) ?>%">
                             </div>
                         </div>
@@ -126,33 +137,35 @@
                     <form action="/check_otp" method="POST"
                         class="bg-white/70 p-8 rounded-2xl
                                 border border-gray-100 
-                                flex items-end gap-6">
+                                flex xl:items-end gap-6 flex-col">
 
                         <input type="hidden" name="eid" value="<?= (int)$row->eid ?>">
 
-                        <!-- UID -->
-                        <div class="flex flex-col">
-                            <label class="text-sm text-gray-500 mb-2">UID</label>
-                            <input type="text" name="uid"
-                                class="w-40 border border-gray-300 rounded-lg px-3 py-2
+                        <div class="flex xl:flex-row flex-col xl:gap-6 gap-3">
+                            <!-- UID -->
+                            <div class="flex flex-col">
+                                <label class="text-sm text-gray-500 mb-2">UID</label>
+                                <input type="text" name="uid"
+                                    class="w-48 border border-gray-300 rounded-lg px-3 py-2
                                         focus:ring-2 focus:ring-blue-400 focus:outline-none
                                         text-center"
-                                required>
-                        </div>
+                                    required>
+                            </div>
 
-                        <!-- OTP -->
-                        <div class="flex flex-col">
-                            <label class="text-sm text-gray-500 mb-2">OTP</label>
-                            <input type="tel" name="otp" maxlength="6"
-                                class="w-48 border border-gray-300 rounded-lg px-3 py-2
+                            <!-- OTP -->
+                            <div class="flex flex-col">
+                                <label class="text-sm text-gray-500 mb-2">OTP</label>
+                                <input type="tel" name="otp" maxlength="6" placeholder="000000"
+                                    class="w-48 border border-gray-300 rounded-lg px-3 py-2
                                 focus:ring-2 focus:ring-blue-400 focus:outline-none
                                 text-center tracking-widest font-semibold"
-                                required>
+                                    required>
+                            </div>
                         </div>
 
                         <button type="submit"
-                            class="bg-blue-500 hover:bg-blue-600 
-                            text-white px-6 py-2 rounded-lg 
+                            class="bg-[#6594B1] hover:bg-[#213C51] 
+                            text-white px-6 py-2 rounded-lg w-full
                             transition shadow">
                             เช็คชื่อ
                         </button>

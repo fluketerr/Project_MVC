@@ -18,7 +18,7 @@ if (isset($_POST['join'])) {
     }
 
     $event_id = $_POST['event_id'];
-    $event = getEvetById($event_id)->fetch_object();
+    $event = getEventById($event_id)->fetch_object();
     $countCapacity = countCapacity((int)$event_id);
 
     if ($event->event_status === 'Open' && $countCapacity->count_uid < $countCapacity->event_capacity) {
@@ -42,7 +42,7 @@ if ($keyword != '' || $start != '' || $end != '') {
 } else {
 
     if ($user_id) {
-        $result = getNotinEvets($user_id);
+        $result = getNotinEvents($user_id);
     } else {
         $result = getEvents();   // public default
     }

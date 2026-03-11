@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($first_name . ' ' . $last_name);
 
     if (checkEmailExists($email)) {
-        renderView('register_user', ['error' => 'อีเมลนี้ถูกใช้งานแล้ว']);
+        renderView('user_register', ['error' => 'อีเมลนี้ถูกใช้งานแล้ว']);
         exit;
     } elseif (isPassEqualConfirm($password, $confirm_password) === false) {
-        renderView('register_user', ['error' => 'รหัสผ่านไม่ตรงกัน']);
+        renderView('user_register', ['error' => 'รหัสผ่านไม่ตรงกัน']);
         exit;
     }elseif (!isValidBirthday($birthday)) {
-        renderView('register_user', ['error' => 'วันเกิดไม่ถูกต้อง']);
+        renderView('user_register', ['error' => 'วันเกิดไม่ถูกต้อง']);
         exit;
     }else {
         registerUser($name, $email, $password, $birthday, $tel, $job, $gender, $address);
@@ -31,6 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 } else {
-    renderView('register_user');
+    renderView('user_register');
 }
 
