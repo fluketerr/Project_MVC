@@ -22,7 +22,8 @@
     </script>
 </head>
 
-<body class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
+<body
+    class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
     <div class="">
         <?php include 'sideNav_allEvents.php'; ?>
@@ -147,16 +148,11 @@
                                     สถิติ
                                 </a>
 
-                            <a class="w-20 bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
-                                href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
-                                จัดการ
-                            </a>
-                            
-                            <a class="w-20 bg-blue-500 hover:bg-blue-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
-                                href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_join">
-                                สถิติ
-                            </a>
-                            
+                                <a class="w-20 bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
+                                    href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
+                                    จัดการ
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

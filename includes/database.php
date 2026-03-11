@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-$hostname = 'localhost';
-$dbName = 'project_regisevent';
-$username = 'demo';
-$password = '1234';
+$hostname = 'gonggang.net';
+$dbName = 'u910454988_regify';
+$username = 'u910454988_regify';
+$password = 'I3WdSE]WGe;c6!tH';
 $conn = new mysqli($hostname, $username, $password, $dbName);
 $conn->set_charset("utf8mb4");
 
