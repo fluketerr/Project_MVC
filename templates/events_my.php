@@ -66,7 +66,7 @@
 
         </div>
         <?php if ($data['result'] && $data['result']->num_rows > 0) { ?>
-            <div class="overflow-y-auto xl:px-8 pb-8 flex flex-col gap-4
+            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4
                     [&::-webkit-scrollbar]:w-2 
                   [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
                     [&::-webkit-scrollbar-thumb]:rounded-full
@@ -74,10 +74,10 @@
 
                 <?php while ($row = $data['result']->fetch_object()) { ?>
                     <!--my event-->
-
+                <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail_my">
                     <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
-            shadow-md hover:shadow-xl hover:bg-white/60 mx-8
+            shadow-md hover:shadow-xl hover:bg-white/60 
             transition-all duration-300">
                         <div class="xl:w-[25vw] xl:h-full w-full max-h-44 h-1/3 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                             <?php
@@ -94,7 +94,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="xl:flex-1 flex px-8 py-5 flex-col xl:flex-row">
+                        <div class="xl:flex-1 flex px-8 py-6 flex-col xl:flex-row">
                             <div class="flex flex-col flex-1 min-w-0 ">
                                 <div class="w-full xl:max-w-[200px]">
                                     <h3 class="text-lg font-medium text-gray-800 truncate">
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                     </div>
-
+                </a>
                 <?php } ?>
             </div>
         <?php } else { ?>
