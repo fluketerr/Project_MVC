@@ -1,9 +1,6 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-
-
     if (isset($_POST['cancel'])) {
 
         $event_id = $_POST['event_id'];
@@ -16,14 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-
-
 $user_id = $_SESSION['user_id'] ?? null;
 $eid = $_SESSION['eid'] ?? null;
 $status = $_GET['status'] ?? '';
 $result = getEventById($eid);
 
+if ($eid != '') {
 
-renderView('event_detail_my', [
-    'result' => $result,
-]);
+    $conn = getConnection();
+    $pictures = getPictureById((int)$eid, $conn);
+    $event = getEventRegisById((int)$eid,(int)$user_id)->fetch_object();
+
+    renderView('event_detail_my', [
+        'title' => 'Event Detail My',
+        'result' => $event,
+        'pictures' => $pictures
+    ]);
+
+} else {
+
+    $_SESSION['message'] = 'หา eid ไม่เจอ';
+    header('Location: /home');
+    exit();
+
+}
