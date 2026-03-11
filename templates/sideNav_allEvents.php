@@ -1,7 +1,7 @@
 <?php
 // Side Navigation Component
 ?>
-<aside id="side-menu" class="flex flex-col w-64 md:bg-transparent md:bg-none bg-[#6594B1]/90 backdrop-blur-sm h-screen left-0 top-0 z-20 absolute md:static transition-all">
+<aside id="side-menu" class="flex flex-col w-64 xl:bg-transparent xl:bg-none bg-[#6594B1]/90 backdrop-blur-sm h-screen left-0 top-0 z-20 absolute xl:static transition-all">
 
     <div class="w-64 flex items-center justify-center pt-6">
         <a href="/" class="">

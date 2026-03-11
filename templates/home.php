@@ -163,16 +163,16 @@
                         <div class="flex-1 flex flex-col xl:flex-row justify-between px-8 py-6">
 
                             <!-- ฝั่งซ้าย -->
-                            <div class="flex xl:flex-col flex-1 xl:pr-6 min-w-0">
+                            <div class="flex xl:flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-96">
 
-                                <div class="w-2/3">
+                                <div class="w-full">
                                     <!-- ชื่อ -->
                                     <h3 class="text-xl font-semibold text-gray-800 truncate">
                                         <?= htmlspecialchars($row->event_name) ?>
                                     </h3>
 
                                     <!-- รายละเอียด -->
-                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed xl:line-clamp-2">
+                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed xl:line-clamp-2 truncate">
                                         <?= htmlspecialchars($row->event_detail) ?>
                                     </p>
                                 </div>
@@ -183,11 +183,11 @@
                                 $end   = date("d M Y H:i", strtotime($row->end_date));
                                 ?>
 
-                                <div class="xl:mt-auto xl:pt-4 flex flex-row xl:flex-none xl:flex-col">
+                                <div class="xl:mt-auto pt-4 flex flex-row xl:flex-none justify-center xl:flex-col bg-white/20 rounded-xl xl:bg-transparent">
                                     <div class="xl:border-t border-r border-gray-200 mb-3"></div>
                                     <div class="text-sm text-gray-500 flex xl:items-center gap-2">
                                         <span></span>
-                                        <span><?= $start ?> -<br class="xl:hidden"> <?= $end ?></span>
+                                        <span><h4><?= $start ?> - <?= $end ?></h4></span>
                                     </div>
                                 </div>
 

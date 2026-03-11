@@ -75,7 +75,7 @@
                 <?php while ($row = $data['result']->fetch_object()) { ?>
                     <!--my event-->
                     
-                    <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col
+                    <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
             transition-all duration-300" 
@@ -96,12 +96,12 @@
                             <?php endif; ?>
                         </div>
                         <div class="xl:flex-1 flex px-8 py-5 flex-col xl:flex-row">
-                            <div class="flex xl:flex-col flex-1 xl:pr-4 min-w-0">
-                                <div class="xl:w-2/3 h-1/3 pb-4">
+                            <div class="flex flex-col flex-1 min-w-0 ">
+                                <div class="w-full xl:max-w-[200px]">
                                     <h3 class="text-lg font-medium text-gray-800 truncate">
                                         <?= htmlspecialchars($row->event_name) ?>
                                     </h3>
-                                    <p class="text-[12px] text-gray-500 mt-1 leading-relaxed xl:line-clamp-2">
+                                    <p class="text-[12px] text-gray-500 mt-1 leading-relaxed xl:line-clamp-2 truncate">
                                         <?= htmlspecialchars($row->event_detail) ?>
                                     </p>
                                 </div>
@@ -111,11 +111,11 @@
                                 $end   = date("d M Y H:i", strtotime($row->end_date));
                                 ?>
 
-                                <div class="xl:mt-auto xl:pt-4 flex flex-row xl:flex-none xl:flex-col">
+                                <div class="xl:mt-auto xl:pt-4 flex flex-row xl:flex-none xl:flex-col justify-center mt-4">
                                     <div class="xl:border-t border-l border-gray-200 mb-3"></div>
-                                    <div class="text-sm text-gray-500 flex xl:items-center gap-2">
+                                    <div class="text-sm text-gray-500 flex xl:items-center gap-2 text-nowrap ">
                                         <span></span>
-                                        <span><?= $start ?> - <?= $end ?></span>
+                                        <span class=""><?= $start ?> -<wbr><?= $end ?></span>
                                     </div>
                                 </div>
                             </div>
@@ -209,7 +209,7 @@
                                 </div>
                                 <form method="POST">
                                     <input type="hidden" name="event_id" value="<?= $row->eid ?>">
-                                    <button type="submit" name="cancel" class="bg-red-500 hover:bg-red-700 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">ยกเลิกการเข้าร่วม</button>
+                                    <button type="submit" name="cancel" class="bg-red-500 hover:bg-red-700 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full text-nowrap shadow-sm">ยกเลิกเข้าร่วม</button>
                                 </form>
                             </div>
                         </div>
