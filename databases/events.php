@@ -15,10 +15,10 @@ function getEvents(): mysqli_result|bool
                    FROM Registrations r
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
-               ) AS approved_count from events e
+               ) AS approved_count from Events e
            where e.event_status != 'Closed'";
     $result = $conn->query($sql);
-
+    $conn->close();
     return $result;
 }
 
@@ -54,8 +54,9 @@ function getNotinEvents(int $uid): mysqli_result|bool
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $uid, $uid);
     $stmt->execute();
+    $result = $stmt->get_result();
 
-    return $stmt->get_result();
+    return $result;
 }
 
 function getEventById(int $eid): mysqli_result|bool
@@ -67,11 +68,12 @@ function getEventById(int $eid): mysqli_result|bool
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count 
-            from events e where eid = ?";
+            from Events e where eid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $eid);
     $stmt->execute();
     $result = $stmt->get_result();
+    
 
     return $result;
 }
@@ -102,8 +104,10 @@ function getEventByCreateUid(int $uid)
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $uid);
     $stmt->execute();
+    $result = $stmt->get_result();
+    $conn->close();
 
-    return $stmt->get_result();
+    return $result; 
 }
 
 function insertEvent($event, $conn): int | bool
@@ -167,7 +171,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 WHERE e.create_uid != ?
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
                 AND LOWER(e.event_name) LIKE '%$keyword%' 
@@ -201,7 +205,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
                 
@@ -236,7 +240,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
         ";
@@ -270,7 +274,7 @@ function searchEvents($keyword, $start, $end, $uid)
                 and e.event_status != 'Closed'
                 AND e.eid NOT IN (
                 SELECT eid
-                FROM registrations
+                FROM Registrations
                 WHERE uid = ?
                                 )
         ";
@@ -319,7 +323,10 @@ function searchEventsPublic($keyword, $start, $end)
                   AND e.end_date <= '$end' ";
     }
 
-    return $conn->query($sql);
+    $result = $conn->query($sql);
+    $conn->close();
+
+    return $result;
 }
 
 function joinEvent($user_id, $event_id)
@@ -329,7 +336,9 @@ function joinEvent($user_id, $event_id)
     $sql = "INSERT INTO Registrations (uid, eid, status)
             VALUES ('$user_id', '$event_id', 'wait')";
 
-    return $conn->query($sql);
+    $result = $conn->query($sql);
+    $conn->close();
+    return $result;
 }
 
 function countCapacity($eid)
@@ -338,9 +347,9 @@ function countCapacity($eid)
 
     $sql = "select e.*,
                     COALESCE((select count(uid) 
-                    from   registrations
+                    from   Registrations
                     where  eid = ?), 0) as count_uid
-            from  events e
+            from  Events e
             where eid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $eid, $eid);
@@ -353,7 +362,7 @@ function autoCloseEvent()
     $conn = getConnection();
 
     $sql = "
-        UPDATE events
+        UPDATE Events
         SET event_status = 
             CASE
                 WHEN end_date < NOW() THEN 'Closed'
@@ -389,6 +398,8 @@ function updateEvent(array $event, mysqli $conn): bool
     );
 
     $stmt->execute();
+    $result = $stmt->affected_rows >= 0;
+    
 
-    return $stmt->affected_rows >= 0;
+    return $result;
 }
