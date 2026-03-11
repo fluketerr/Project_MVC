@@ -114,7 +114,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                                 <label class="block mb-2 font-medium text-[#1E293B]">จำนวนผู้เข้าร่วม</label>
                                 <input type="number"
                                     name="event_capacity"
-                                    value="<?= $event->event_capacity ?>"
+                                    value="<?= $event->event_capacity ?>" min="1" max="999999"
                                     class="xl:w-40 w-1/4 px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
                             </div>
                             <div>

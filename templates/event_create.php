@@ -83,7 +83,7 @@
 
                                 <div>
                                     <label class="block text-[#1E293B] font-medium mb-1">จำนวนผู้เข้าร่วม</label>
-                                    <input type="number" name="event_capacity" required min="1"
+                                    <input type="number" name="event_capacity" required min="1" max="999999"
                                         class="w-24 bg-white rounded-full px-4 py-2 border-none focus:ring-2 focus:ring-gray-400">
                                 </div>
 

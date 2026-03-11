@@ -77,7 +77,7 @@
 
                     <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
-            shadow-md hover:shadow-xl hover:bg-white/60
+            shadow-md hover:shadow-xl hover:bg-white/60 mx-8
             transition-all duration-300">
                         <div class="xl:w-[25vw] xl:h-full w-full max-h-44 h-1/3 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                             <?php
