@@ -135,8 +135,11 @@
                         unset($_SESSION['message']); ?></p>
                 </div>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
+                
                 <div class="px-8">
-                    <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
+                    <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail">
+                    <div  href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail"
+                    class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
             transition-all duration-300">
@@ -243,7 +246,10 @@
 
                         </div>
                     </div>
+                    </a>
+                    
                 </div>
+                
                 <?php } ?>
             </div>
         <?php } else { ?>
