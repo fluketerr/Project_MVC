@@ -144,12 +144,12 @@
                             </div>
                             <div class="flex gap-2">
                                 <a class="w-20 bg-blue-500 hover:bg-blue-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
-                                    href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_join">
+                                    href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_join">
                                     สถิติ
                                 </a>
 
                                 <a class="w-20 bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
-                                    href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
+                                    href="/set_sessioneid?eid=<?= (int)$row->eid ?>">
                                     จัดการ
                                 </a>
                             </div>
