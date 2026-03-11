@@ -174,7 +174,7 @@
                         </div>
                     </div>
 
-                    <!--<div class="bg-white/30 rounded-2xl flex min-h-[150px] overflow-hidden --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
+                    <div class="bg-white/30 rounded-2xl flex min-h-[150px] overflow-hidden --webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); --moz-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border border-white/50
                             hover:bg-white/50 transition-all shadow-md hover:shadow-xl" 
                             >
                         <div class="w-[280px] bg-imagePlaceholder flex-shrink-0">
@@ -268,7 +268,7 @@
                                     && $row->status == 'approved'
                                 ) {
                                     $uid = $_SESSION['user_id'];
-                                    $otp = generateOTP($uid, $row->eid);
+                                    $otp = UpdateTimeChkAndGenerateOTP($uid, $row->eid);
                                 ?>
                                     <div class="mt-2 w-full ">
                                         <input type="text" value="<?= htmlspecialchars($otp) ?>" readonly class="w-full px-3 py-2 text-sm border-gray-300 rounded-lg bg-gray-50 text-center font-mono font-bold">
@@ -293,11 +293,11 @@
                                 </span>
                                 <form method="POST">
                                     <input type="hidden" name="event_id" value="<?= $row->eid ?>">
-                                    <button type="submit" name="cancel" class="bg-red-500 hover:bg-red-700 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">ยกเลิกการเข้าร่วม</button>
+                                    <button onclick="return " type="submit" name="cancel" class="bg-red-500 hover:bg-red-700 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm">ยกเลิกการเข้าร่วม</button>
                                 </form>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
 
                 <?php } ?>
             </div>

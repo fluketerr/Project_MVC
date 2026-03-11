@@ -65,7 +65,8 @@ function cancelEvent(int $uid, int $eid): bool
 
 //----------------------------------------
 
-function generateOTP($uid, $eid) {
+function generateOTP($uid, $eid)
+{
     $secret = "MySecretKey2026";
     $timeWindow = floor(time() / 120);
 
@@ -75,12 +76,77 @@ function generateOTP($uid, $eid) {
     return str_pad(abs(crc32($hash)) % 1000000, 6, '0', STR_PAD_LEFT);
 }
 
-function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
+function UpdateTimeChkAndGenerateOTP($uid, $eid)
+{
+
+    global $conn;
+
+    $sql = "SELECT checkin_time 
+            FROM registrations 
+            WHERE uid = ? AND eid = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $uid, $eid);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $row = $result->fetch_object();
+
+    // ถ้าไม่พบ registration
+    if (!$row) {
+        return false;
+    }
+
+    $time = time();
+    $timestamp = strtotime($row->checkin_time);
+    $sec = 1800; // 30 นาที
+
+    // ถ้าไม่มีเวลา หรือหมดอายุแล้ว
+    if (!$timestamp || ($time - $timestamp) > $sec) {
+
+        $sql = "UPDATE registrations 
+                SET checkin_time = ? 
+                WHERE uid = ? AND eid = ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iii", $time, $uid, $eid);
+        $stmt->execute();
+
+        return generateOTP($uid, $eid, $time);
+    }
+
+    // ยังไม่หมดเวลา → ใช้เวลาเดิม
+    return generateOTP($uid, $eid, $row->checkin_time);
+}
+
+function verifyOTP($uid, $eid, $otp): bool
+{
+    global $conn;
+    $sec = 120;
+    $sql = "SELECT checkin_time FROM registrations WHERE uid = ? AND eid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ii", $uid, $eid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_object();
+    if (!$row) {
+        return false;
+    } // เช็คหมดอายุ (30 นาที) 
+    if (time() - $row->checkin_time > $sec) {
+        return false;
+    }
+    if (generateOTP($uid, $eid, $row->checkin_time) == $otp) {
+        return true;
+    }
+    return false;
+}
+
+function getUserRegisById(string $eid, string $uid): mysqli_result|bool
 {
     global $conn;
     $sql = 'select * from registrations where uid = ? and eid = ?';
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ii', $uid,$eid);
+    $stmt->bind_param('ii', $uid, $eid);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result;
@@ -108,7 +174,6 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
         $stmt = $conn->prepare($sql);
         $like = "%{$keyword}%";
         $stmt->bind_param("isss", $eid, $like, $like, $like);
-
     } else {
         $sql = "SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
                 FROM registrations r
@@ -123,4 +188,3 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
     $stmt->execute();
     return $stmt->get_result();
 }
-

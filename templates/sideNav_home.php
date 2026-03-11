@@ -149,7 +149,7 @@
 
                     <div class="flex flex-col">
                         <?php $_SESSION['name'] = getUserNameByEmail($_SESSION['user_email']) ?>
-                        <a href="/update_user" class="text-sm font-semibold text-slate-800"><span
+                        <a href="/user_update" class="text-sm font-semibold text-slate-800"><span
                                 class="text-base"><?= isset($_SESSION['name']) ? $_SESSION['name'] : 'Update User' ?></span></a>
                         <span class="text-xs text-slate-500">UID:
                             <?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Update User' ?></span>

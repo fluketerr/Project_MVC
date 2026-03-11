@@ -109,6 +109,10 @@
                                 href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
                                 จัดการ
                             </a>
+                            <a class="bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm"
+                                href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_join">
+                                จัดการ
+                            </a>
                         </div>
                     </div>
                 </div>
