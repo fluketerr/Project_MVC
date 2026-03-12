@@ -85,7 +85,7 @@ function getEventRegisById(int $eid, int $uid): mysqli_result|bool
             WHERE r.eid = e.eid AND r.status = 'approved' ) AS approved_count 
             from Events e, Registrations r where e.eid = r.eid and r.eid = ? and r.uid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ii', $eid,$uid);
+    $stmt->bind_param('ii', $eid, $uid);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -308,37 +308,53 @@ function searchEventsPublic($keyword, $start, $end)
 {
     global $conn;
 
-    $sql = "
-        SELECT e.*,
-               (
-                   SELECT picture_name
-                   FROM Pictures p
-                   WHERE p.eid = e.eid
-                   LIMIT 1
-               ) AS cover_image,
-               (
-                   SELECT COUNT(*)
-                   FROM Registrations r
-                   WHERE r.eid = e.eid
-                   AND r.status = 'approved'
-               ) AS approved_count
-        FROM Events e
-        WHERE 1=1
-        and e.event_status != 'Closed'
-    ";
-
     if ($keyword != '') {
-        $keyword = strtolower($keyword);
-        $sql .= " AND LOWER(e.event_name) LIKE '%$keyword%' ";
-    }
 
-    if ($start != '' && $end != '') {
-        $sql .= " AND e.start_date >= '$start'
-                  AND e.end_date <= '$end' ";
+        $keyword = strtolower($keyword);
+
+        $sql = "
+        SELECT e.*,
+               (SELECT picture_name 
+               FROM Pictures p 
+               WHERE p.eid = e.eid LIMIT 1) AS cover_image,
+               (SELECT COUNT(*) 
+               FROM Registrations r 
+               WHERE r.eid = e.eid 
+               AND r.status = 'approved') AS approved_count
+        FROM Events e
+        WHERE e.event_status != 'Closed'
+        AND LOWER(e.event_name) LIKE '%$keyword%'";
+    } elseif ($start != '' && $end != '') {
+
+        $sql = "
+        SELECT e.*,
+               (SELECT picture_name 
+               FROM Pictures p 
+               WHERE p.eid = e.eid LIMIT 1) AS cover_image,
+               (SELECT COUNT(*) 
+               FROM Registrations r 
+               WHERE r.eid = e.eid 
+               AND r.status = 'approved') AS approved_count
+        FROM Events e
+        WHERE e.event_status != 'Closed'
+        AND e.start_date >= '$start'
+        AND e.end_date <= '$end'";
+    } else {
+
+        $sql = "
+        SELECT e.*,
+               (SELECT picture_name 
+               FROM Pictures p 
+               WHERE p.eid = e.eid LIMIT 1) AS cover_image,
+               (SELECT COUNT(*) 
+               FROM Registrations r 
+               WHERE r.eid = e.eid 
+               AND r.status = 'approved') AS approved_count
+        FROM Events e
+        WHERE e.event_status != 'Closed'";
     }
 
     $result = $conn->query($sql);
-    $conn->close();
 
     return $result;
 }
