@@ -9,251 +9,307 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Sarabun:wght@400;500;600&display=swap"
         rel="stylesheet">
     <style>
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    :root {
-        --c1: #213C51;
-        --c2: #DDAED3;
-        --btn: #4b5563;
-        --btn-h: #374151;
-    }
+        :root {
+            --c1: #213C51;
+            --c2: #DDAED3;
+            --btn: #4b5563;
+            --btn-h: #374151;
+        }
 
-    body {
-        font-family: 'Sarabun', sans-serif;
-        min-height: 100vh;
-        background: linear-gradient(to bottom, #EEEEEE, #888888);
-        overflow-x: hidden;
-        position: relative;
-    }
+        body {
+            font-family: 'Sarabun', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #EEEEEE, #888888);
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    /* ─── BG ─── */
-    .bg {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-    }
+        /* ─── BG ─── */
+        .bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    .bg-inner {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 400vmax;
-        height: 400vmax;
-        transform: translate(-50%, -50%) rotate(-45deg);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+        .bg-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400vmax;
+            height: 400vmax;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-    .bg-row {
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-        font-family: 'Inter', 'Arial Black', sans-serif;
-        font-weight: 900;
-        font-size: 90px;
-        line-height: 1.0;
-        letter-spacing: -0.01em;
-        text-transform: uppercase;
-        flex-shrink: 0;
-    }
+        .bg-row {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-family: 'Inter', 'Arial Black', sans-serif;
+            font-weight: 900;
+            font-size: 90px;
+            line-height: 1.0;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
 
-    .word { display: inline-flex; align-items: baseline; margin-right: 0.3em; }
-    .w-c1 .fill    { color: #213C51; }
-    .w-c2 .fill    { color: #DDAED3; }
-    .w-c1 .outline { -webkit-text-stroke: 2px #213C51; -webkit-text-fill-color: transparent; }
-    .w-c2 .outline { -webkit-text-stroke: 2px #DDAED3; -webkit-text-fill-color: transparent; }
+        .word {
+            display: inline-flex;
+            align-items: baseline;
+            margin-right: 0.3em;
+        }
 
-    /* ─── Page wrapper ─── */
-    .page-wrapper {
-        position: relative;
-        z-index: 10;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px 16px;
-    }
+        .w-c1 .fill {
+            color: #213C51;
+        }
 
-    /* ─── Panel ─── */
-    .panel {
-        width: 100%;
-        max-width: 580px;
-        padding: 28px 44px 32px;
-        display: flex;
-        flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 20px;
-        border: solid 1px #6594B1;
-    }
+        .w-c2 .fill {
+            color: #DDAED3;
+        }
 
-    .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        color: #213C51;
-        font-family: 'Inter', sans-serif;
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        margin-bottom: 10px;
-        width: fit-content;
-    }
-    .back-link:hover { opacity: 0.7; }
+        .w-c1 .outline {
+            -webkit-text-stroke: 2px #213C51;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .logo {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-    .logo svg { width: 90px; height: 90px; }
+        .w-c2 .outline {
+            -webkit-text-stroke: 2px #DDAED3;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 20px;
-        margin-bottom: 12px;
-    }
+        /* ─── Page wrapper ─── */
+        .page-wrapper {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+        }
 
-    .col-full { grid-column: 1 / -1; }
-
-    .field {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .field label {
-        font-family: 'Sarabun', sans-serif;
-        font-size: 14px;
-        color: #213C51;
-        font-weight: 500;
-    }
-
-    .input-wrap {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(255, 255, 255, 0.85);
-        border: 1.5px solid #d0d5e0;
-        border-radius: 8px;
-        padding: 0 12px;
-        transition: border-color .2s, box-shadow .2s;
-    }
-
-    .input-wrap:focus-within {
-        border-color: var(--btn);
-        box-shadow: 0 0 0 3px rgba(107, 143, 191, .15);
-    }
-
-    .input-icon { color: #7a8499; flex-shrink: 0; width: 16px; height: 16px; }
-
-    .input-wrap input,
-    .input-wrap select {
-        flex: 1;
-        border: none;
-        background: transparent;
-        padding: 12px 0;
-        font-family: 'Sarabun', sans-serif;
-        font-size: max(16px, 14px);
-        color: gray;
-        outline: none;
-        appearance: none;
-        -webkit-appearance: none;
-        min-width: 0;
-    }
-
-    .input-wrap input::placeholder { color: #b0b6c4; }
-
-    .input-wrap select {
-        color: #1a1a2e;
-        cursor: pointer;
-    }
-
-    .sel-wrap { position: relative; }
-    .sel-wrap .input-wrap { padding-right: 32px; }
-    .sel-wrap::after {
-        content: '';
-        position: absolute;
-        right: 12px;
-        top: 65%;
-        transform: translateY(-50%);
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 6px solid #7a8499;
-        pointer-events: none;
-    }
-
-    .input-wrap.area {
-        align-items: flex-start;
-        padding: 10px 12px;
-    }
-
-    .input-wrap.area textarea {
-        flex: 1;
-        border: none;
-        background: transparent;
-        font-family: 'Sarabun', sans-serif;
-        font-size: max(16px, 14px);
-        color: gray;
-        outline: none;
-        resize: none;
-        min-height: 64px;
-        width: 100%;
-    }
-
-    .input-wrap.area textarea::placeholder { color: #b0b6c4; }
-
-    .btn-save {
-        width: 100%;
-        padding: 15px;
-        background: var(--btn);
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        font-family: 'Sarabun', sans-serif;
-        font-size: 17px;
-        font-weight: 600;
-        cursor: pointer;
-        letter-spacing: 0.04em;
-        text-align: center;
-        transition: background .2s, transform .1s;
-        -webkit-tap-highlight-color: transparent;
-        touch-action: manipulation;
-    }
-    .btn-save:hover  { background: var(--btn-h); }
-    .btn-save:active { transform: scale(.98); }
-
-    /* ─── Mobile tweaks ─── */
-    @media (max-width: 540px) {
+        /* ─── Panel ─── */
         .panel {
-            padding: 22px 18px 28px;
-            border-radius: 16px;
+            width: 100%;
+            max-width: 580px;
+            padding: 28px 44px 32px;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: solid 1px #6594B1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #213C51;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+
+        .back-link:hover {
+            opacity: 0.7;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo svg {
+            width: 90px;
+            height: 90px;
         }
 
         .form-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+            margin-bottom: 12px;
         }
 
         .col-full {
-            grid-column: 1;
+            grid-column: 1 / -1;
         }
 
-        .logo svg { width: 70px; height: 70px; }
-        .logo { margin-bottom: 14px; }
-    }
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-    @media (max-width: 360px) {
-        .panel { padding: 18px 14px 24px; }
-    }
+        .field label {
+            font-family: 'Sarabun', sans-serif;
+            font-size: 14px;
+            color: #213C51;
+            font-weight: 500;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1.5px solid #d0d5e0;
+            border-radius: 8px;
+            padding: 0 12px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .input-wrap:focus-within {
+            border-color: var(--btn);
+            box-shadow: 0 0 0 3px rgba(107, 143, 191, .15);
+        }
+
+        .input-icon {
+            color: #7a8499;
+            flex-shrink: 0;
+            width: 16px;
+            height: 16px;
+        }
+
+        .input-wrap input,
+        .input-wrap select {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 0;
+            font-family: 'Sarabun', sans-serif;
+            font-size: max(16px, 14px);
+            color: gray;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            min-width: 0;
+        }
+
+        .input-wrap input::placeholder {
+            color: #b0b6c4;
+        }
+
+        .input-wrap select {
+            color: #1a1a2e;
+            cursor: pointer;
+        }
+
+        .sel-wrap {
+            position: relative;
+        }
+
+        .sel-wrap .input-wrap {
+            padding-right: 32px;
+        }
+
+        .sel-wrap::after {
+            content: '';
+            position: absolute;
+            right: 12px;
+            top: 65%;
+            transform: translateY(-50%);
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #7a8499;
+            pointer-events: none;
+        }
+
+        .input-wrap.area {
+            align-items: flex-start;
+            padding: 10px 12px;
+        }
+
+        .input-wrap.area textarea {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-family: 'Sarabun', sans-serif;
+            font-size: max(16px, 14px);
+            color: gray;
+            outline: none;
+            resize: none;
+            min-height: 64px;
+            width: 100%;
+        }
+
+        .input-wrap.area textarea::placeholder {
+            color: #b0b6c4;
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 15px;
+            background: var(--btn);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.04em;
+            text-align: center;
+            transition: background .2s, transform .1s;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .btn-save:hover {
+            background: var(--btn-h);
+        }
+
+        .btn-save:active {
+            transform: scale(.98);
+        }
+
+        /* ─── Mobile tweaks ─── */
+        @media (max-width: 540px) {
+            .panel {
+                padding: 22px 18px 28px;
+                border-radius: 16px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .col-full {
+                grid-column: 1;
+            }
+
+            .logo svg {
+                width: 70px;
+                height: 70px;
+            }
+
+            .logo {
+                margin-bottom: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .panel {
+                padding: 18px 14px 24px;
+            }
+        }
     </style>
 </head>
 
@@ -298,16 +354,16 @@
                         <label for="job">อาชีพ</label>
                         <div class="input-wrap">
                             <select id="job" name="job">
-                                <option value="Student"       <?php echo ($user['job'] ?? '') === 'Student'       ? 'selected' : ''; ?>>นักเรียน</option>
-                                <option value="Designer"      <?php echo ($user['job'] ?? '') === 'Designer'      ? 'selected' : ''; ?>>นักออกแบบ</option>
-                                <option value="Developer"     <?php echo ($user['job'] ?? '') === 'Developer'     ? 'selected' : ''; ?>>ผู้พัฒนา</option>
-                                <option value="Programmer"    <?php echo ($user['job'] ?? '') === 'Programmer'    ? 'selected' : ''; ?>>โปรแกรมเมอร์</option>
-                                <option value="Manager"       <?php echo ($user['job'] ?? '') === 'Manager'       ? 'selected' : ''; ?>>ผู้จัดการ</option>
-                                <option value="Teacher"       <?php echo ($user['job'] ?? '') === 'Teacher'       ? 'selected' : ''; ?>>ครู/อาจารย์</option>
-                                <option value="Engineer"      <?php echo ($user['job'] ?? '') === 'Engineer'      ? 'selected' : ''; ?>>วิศวกร</option>
+                                <option value="Student" <?php echo ($user['job'] ?? '') === 'Student'       ? 'selected' : ''; ?>>นักเรียน</option>
+                                <option value="Designer" <?php echo ($user['job'] ?? '') === 'Designer'      ? 'selected' : ''; ?>>นักออกแบบ</option>
+                                <option value="Developer" <?php echo ($user['job'] ?? '') === 'Developer'     ? 'selected' : ''; ?>>ผู้พัฒนา</option>
+                                <option value="Programmer" <?php echo ($user['job'] ?? '') === 'Programmer'    ? 'selected' : ''; ?>>โปรแกรมเมอร์</option>
+                                <option value="Manager" <?php echo ($user['job'] ?? '') === 'Manager'       ? 'selected' : ''; ?>>ผู้จัดการ</option>
+                                <option value="Teacher" <?php echo ($user['job'] ?? '') === 'Teacher'       ? 'selected' : ''; ?>>ครู/อาจารย์</option>
+                                <option value="Engineer" <?php echo ($user['job'] ?? '') === 'Engineer'      ? 'selected' : ''; ?>>วิศวกร</option>
                                 <option value="Self-employed" <?php echo ($user['job'] ?? '') === 'Self-employed' ? 'selected' : ''; ?>>ฟรีแลนซ์</option>
-                                <option value="Unemployed"    <?php echo ($user['job'] ?? '') === 'Unemployed'    ? 'selected' : ''; ?>>ว่างงาน</option>
-                                <option value="Other"         <?php echo ($user['job'] ?? '') === 'Other'         ? 'selected' : ''; ?>>อื่นๆ</option>
+                                <option value="Unemployed" <?php echo ($user['job'] ?? '') === 'Unemployed'    ? 'selected' : ''; ?>>ว่างงาน</option>
+                                <option value="Other" <?php echo ($user['job'] ?? '') === 'Other'         ? 'selected' : ''; ?>>อื่นๆ</option>
                             </select>
                         </div>
                     </div>
@@ -315,9 +371,9 @@
                         <label for="gender">เพศ</label>
                         <div class="input-wrap">
                             <select id="gender" name="gender">
-                                <option value="male"   <?php echo ($user['gender'] ?? '') === 'male'   ? 'selected' : ''; ?>>ชาย</option>
+                                <option value="male" <?php echo ($user['gender'] ?? '') === 'male'   ? 'selected' : ''; ?>>ชาย</option>
                                 <option value="female" <?php echo ($user['gender'] ?? '') === 'female' ? 'selected' : ''; ?>>หญิง</option>
-                                <option value="other"  <?php echo ($user['gender'] ?? '') === 'other'  ? 'selected' : ''; ?>>อื่นๆ</option>
+                                <option value="other" <?php echo ($user['gender'] ?? '') === 'other'  ? 'selected' : ''; ?>>อื่นๆ</option>
                             </select>
                         </div>
                     </div>
@@ -329,56 +385,152 @@
                     </div>
                 </div>
 
-                <button class="btn-save" type="submit">บันทึก</button>
+                <button class="btn-save" type="submit" onclick="return confirmEdit()">บันทึก</button>
             </form>
         </div>
     </div>
 
     <script>
-    document.getElementById('updateForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-        fetch(window.location.href, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                window.location.href = '/home';
-            } else {
-                alert('มีบางอย่างผิดพลาดระหว่าง save');
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch(window.location.href, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/home';
+                    } else {
+                        alert('มีบางอย่างผิดพลาดระหว่าง save');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        const wordSets = [
+            [
+                ['HACKATHON', 'c1'],
+                ['PARTY', 'c2'],
+                ['EVENT', 'c1'],
+                ['COMMUNITY', 'c2'],
+                ['MEETING', 'c1'],
+                ['MIXER', 'c2'],
+                ['WORK', 'c1'],
+                ['BALL', 'c2']
+            ],
+            [
+                ['CHARITY', 'c2'],
+                ['WORK', 'c1'],
+                ['MIXER', 'c2'],
+                ['PARTY', 'c1'],
+                ['EVENT', 'c2'],
+                ['HACKATHON', 'c1'],
+                ['COMMUNITY', 'c2'],
+                ['MEETING', 'c1']
+            ],
+            [
+                ['COMMUNITY', 'c1'],
+                ['MEETING', 'c2'],
+                ['HACKATHON', 'c1'],
+                ['WORK', 'c2'],
+                ['PARTY', 'c1'],
+                ['CHARITY', 'c2'],
+                ['MIXER', 'c1'],
+                ['EVENT', 'c2']
+            ],
+            [
+                ['EVENT', 'c2'],
+                ['MIXER', 'c1'],
+                ['PARTY', 'c2'],
+                ['CHARITY', 'c1'],
+                ['MEETING', 'c2'],
+                ['WORK', 'c1'],
+                ['BALL', 'c2'],
+                ['HACKATHON', 'c1']
+            ],
+            [
+                ['PARTY', 'c1'],
+                ['COMMUNITY', 'c2'],
+                ['HACKATHON', 'c1'],
+                ['MEETING', 'c2'],
+                ['WORK', 'c1'],
+                ['EVENT', 'c2'],
+                ['MIXER', 'c1'],
+                ['CHARITY', 'c2']
+            ],
+            [
+                ['MIXER', 'c2'],
+                ['EVENT', 'c1'],
+                ['CHARITY', 'c2'],
+                ['PARTY', 'c1'],
+                ['MEETING', 'c2'],
+                ['COMMUNITY', 'c1'],
+                ['WORK', 'c2'],
+                ['BALL', 'c1']
+            ],
+            [
+                ['HACKATHON', 'c2'],
+                ['COMMUNITY', 'c1'],
+                ['WORK', 'c2'],
+                ['MIXER', 'c1'],
+                ['EVENT', 'c2'],
+                ['PARTY', 'c1'],
+                ['BALL', 'c1'],
+                ['MEETING', 'c2']
+            ],
+            [
+                ['PARTY', 'c1'],
+                ['MEETING', 'c2'],
+                ['CHARITY', 'c1'],
+                ['HACKATHON', 'c2'],
+                ['MIXER', 'c1'],
+                ['WORK', 'c2'],
+                ['EVENT', 'c1'],
+                ['COMMUNITY', 'c2']
+            ],
+            [
+                ['EVENT', 'c2'],
+                ['PARTY', 'c1'],
+                ['COMMUNITY', 'c2'],
+                ['WORK', 'c1'],
+                ['HACKATHON', 'c2'],
+                ['MEETING', 'c1'],
+                ['CHARITY', 'c2'],
+                ['MIXER', 'c1']
+            ],
+            [
+                ['WORK', 'c1'],
+                ['MIXER', 'c2'],
+                ['PARTY', 'c1'],
+                ['COMMUNITY', 'c2'],
+                ['MEETING', 'c1'],
+                ['CHARITY', 'c2'],
+                ['BALL', 'c2'],
+                ['EVENT', 'c1']
+            ],
+        ];
+
+        const inner = document.getElementById('bgInner');
+        wordSets.forEach(pat => {
+            const row = document.createElement('div');
+            row.className = 'bg-row';
+            let html = '';
+            for (let r = 0; r < 4; r++) {
+                pat.forEach(([word, cls]) => {
+                    html += `<span class="word w-${cls}"><span class="fill">${word[0]}</span><span class="outline">${word.slice(1)}</span></span>`;
+                });
             }
-        })
-        .catch(error => console.error('Error:', error));
-    });
+            row.innerHTML = html;
+            inner.appendChild(row);
+        });
 
-    const wordSets = [
-        [['HACKATHON','c1'],['PARTY','c2'],['EVENT','c1'],['COMMUNITY','c2'],['MEETING','c1'],['MIXER','c2'],['WORK','c1'],['BALL','c2']],
-        [['CHARITY','c2'],['WORK','c1'],['MIXER','c2'],['PARTY','c1'],['EVENT','c2'],['HACKATHON','c1'],['COMMUNITY','c2'],['MEETING','c1']],
-        [['COMMUNITY','c1'],['MEETING','c2'],['HACKATHON','c1'],['WORK','c2'],['PARTY','c1'],['CHARITY','c2'],['MIXER','c1'],['EVENT','c2']],
-        [['EVENT','c2'],['MIXER','c1'],['PARTY','c2'],['CHARITY','c1'],['MEETING','c2'],['WORK','c1'],['BALL','c2'],['HACKATHON','c1']],
-        [['PARTY','c1'],['COMMUNITY','c2'],['HACKATHON','c1'],['MEETING','c2'],['WORK','c1'],['EVENT','c2'],['MIXER','c1'],['CHARITY','c2']],
-        [['MIXER','c2'],['EVENT','c1'],['CHARITY','c2'],['PARTY','c1'],['MEETING','c2'],['COMMUNITY','c1'],['WORK','c2'],['BALL','c1']],
-        [['HACKATHON','c2'],['COMMUNITY','c1'],['WORK','c2'],['MIXER','c1'],['EVENT','c2'],['PARTY','c1'],['BALL','c1'],['MEETING','c2']],
-        [['PARTY','c1'],['MEETING','c2'],['CHARITY','c1'],['HACKATHON','c2'],['MIXER','c1'],['WORK','c2'],['EVENT','c1'],['COMMUNITY','c2']],
-        [['EVENT','c2'],['PARTY','c1'],['COMMUNITY','c2'],['WORK','c1'],['HACKATHON','c2'],['MEETING','c1'],['CHARITY','c2'],['MIXER','c1']],
-        [['WORK','c1'],['MIXER','c2'],['PARTY','c1'],['COMMUNITY','c2'],['MEETING','c1'],['CHARITY','c2'],['BALL','c2'],['EVENT','c1']],
-    ];
-
-    const inner = document.getElementById('bgInner');
-    wordSets.forEach(pat => {
-        const row = document.createElement('div');
-        row.className = 'bg-row';
-        let html = '';
-        for (let r = 0; r < 4; r++) {
-            pat.forEach(([word, cls]) => {
-                html += `<span class="word w-${cls}"><span class="fill">${word[0]}</span><span class="outline">${word.slice(1)}</span></span>`;
-            });
+        function confirmEdit() {
+            return confirm("ต้องการบันทึกการแก้ไขโปรไฟล์มั้ย ?");
         }
-        row.innerHTML = html;
-        inner.appendChild(row);
-    });
     </script>
+
+
 </body>
 
 </html>

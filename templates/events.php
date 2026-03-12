@@ -84,7 +84,7 @@
                             <div class="flex flex-col xl:w-2/3 w-1/3 flex-1">
                                 <div class="flex items-start gap-2 flex-row">
 
-                                    <h3 class="text-lg font-medium text-gray-800 truncate">
+                                    <h3 class="text-lg font-medium text-gray-800 max-w-48 truncate">
                                         <?= $row->event_name ?>
                                     </h3>
 
@@ -143,7 +143,7 @@
                                     <?= $row->event_capacity ?> </span>
                             </div>
                             <div class="flex gap-2">
-                                <a class="w-20 bg-blue-500 hover:bg-blue-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
+                                <a class="w-20 border border-blue-500 hover:bg-blue-600 transition-colors text-blue-500 hover:text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
                                     href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_join">
                                     สถิติ
                                 </a>

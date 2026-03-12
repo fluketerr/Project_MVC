@@ -15,6 +15,8 @@
         </a>
     </div>
 
+    <h6  class="justify-center items-center flex flex-col gap-4 mt-2 text-sm">โหมด: จัดการอีเว้น</h6>
+
     <div class="justify-center items-center flex flex-col gap-4 mb-2">
 
         <!-- SWITCH -->
@@ -79,6 +81,8 @@
             let endX = 0;
             const threshold = 60; // Min distance for a swipe
 
+            menu.style.transform = "translateX(-100%)";
+
             const openMenu = () => {
                 //menu.classList.replace('hidden', 'flex');
                 menu.style.transform = "translateX(0%)";
@@ -104,6 +108,8 @@
                         closeMenu();
                     }
                 });
+            }else{
+                openMenu();
             }
 
             //click outside menu
@@ -181,7 +187,7 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <a href="/update_user" class="text-sm font-semibold text-slate-800"><span
+                        <a href="/user_update" class="text-sm font-semibold text-slate-800"><span
                                 class="text-base"><?= isset($_SESSION['name']) ? $_SESSION['name'] : 'Update User' ?></span></a>
                         <span class="text-xs text-slate-500">UID:
                             <?= isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Update User' ?></span>

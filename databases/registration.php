@@ -4,8 +4,8 @@ function getPendingRegisByEventId(int $eid, mysqli $conn): mysqli_result|bool
     $sql = "SELECT r.rid, r.status,
                    u.uid, u.name, u.email, u.birthday,
                    u.tel, u.job, u.gender, u.address
-            FROM registrations r
-            JOIN users u ON r.uid = u.uid
+            FROM Registrations r
+            JOIN Users u ON r.uid = u.uid
             WHERE r.eid = ? AND r.status = 'wait'";
 
     $stmt = $conn->prepare($sql);
@@ -36,7 +36,7 @@ function getMyEvents($user_id, $status = '')
         FROM Registrations r
         JOIN Events e ON r.eid = e.eid
         WHERE r.uid = ?
-        AND (? = '' OR r.status = ?)
+        AND (? = '' OR r.status COLLATE utf8mb4_unicode_ci = ?)
         ORDER BY e.eid DESC
     ";
 
@@ -78,7 +78,7 @@ function generateOTP($uid, $eid) {
 function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
 {
     global $conn;
-    $sql = 'select * from registrations where uid = ? and eid = ?';
+    $sql = 'select * from Registrations where uid = ? and eid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $uid,$eid);
     $stmt->execute();
@@ -89,7 +89,7 @@ function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
 // update status
 function updateRegistrationStatus(int $rid, string $status, mysqli $conn): bool
 {
-    $sql = "UPDATE registrations SET status = ? WHERE rid = ?";
+    $sql = "UPDATE Registrations SET status = ? WHERE rid = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('si', $status, $rid);
     return $stmt->execute();
@@ -99,8 +99,8 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
 {
     if ($keyword !== '') {
         $sql = "SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
-                FROM registrations r
-                JOIN users u ON r.uid = u.uid
+                FROM Registrations r
+                JOIN Users u ON r.uid = u.uid
                 WHERE r.eid = ?
                 AND r.status = 'approved'
                 AND (u.name LIKE ? OR u.email LIKE ? OR u.tel LIKE ?)";
@@ -111,8 +111,8 @@ function getApprovedParticipantsByEventId(int $eid, mysqli $conn, string $keywor
 
     } else {
         $sql = "SELECT u.name, u.email, u.tel, u.gender, u.birthday, r.checkin_time
-                FROM registrations r
-                JOIN users u ON r.uid = u.uid
+                FROM Registrations r
+                JOIN Users u ON r.uid = u.uid
                 WHERE r.eid = ?
                 AND r.status = 'approved'";
 

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -11,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = getApprovedParticipantsByEventId($eid, $conn);
     $approvedCount = $result->num_rows;
 
-    $event = getEventById($eid, $conn);
-    $maxParticipants = $event['max_participants'];
+    $event = getEventById((int)$eid)->fetch_object();
+    $maxParticipants = $event->event_capacity;
 
     if ($approvedCount >= $maxParticipants) {
 
@@ -25,5 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-header("Location: /request_event");
+header("Location: /event_request");
 exit();
+?>

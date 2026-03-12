@@ -38,8 +38,8 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
     <main class="flex flex-col flex-1 w-full">
         <?php $event = $data['event']->fetch_object() ?>
 
-        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem]
-                    shadow-sm border border-[#213C51]/50 xl:p-10 p-5 overflow-y-auto
+        <div class="flex-1 bg-white/75 my-4 mr-4 rounded-[2rem]
+                    shadow-sm border border-[#213C51]/50 p-16 overflow-y-auto
                     [&::-webkit-scrollbar]:w-2
                   [&::-webkit-scrollbar-thumb]:bg-[#213C51]
                     [&::-webkit-scrollbar-thumb]:rounded-full
@@ -65,7 +65,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                             <label class="block mb-3 font-medium text-[#1E293B]">เพิ่มรูปใหม่</label>
                             <input type="file"
                                 name="new_pictures[]"
-                                multiple
+                                multiple require
                                 class="block w-full text-sm text-gray-700
                               file:mr-4 file:py-2 file:px-6
                               file:rounded-full file:border-0
@@ -104,7 +104,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                             <label class=" block mb-2 font-medium text-[#1E293B]">ชื่องาน</label>
                             <input type="text"
                                 name="event_name"
-                                value="<?= $event->event_name ?>"
+                                value="<?= $event->event_name ?>" require
                                 class="w-full px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
                         </div>
 
@@ -113,20 +113,22 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                                 <label class="block mb-2 font-medium text-[#1E293B]">จำนวนผู้เข้าร่วม</label>
                                 <input type="number"
                                     name="event_capacity"
-                                    value="<?= $event->event_capacity ?>"
-                                    class="xl:w-40 w-1/4 px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
+                                    value="<?= $event->event_capacity ?>" min="1" max="999999" require
+                                    class="xl:w-40 w-1/2 px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
                             </div>
                             <div>
                                 <label class="block mb-2 font-medium text-[#1E293B]">ระยะเวลากิจกรรม</label>
                                 <div class="flex gap-6 xl:flex-row flex-col">
                                     <input type="datetime-local"
                                         name="start_date"
-                                        value="<?= str_replace(' ', 'T', substr($event->start_date, 0, 16)) ?>"
+                                        value="<?= str_replace(' ', 'T', substr($event->start_date, 0, 16)) ?>" require
                                         class="px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
+
+                                    <h3 class="self-center">ถึง</h3>
 
                                     <input type="datetime-local"
                                         name="end_date"
-                                        value="<?= str_replace(' ', 'T', substr($event->end_date, 0, 16)) ?>"
+                                        value="<?= str_replace(' ', 'T', substr($event->end_date, 0, 16)) ?>" require
                                         class="px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
                                 </div>
                             </div>
@@ -135,7 +137,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                         <div>
                             <label class="block mb-2 font-medium text-[#1E293B]">รายละเอียด</label>
                             <textarea
-                                name="event_detail"
+                                name="event_detail" require
                                 class="w-full h-48 px-6 py-4 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-blue-400"><?= $event->event_detail ?></textarea>
                         </div>
 
@@ -146,7 +148,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                                 ยกเลิก
                             </a>
 
-                            <button type="submit"
+                            <button type="submit" onclick="return confirmEdit()"
                                 class="px-10 py-3 rounded-full bg-gray-500 hover:bg-gray-600 text-white transition shadow ">
                                 บันทึก
                             </button>
@@ -168,6 +170,12 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                 <script>
                     function confirmDelete() {
                         return confirm("ต้องการลบกิจกรรมนี้มั้ย ?");
+                    }
+                </script>
+
+                <script>
+                    function confirmEdit() {
+                        return confirm("ต้องการบันทึกการแก้ไขกิจกรรมนี้มั้ย ?");
                     }
                 </script>
 
