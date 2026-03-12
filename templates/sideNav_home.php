@@ -9,7 +9,10 @@
         </a>
     </div>
 
-    <h6  class="justify-center items-center flex flex-col gap-4 mt-2 text-sm">โหมด: เข้าร่วมอีเว้น</h6>
+    <h6  class="justify-center items-center flex mt-2 text-sm mb-1">
+        <div class="bg-[#DDAED3]/50 px-1 pt-1 rounded-l-md">โหมด:</div> 
+        <div class="bg-[#D9D9D9]/30 px-1 pt-1 rounded-r-md">เข้าร่วมอีเว้น</div>
+    </h6>
 
     <div class="justify-center items-center flex flex-col gap-4 mb-2">
 
