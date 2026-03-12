@@ -137,7 +137,7 @@
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 
                     <div class="px-8">
-                        <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail">
+                        <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail_home">
                             <div
                                 class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
