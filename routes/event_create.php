@@ -73,6 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: /events");
         exit;
     }
-} else {
+} else if(!isset($_SESSION['user_id'])) {
+    header("Location: /login");
+    exit;
+}else {
     renderView('event_create', ['title' => 'Create Event']);
 }
