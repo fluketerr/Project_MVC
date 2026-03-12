@@ -73,7 +73,21 @@ function getEventById(int $eid): mysqli_result|bool
     $stmt->bind_param('i', $eid);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
+
+    return $result;
+}
+
+function getEventRegisById(int $eid, int $uid): mysqli_result|bool
+{
+    global $conn;
+    $sql = "select *, ( SELECT COUNT(*) FROM Registrations r 
+            WHERE r.eid = e.eid AND r.status = 'approved' ) AS approved_count 
+            from Events e, Registrations r where e.eid = r.eid and r.eid = ? and r.uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $eid,$uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     return $result;
 }
@@ -107,7 +121,7 @@ function getEventByCreateUid(int $uid)
     $result = $stmt->get_result();
     $conn->close();
 
-    return $result; 
+    return $result;
 }
 
 function insertEvent($event, $conn): int | bool
@@ -182,7 +196,7 @@ function searchEvents($keyword, $start, $end, $uid)
         return $stmt->get_result();
     }
 
-  if ($start != '' && $end != '') {
+    if ($start != '' && $end != '') {
 
         $sql = "
             SELECT e.*,
@@ -217,7 +231,7 @@ function searchEvents($keyword, $start, $end, $uid)
         return $stmt->get_result();
     }
 
-    
+
     if ($start != '') {
 
         $sql = "
@@ -251,7 +265,7 @@ function searchEvents($keyword, $start, $end, $uid)
         return $stmt->get_result();
     }
 
-    
+
     if ($end != '') {
 
         $sql = "
@@ -399,7 +413,7 @@ function updateEvent(array $event, mysqli $conn): bool
 
     $stmt->execute();
     $result = $stmt->affected_rows >= 0;
-    
+
 
     return $result;
 }

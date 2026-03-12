@@ -145,7 +145,7 @@
             transition-all duration-300">
 
                                 <!-- รูป -->
-                                <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/2 flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
+                                <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/2 aspect-auto flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                                     <?php
                                     $imgPath = 'uploads/events/' . $row->cover_image;
                                     if (!empty($row->cover_image) && file_exists($imgPath)): ?>
@@ -166,7 +166,7 @@
                                 <div class="flex-1 flex flex-col xl:flex-row justify-between px-8 py-6">
 
                                     <!-- ฝั่งซ้าย -->
-                                    <div class="flex xl:flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-96">
+                                    <div class="flex flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-xl">
 
                                         <div class="w-full">
                                             <!-- ชื่อ -->
@@ -202,12 +202,12 @@
                                     <div class="xl:w-[10vw] flex xl:flex-col items-center xl:justify-center justify-between
                     bg-white/60 rounded-xl px-4 xl:py-4 shadow-inner">
 
-                                        <div class="pt-2 xl:pt-0 flex flex-col items-center justify-center w-2/3">
-                                            <span class="text-xs text-gray-500 uppercase tracking-wide justify-center">
+                                        <div class="pt-2 xl:pt-0 flex flex-col items-center justify-center w-[10vw]">
+                                            <span class="text-xs text-gray-500 uppercase tracking-wide justify-center whitespace-nowrap">
                                                 ผู้เข้าร่วม
                                             </span>
 
-                                            <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap">
+                                            <span class="text-lg font-bold text-gray-800 my-2 whitespace-nowrap max-w-lg truncate">
                                                 <?= (int)$row->approved_count ?> / <?= $row->event_capacity ?>
                                             </span>
                                         </div>
@@ -215,7 +215,7 @@
                                         <?php if (isset($_SESSION['user_id'])) { ?>
                                             <?php if ($row->approved_count >= $row->event_capacity): ?>
 
-                                                <div class="xl:w-full w-1/2 text-center bg-red-500
+                                                <div class="xl:w-full w-1/2 text-center bg-gray-500
                                                 text-white text-sm font-medium
                                                     py-2 rounded-full shadow">
                                                     เต็มแล้ว
@@ -225,8 +225,8 @@
 
                                                 <form method="POST" action="" class="w-full flex xl:justify-center justify-end">
                                                     <input type="hidden" name="event_id" value="<?= $row->eid ?>">
-                                                    <button type="submit" name="join"
-                                                        class="xl:w-full w-1/2 bg-green-500 hover:bg-green-600
+                                                    <button type="submit" name="join" onclick="return confirmJoin('<?= $row->event_name ?>')"
+                                                        class="xl:w-full w-1/2 bg-green-500 hover:bg-green-600 shrink-0
                                                         text-white text-sm font-medium
                                                         py-2 rounded-full shadow
                                                         transition duration-200">
@@ -266,7 +266,12 @@
             <p>ไม่มีข้อมูล</p>
         <?php } ?>
 
-
 </body>
+
+<script>
+    function confirmJoin(event_name) {
+        return confirm("ต้องการเข้าร่วม " + event_name + " มั้ย ?");
+    }
+</script>
 
 </html>

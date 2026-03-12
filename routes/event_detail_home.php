@@ -36,7 +36,7 @@ if ($eid != '') {
 
     unset($_SESSION['eid']);
 
-    renderView('event_detail', [
+    renderView('event_detail_home', [
         'title' => 'Event Detail',
         'event' => $event,
         'pictures' => $pictures
