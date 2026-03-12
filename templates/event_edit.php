@@ -124,6 +124,8 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                                         value="<?= str_replace(' ', 'T', substr($event->start_date, 0, 16)) ?>" require
                                         class="px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
 
+                                    <h3 class="self-center">ถึง</h3>
+
                                     <input type="datetime-local"
                                         name="end_date"
                                         value="<?= str_replace(' ', 'T', substr($event->end_date, 0, 16)) ?>" require
