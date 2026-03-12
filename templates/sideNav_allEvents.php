@@ -100,6 +100,8 @@
                         closeMenu();
                     }
                 });
+            }else{
+                openMenu();
             }
 
             //click outside menu

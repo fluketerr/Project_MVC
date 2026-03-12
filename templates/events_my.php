@@ -36,7 +36,14 @@
 
     <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
-        <div class="xl:px-8 px-3 py-6 flex items-start gap-4 flex-shrink-0">
+        <?php if ($data['result'] && $data['result']->num_rows > 0) { ?>
+            <div class="overflow-y-auto pb-8 flex flex-col gap-4
+                    [&::-webkit-scrollbar]:w-2 
+                    [&::-webkit-scrollbar-track]:mt-[12vh]
+                  [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
+                    [&::-webkit-scrollbar-thumb]:rounded-full
+                ">
+                <div class="xl:px-8 px-3 py-6 flex items-start gap-4 flex-shrink-0 sticky top-0 z-10 backdrop-blur-lg">
             <div class="relative w-[320px] gap-2">
                 <form method="GET" class="flex gap-3">
                     <div class="flex xl:hidden items-center justify-start">
@@ -65,19 +72,12 @@
                 unset($_SESSION['message']); ?></p>
 
         </div>
-        <?php if ($data['result'] && $data['result']->num_rows > 0) { ?>
-            <div class="overflow-y-auto px-8 pb-8 flex flex-col gap-4
-                    [&::-webkit-scrollbar]:w-2 
-                  [&::-webkit-scrollbar-thumb]:bg-[#DDAED3]
-                    [&::-webkit-scrollbar-thumb]:rounded-full
-                ">
-
                 <?php while ($row = $data['result']->fetch_object()) { ?>
                     <!--my event-->
                 <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail_my">
                     <div class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
-            shadow-md hover:shadow-xl hover:bg-white/60 
+            shadow-md hover:shadow-xl hover:bg-white/60 mx-8
             transition-all duration-300">
                         <div class="xl:w-[25vw] xl:h-full w-full max-h-44 h-1/3 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                             <?php
