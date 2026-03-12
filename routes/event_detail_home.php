@@ -34,7 +34,7 @@ if ($eid != '') {
     $pictures = getPictureById((int)$eid, $conn);
     $event = getEventById((int)$eid)->fetch_object();
 
-    unset($_SESSION['eid']);
+
 
     renderView('event_detail_home', [
         'title' => 'Event Detail',
