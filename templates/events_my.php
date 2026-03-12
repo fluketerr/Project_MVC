@@ -68,8 +68,8 @@
 
                 </form>
             </div>
-            <p><?= $_SESSION['message'] ?? '';
-                unset($_SESSION['message']); ?></p>
+            <!--<p><?= $_SESSION['message'] ?? '';
+                unset($_SESSION['message']); ?></p>-->
 
         </div>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
