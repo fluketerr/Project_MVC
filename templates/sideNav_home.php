@@ -9,6 +9,8 @@
         </a>
     </div>
 
+    <h6  class="justify-center items-center flex flex-col gap-4 mt-2 text-sm">โหมด: เข้าร่วมอีเว้น</h6>
+
     <div class="justify-center items-center flex flex-col gap-4 mb-2">
 
         <!-- SWITCH -->
@@ -85,6 +87,8 @@
             };
 
             if (window.innerWidth < BigScreen) {
+                closeMenu();//auto close if mobile screen for ux
+
                 document.addEventListener('touchstart', e => {
                     startX = e.touches[0].clientX;
                 });
@@ -99,6 +103,8 @@
                         closeMenu();
                     }
                 });
+            }else{
+                openMenu();//big screen auto open
             }
 
             //click outside menu

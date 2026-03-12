@@ -166,7 +166,7 @@
                                 <div class="flex-1 flex flex-col xl:flex-row justify-between px-8 py-6">
 
                                     <!-- ฝั่งซ้าย -->
-                                    <div class="flex flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-96">
+                                    <div class="flex flex-col flex-1 xl:pr-6 min-w-0 xl:max-w-xl">
 
                                         <div class="w-full">
                                             <!-- ชื่อ -->
@@ -202,8 +202,8 @@
                                     <div class="xl:w-[10vw] flex xl:flex-col items-center xl:justify-center justify-between
                     bg-white/60 rounded-xl px-4 xl:py-4 shadow-inner">
 
-                                        <div class="pt-2 xl:pt-0 flex flex-col items-center justify-center w-2/3">
-                                            <span class="text-xs text-gray-500 uppercase tracking-wide justify-center">
+                                        <div class="pt-2 xl:pt-0 flex flex-col items-center justify-center w-[10vw]">
+                                            <span class="text-xs text-gray-500 uppercase tracking-wide justify-center whitespace-nowrap">
                                                 ผู้เข้าร่วม
                                             </span>
 

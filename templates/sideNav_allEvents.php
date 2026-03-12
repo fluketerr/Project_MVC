@@ -9,6 +9,8 @@
         </a>
     </div>
 
+    <h6  class="justify-center items-center flex flex-col gap-4 mt-2 text-sm">โหมด: จัดการอีเว้น</h6>
+
     <div class="justify-center items-center flex flex-col gap-4 mb-2">
 
         <!-- SWITCH -->
@@ -70,6 +72,8 @@
             let startX = 0;
             let endX = 0;
             const threshold = 60; // Min distance for a swipe
+
+            menu.style.transform = "translateX(-100%)";
 
             const openMenu = () => {
                 //menu.classList.replace('hidden', 'flex');

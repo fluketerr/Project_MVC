@@ -137,7 +137,7 @@
                 ">
                             <?php if (!empty($data['pictures'])): ?>
                                 <?php while ($pic = $data['pictures']->fetch_object()): ?>
-                                    <div class="flex-shrink-0 w-44 h-28 rounded-xl overflow-hidden shadow snap-center">
+                                    <div class="flex-shrink-0 w-72 h-28 rounded-xl overflow-hidden shadow snap-center">
                                         <img src="/uploads/events/<?= $pic->picture_name ?>"
                                             class="w-full h-full object-cover">
                                     </div>

@@ -65,7 +65,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                             <label class="block mb-3 font-medium text-[#1E293B]">เพิ่มรูปใหม่</label>
                             <input type="file"
                                 name="new_pictures[]"
-                                multiple
+                                multiple require
                                 class="block w-full text-sm text-gray-700
                               file:mr-4 file:py-2 file:px-6
                               file:rounded-full file:border-0
@@ -104,7 +104,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                             <label class=" block mb-2 font-medium text-[#1E293B]">ชื่องาน</label>
                             <input type="text"
                                 name="event_name"
-                                value="<?= $event->event_name ?>"
+                                value="<?= $event->event_name ?>" require
                                 class="w-full px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
                         </div>
 
@@ -113,7 +113,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                                 <label class="block mb-2 font-medium text-[#1E293B]">จำนวนผู้เข้าร่วม</label>
                                 <input type="number"
                                     name="event_capacity"
-                                    value="<?= $event->event_capacity ?>" min="1" max="999999"
+                                    value="<?= $event->event_capacity ?>" min="1" max="999999" require
                                     class="xl:w-40 w-1/2 px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none">
                             </div>
                             <div>
@@ -121,12 +121,12 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                                 <div class="flex gap-6 xl:flex-row flex-col">
                                     <input type="datetime-local"
                                         name="start_date"
-                                        value="<?= str_replace(' ', 'T', substr($event->start_date, 0, 16)) ?>"
+                                        value="<?= str_replace(' ', 'T', substr($event->start_date, 0, 16)) ?>" require
                                         class="px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
 
                                     <input type="datetime-local"
                                         name="end_date"
-                                        value="<?= str_replace(' ', 'T', substr($event->end_date, 0, 16)) ?>"
+                                        value="<?= str_replace(' ', 'T', substr($event->end_date, 0, 16)) ?>" require
                                         class="px-6 py-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400">
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                         <div>
                             <label class="block mb-2 font-medium text-[#1E293B]">รายละเอียด</label>
                             <textarea
-                                name="event_detail"
+                                name="event_detail" require
                                 class="w-full h-48 px-6 py-4 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-blue-400"><?= $event->event_detail ?></textarea>
                         </div>
 
