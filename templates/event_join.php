@@ -249,7 +249,7 @@
                 <!-- ===== participants scroll ===== -->
                 <?php if (!empty($data['participants'])): ?>
 
-                    <div class="max-h-[520px] overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                    <div class="max-h-[520px] overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3">
 
                         <?php foreach ($data['participants'] as $row): ?>
 
@@ -271,9 +271,6 @@
                                     '<?= htmlspecialchars($row['gender'] ?? '', ENT_QUOTES) ?>',
                                     '<?= htmlspecialchars($row['address'] ?? '', ENT_QUOTES) ?>',
                                     '<?= $text ?>')">
-
-                                <!-- avatar -->
-                                <div class="w-14 h-14 bg-gray-300 rounded-lg flex-shrink-0"></div>
 
                                 <!-- info -->
                                 <div class="flex-1 min-w-0">
