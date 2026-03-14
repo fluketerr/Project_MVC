@@ -120,7 +120,6 @@ $eid = $_GET['eid'];
             document.addEventListener('click', function(event) {
                 const openMenuBtn = document.getElementById("openMenuBtn");
                 const isClickInside = menu.contains(event.target);
-                const BigScreen = 1024;
 
                 if (!isClickInside && !openMenuBtn.contains(event.target) && window.innerWidth < BigScreen) {
                     closeMenu();

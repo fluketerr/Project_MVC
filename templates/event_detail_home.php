@@ -94,10 +94,15 @@
                             </p>
 
                             <!-- วันที่ -->
+                            <?php
+                                $start = date("d M Y H:i", strtotime($row->start_date));
+                                $end   = date("d M Y H:i", strtotime($row->end_date));
+                            ?>
+
                             <p class="text-sm text-gray-500">
-                                <?= date("Y-m-d H:i:s", strtotime($row->start_date)) ?>
+                                <?= $start ?>
                                 &nbsp;–&nbsp;
-                                <?= date("Y-m-d H:i:s", strtotime($row->end_date)) ?>
+                                <?= $end ?>
                             </p>
 
 
