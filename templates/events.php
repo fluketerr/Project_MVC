@@ -65,7 +65,7 @@
                             <?= ($isClosed || $isExpired) ? 'border-red-200' : 'border-green-200' ?>
                             hover:bg-white/50 transition-all shadow-md hover:shadow-xl min-h-[45vh] xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden">
-                    <div class="xl:w-[18vw] xl:h-full w-full max-h-48 h-1/2 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
+                    <div class="xl:w-[20vw] xl:h-full w-full max-h-56 h-1/2 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl">
                         <?php
                         $imgPath = 'uploads/events/' . $row->cover_image;
                         if (!empty($row->cover_image) && file_exists($imgPath)): ?>

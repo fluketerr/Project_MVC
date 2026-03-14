@@ -159,7 +159,7 @@
 
 
                                 <!-- รูป -->
-                                <div class="xl:w-[20vw] xl:h-full w-full max-h-44 h-1/2 aspect-auto flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
+                                <div class="xl:w-[20vw] xl:h-full w-full max-h-56 h-1/2 aspect-auto flex-shrink-0 bg-gray-200 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                                     <?php
                                     $imgPath = 'uploads/events/' . $row->cover_image;
                                     if (!empty($row->cover_image) && file_exists($imgPath)): ?>

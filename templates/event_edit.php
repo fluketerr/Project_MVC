@@ -143,7 +143,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
                         <div class="flex justify-end gap-6 pt-6">
 
-                            <a href="/edit_event"
+                            <a href="/event_manage?eid=<?= $_GET['eid'] ?>"
                                 class="px-8 py-3 rounded-full bg-gray-300 hover:bg-gray-400 transition text-[#1E293B]">
                                 ยกเลิก
                             </a>

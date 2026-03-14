@@ -80,7 +80,7 @@
             xl:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60 mx-8
             transition-all duration-300">
-                            <div class="xl:w-[25vw] xl:h-full w-full max-h-44 h-1/3 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
+                            <div class="xl:w-[20vw] xl:h-full w-full max-h-56 h-1/2 bg-imagePlaceholder flex-shrink-0 xl:rounded-l-xl xl:rounded-r-none rounded-t-xl overflow-hidden">
                                 <?php
                                 $imgPath = 'uploads/events/' . $row->cover_image;
                                 if (!empty($row->cover_image) && file_exists($imgPath)): ?>
