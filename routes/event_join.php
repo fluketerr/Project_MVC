@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../databases/registration.php';
+$eid = $_GET['eid'] ?? 0;
+$urOwner = isOwnerEvent($eid,(int)$_SESSION['user_id']);
 
-if (!isset($_SESSION['eid'])) {
+if (!$urOwner) {
     header("Location: /events");
     exit();
 }
 
-$eid = (int)$_SESSION['eid'];
 $conn = getConnection();
 $keyword = $_GET['keyword'] ?? '';
 $result = getApprovedParticipantsByEventId($eid, $conn, $keyword);

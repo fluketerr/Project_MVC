@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Update event failed");
         }
 
-        // 2️⃣ ลบรูปที่ติ๊ก
         if (!empty($_POST['delete_pictures'])) {
 
             foreach ($_POST['delete_pictures'] as $pid) {
@@ -53,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // 3️⃣ เพิ่มรูปใหม่
         if (!empty($_FILES['new_pictures']['name'][0])) {
 
             foreach ($_FILES['new_pictures']['name'] as $index => $name) {
@@ -63,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 if (!in_array($_FILES['new_pictures']['type'][$index], $allow_type)) {
-                    $_SESSION['error'] = 'Invalid file type';
+                    $_SESSION['error'] = 'อัปโหลดไฟล์ผิดประเภท';
                     throw new Exception("Invalid file type");
                 }
 
@@ -73,10 +71,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $targetPath = UPLOADS_DIR . '/events/' . $fileName;
 
                 if (!move_uploaded_file($tmp, $targetPath)) {
+                    $_SESSION['error'] = 'อัปโหลดรูปไม่สำเร็จ';
                     throw new Exception("Move file failed");
                 }
 
                 if (!insertPicture($fileName, $eid, $conn)) {
+                    $_SESSION['error'] = 'อัปโหลดรูปไม่สำเร็จ';
                     throw new Exception("Insert picture failed");
                 }
             }
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unlink($file);
             }
         }
-        $_SESSION['message'] = "Update success";
+        $_SESSION['message'] = "อัปเดตกิจกรรมสำเร็จ";
 
         header("Location: /events");
         exit;
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $conn->rollback();
         $conn->close();
-        $_SESSION['message'] = "Update failed";
+        $_SESSION['message'] = "อัปเดตกิจกรรมไม่สำเร็จ";
         header("Location: /event_manage");
         exit;
     }

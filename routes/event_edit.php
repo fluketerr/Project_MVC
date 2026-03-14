@@ -1,7 +1,9 @@
 <?php
 $eid = $_SESSION['eid'] ?? null;
+$eid = $_GET['eid'] ?? null;
+$urOwner = isOwnerEvent($eid,(int)$_SESSION['user_id']);
 
-if (isset($_SESSION['eid'])) {
+if ($urOwner) {
     $event = getEventById($eid);
     $conn = getConnection();
 

@@ -1,13 +1,17 @@
 <?php
 $conn = getConnection();
-$eid = $_SESSION['eid'] ?? '';
-$pictures = getPictureById((int)$eid,$conn);
-$event = getEventById((int)$eid);
+$uid = (int)$_SESSION['user_id'] ?? '';
+$eid = $_GET['eid'];
+$urOwner = isOwnerEvent($eid, $uid);
 
-if($eid != ''){
+if ($urOwner) {
+    $pictures = getPictureById((int)$eid, $conn);
+    $event = getEventById((int)$eid);
     renderView('event_manage', ['title' => 'Manage your event', 'event' => $event, 'pictures' => $pictures]);
-}else{
+    $conn->close();
+} else {
     $_SESSION['message'] = 'หา eid ไม่เจอ';
+    $conn->close();
     header('Location: /events');
     exit();
 }

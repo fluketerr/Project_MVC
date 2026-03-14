@@ -131,6 +131,16 @@
                 $isExpired = strtotime($row->end_date) <= time();
                 $isClosed  = $row->event_status === 'Closed';
                 ?>
+                
+                <?php if(isset($_SESSION['message'])): ?>
+                <div class="bg-red-100 border border-red-200
+                                text-red-600 px-6 py-4 rounded-2xl
+                                text-center font-medium mb-2 shadow">
+                    <?= $_SESSION['message']." ".$_SESSION['error'] ?>
+                    <?php unset($_SESSION['message']) ?>
+                    <?php unset($_SESSION['error']) ?>
+                </div>
+                <?php endif; ?>
 
                 <?php if (!$isClosed && !$isExpired): ?>
 

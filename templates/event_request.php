@@ -31,6 +31,7 @@
 <body
     class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex  overflow-hidden  font-sans text-gray-800">
 
+    <?php $eid = $_GET['eid'] ?? 0 ?>
 
     <div class="">
         <?php include 'sideNav_event.php'; ?>
@@ -58,7 +59,7 @@
             <!-- Title -->
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl">
-                    คำขอเข้าร่วม
+                    คำขอเข้าร่วม <?= $eid ?>
                 </h2>
                 <span class="text-gray-500 text-sm">
                     <?= $data['regis']->num_rows ?> รายการ
@@ -110,6 +111,7 @@
 
                                 <form method="POST" action="/approve_request">
                                     <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
+                                    <input type="hidden" name="eid" value="<?= $eid ?>">
                                     <button class="px-4 py-1 rounded-full text-sm 
                                        bg-green-500 hover:bg-green-600 
                                        text-white transition">
@@ -119,6 +121,7 @@
 
                                 <form method="POST" action="/reject_request">
                                     <input type="hidden" name="rid" value="<?= (int)$row->rid ?>">
+                                    <input type="hidden" name="eid" value="<?= $eid ?>">
                                     <button class="px-4 py-1 rounded-full text-sm 
                                        bg-red-500 hover:bg-red-600 
                                        text-white transition">

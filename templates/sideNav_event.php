@@ -1,5 +1,6 @@
 <?php
 // Side Navigation Component
+$eid = $_GET['eid'];
 ?>
 <aside id="side-menu" class="flex flex-col w-64 xl:bg-transparent xl:bg-none bg-[#6594B1]/90 backdrop-blur-sm h-screen left-0 top-0 z-20 absolute xl:static transition-all">
 
@@ -133,25 +134,25 @@
     <nav class="flex flex-col h-full">
         <ul name="top_main_menu" class="list-none p-0 m-0">
             <li class="m-0">
-                <a href="/event_manage" id="manage_event"
+                <a href="/event_manage?eid=<?= $eid ?>" id="manage_event"
                     class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">กิจกรรม</span>
                 </a>
             </li>
             <li class="m-0">
-                <a href="/event_join" id="join_event" class=" flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all
+                <a href="/event_join?eid=<?= $eid ?>" id="join_event" class=" flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all
                     duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">ผู้เข้าร่วม</span>
                 </a>
             </li>
             <li class="m-0">
-                <a href="/event_request" id="request_event"
+                <a href="/event_request?eid=<?= $eid ?>" id="request_event"
                     class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">คำขอเข้าร่วม</span>
                 </a>
             </li>
             <li class="m-0">
-                <a href="/event_edit" id="edit_event"
+                <a href="/event_edit?eid=<?= $eid ?>" id="edit_event"
                     class="flex items-center px-5 py-4 text-[#1E293B] no-underline transition-all duration-300 border-l-4 border-transparent hover:bg-[#6594B1] hover:border-l-[#213C51]">
                     <span class="text-base">แก้ไขกิจกรรม</span>
                 </a>

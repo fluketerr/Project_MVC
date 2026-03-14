@@ -149,7 +149,7 @@
                                 </a>
 
                                 <a class="w-20 bg-gray-500 hover:bg-gray-600 transition-colors text-white text-xs font-medium px-6 py-2 rounded-full shadow-sm whitespace-nowrap"
-                                    href="/set_sessionEid?eid=<?= (int)$row->eid ?>">
+                                    href="/event_manage?eid=<?= (int)$row->eid ?>">
                                     จัดการ
                                 </a>
                             </div>

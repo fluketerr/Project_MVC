@@ -85,7 +85,7 @@ function getEventRegisById(int $eid, int $uid): mysqli_result|bool
             WHERE r.eid = e.eid AND r.status = 'approved' ) AS approved_count 
             from Events e, Registrations r where e.eid = r.eid and r.eid = ? and r.uid = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ii', $eid,$uid);
+    $stmt->bind_param('ii', $eid, $uid);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -416,4 +416,18 @@ function updateEvent(array $event, mysqli $conn): bool
 
 
     return $result;
+}
+
+function isOwnerEvent(int $eid, int $uid): bool
+{
+    global $conn;
+    $sql = "select *
+            from  Events
+            where eid = ? and create_uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $eid, $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $count = $result->num_rows;
+    return $count > 0 ? true : false;
 }
