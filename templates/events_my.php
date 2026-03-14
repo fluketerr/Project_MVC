@@ -36,7 +36,7 @@
 
     <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#DDAED3]/50 flex flex-col overflow-hidden">
 
-        <?php if ($data['result'] && $data['result']->num_rows > 0) { ?>
+        
             <div class="overflow-y-auto pb-8 flex flex-col gap-4
                     [&::-webkit-scrollbar]:w-2 
                     [&::-webkit-scrollbar-track]:mt-[12vh]
@@ -68,10 +68,11 @@
 
                 </form>
             </div>
-            <p><?= $_SESSION['message'] ?? '';
-                unset($_SESSION['message']); ?></p>
+            <!--<p><?= $_SESSION['message'] ?? '';
+                unset($_SESSION['message']); ?></p>-->
 
         </div>
+        <?php if ($data['result'] && $data['result']->num_rows > 0) { ?>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
                     <!--my event-->
                 <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail_my">
