@@ -11,7 +11,7 @@ if ($urOwner) {
     $picturesResult = getPictureById($eid, $conn);
 
     renderView('event_edit', [
-        'title' => 'Edit Event',
+        'title' => 'แก้ไขกิจกรรม',
         'event' => $eventResult,
         'pictures' => $picturesResult
     ]);

@@ -35,22 +35,22 @@
     </div>
     <main class="flex flex-col flex-1 w-full overflow-x-auto">
         <?php $row = $data['event']->fetch_object(); ?>
-        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-auto
+        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 flex flex-col overflow-y-auto
                 [&::-webkit-scrollbar]:w-2
                 [&::-webkit-scrollbar-thumb]:bg-[#213C51]
                 [&::-webkit-scrollbar-thumb]:rounded-full
         ">
 
             <!-- Header Section -->
-            <div class="flex gap-8 flex-col xl:flex-row">
-                <div class="flex xl:hidden items-center justify-start">
+             <div class="sticky top-0 flex xl:hidden items-center justify-start bg-transparent z-10 backdrop-blur-lg p-4">
                     <button id="openMenuBtn" type="button" onclick="openMenu();">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
                             <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
                         </svg>
                     </button>
-                </div>
-
+                    <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
+            </div>
+            <div class="flex gap-8 flex-col xl:flex-row px-8 pb-8">
                 <!-- Cover Image -->
                 <?php if (!empty($data['pictures']) && $pic = $data['pictures']->fetch_object()): ?>
 
@@ -75,7 +75,7 @@
                             <?= $row->start_date ?> - <?= $row->end_date ?>
                         </h2>
 
-                        <h3 class="text-gray-600 mt-4 max-w-xl">
+                        <h3 class="text-gray-600 mt-4 max-w-xl line-clamp-none whitespace-pre-wrap">
                             <?= $row->event_detail ?>
                         </h3>
                     </div>
