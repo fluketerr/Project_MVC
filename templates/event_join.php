@@ -227,17 +227,18 @@
                             $colorClass = $checked ? 'text-green-600' : 'text-orange-500';
                             ?>
 
-                            <div class="bg-white rounded-2xl shadow-md p-6 
-                        hover:shadow-lg transition cursor-pointer" onclick="openModal(
-                    '<?= htmlspecialchars($row->name) ?>',
-                    '<?= htmlspecialchars($row->email) ?>',
-                    '<?= htmlspecialchars($row->tel) ?>',
-                    '<?= htmlspecialchars($row->birthday ?? '') ?>',
-                    '<?= htmlspecialchars($row->job ?? '') ?>',
-                    '<?= htmlspecialchars($row->gender ?? '') ?>',
-                    '<?= htmlspecialchars($row->address ?? '') ?>',
-                    '<?= $row->status ?>'
-                )">
+                            <div
+                                class="bg-gray-50/75 rounded-xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md transition cursor-pointer"
+
+                                onclick="openModal(
+                                    '<?= htmlspecialchars($row['name'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['email'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['tel'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['birthday'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['job'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['gender'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['address'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= $text ?>')">
 
                                 <!-- avatar -->
                                 <div class="w-14 h-14 bg-gray-300 rounded-lg flex-shrink-0"></div>
@@ -247,9 +248,11 @@
                                     <h3 class="font-semibold text-base truncate">
                                         <?= htmlspecialchars($row['name']) ?>
                                     </h3>
+
                                     <p class="text-xs text-slate-600 truncate">
                                         <?= htmlspecialchars($row['email']) ?>
                                     </p>
+
                                     <p class="text-xs text-slate-600">
                                         <?= htmlspecialchars($row['tel']) ?>
                                     </p>
@@ -259,11 +262,8 @@
                                 <div class="text-xs font-semibold whitespace-nowrap <?= $colorClass ?>">
                                     <?= $text ?>
                                 </div>
-
                             </div>
-
                         <?php endforeach; ?>
-
                     </div>
 
                 <?php else: ?>
