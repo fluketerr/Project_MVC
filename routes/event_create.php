@@ -67,14 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->commit();
-            $conn->close(); 
+            $conn->close();
             $_SESSION['message'] = 'สร้างกิจกรรมสำเร็จ';
             header("Location: /events");
             exit;
         }
     } catch (Exception $e) {
         $conn->rollback();
-        $conn->close(); 
+        $conn->close();
 
         foreach ($uploaded_files as $file) {
             if (file_exists($file)) {
@@ -85,9 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: /events");
         exit;
     }
-} else if(!isset($_SESSION['user_id'])) {
+} else if (!isset($_SESSION['user_id'])) {
     header("Location: /login");
     exit;
-}else {
+} else {
     renderView('event_create', ['title' => 'สร้างกิจกรรม']);
 }
