@@ -142,7 +142,7 @@
                         <p class="text-sm font-medium mt-2">
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
                         <!-- เช็คชื่อแล้ว -->
                         <div class="bg-green-50 border border-green-200 rounded-xl shadow-sm 
