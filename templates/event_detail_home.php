@@ -181,7 +181,7 @@
             <?php else: ?>
                 <a href="/login"
                     class="block text-center w-full bg-btnGreen hover:bg-btnGreenHover text-white font-medium py-3 rounded-xl shadow transition">
-                    เข้าสู่ระบบเพื่อเข้าร่วม
+                    เข้าร่วม
                 </a>
             <?php endif; ?>
 
