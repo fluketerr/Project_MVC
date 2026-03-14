@@ -50,7 +50,7 @@
                     </button>
                     <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
             </div>
-            <div class="flex gap-8 flex-col xl:flex-row px-8 pb-8">
+            <div class="flex gap-8 flex-col xl:flex-row px-8 pb-8 pt-4">
                 <!-- Cover Image -->
                 <?php if (!empty($data['pictures']) && $pic = $data['pictures']->fetch_object()): ?>
 
