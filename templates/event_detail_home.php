@@ -159,9 +159,9 @@
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php if ($row->approved_count >= $row->event_capacity): ?>
 
-                    <div class="xl:w-full w-1/2 text-center bg-red-500
+                    <div class="w-full text-center bg-gray-500
                     text-white text-sm font-medium
-                    py-2 rounded-full shadow">
+                    py-3 rounded-full shadow">
                         เต็มแล้ว
                     </div>
 
@@ -181,7 +181,7 @@
             <?php else: ?>
                 <a href="/login"
                     class="block text-center w-full bg-btnGreen hover:bg-btnGreenHover text-white font-medium py-3 rounded-xl shadow transition">
-                    เข้าสู่ระบบเพื่อเข้าร่วม
+                    เข้าร่วม
                 </a>
             <?php endif; ?>
 

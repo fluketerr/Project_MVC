@@ -169,9 +169,9 @@
                 </div>
 
                 <a href="/logout"
-                    class="group flex items-center gap-3 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-red-600">
+                    class="group flex items-center gap-2 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-red-600">
                     <div class="text-slate-500 transition-colors duration-200 group-hover:text-red-600">
-                        <svg width="20" height="20" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        <svg width="17" height="17" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg"
                             class="mr-2">
                             <path
                                 d="M9.5 24.5H4.5C3.83696 24.5 3.20107 24.2366 2.73223 23.7678C2.26339 23.2989 2 22.663 2 22V4.5C2 3.83696 2.26339 3.20107 2.73223 2.73223C3.20107 2.26339 3.83696 2 4.5 2H9.5M18.25 19.5L24.5 13.25M24.5 13.25L18.25 7M24.5 13.25H9.5"
@@ -183,9 +183,9 @@
             <?php } else { ?>
                 <div class="m-0">
                     <a href="/login"
-                        class="group flex items-center gap-3 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-gray-600">
+                        class="group flex items-center gap-2 py-2 text-sm font-medium text-slate-700 transition-colors duration-200 hover:text-gray-600">
                         <div class="text-slate-500 transition-colors duration-200 group-hover:text-gray-600">
-                            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="17" height="17" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M18.75 3.75H23.75C24.413 3.75 25.0489 4.01339 25.5178 4.48223C25.9866 4.95107 26.25 5.58696 26.25 6.25V23.75C26.25 24.413 25.9866 25.0489 25.5178 25.5178C25.0489 25.9866 24.413 26.25 23.75 26.25H18.75M12.5 21.25L18.75 15M18.75 15L12.5 8.75M18.75 15H3.75"
                                     stroke="#213C51" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />

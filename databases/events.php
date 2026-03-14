@@ -297,8 +297,8 @@ function searchEvents($keyword, $start, $end, $uid)
         $stmt->execute();
         return $stmt->get_result();
     }
-
-
+   
+    
 
     return $conn->query($sql);
 }
@@ -377,7 +377,7 @@ function countCapacity($eid)
     $sql = "select e.*,
                     COALESCE((select count(uid) 
                     from   Registrations
-                    where  eid = ? and status = 'Approved'), 0) as count_uid
+                    where  eid = ? AND status = 'approved'), 0) as count_uid
             from  Events e
             where eid = ?";
     $stmt = $conn->prepare($sql);

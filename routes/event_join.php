@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../databases/registration.php';
+
 $eid = $_GET['eid'] ?? 0;
 $urOwner = isOwnerEvent($eid,(int)$_SESSION['user_id']);
 
@@ -82,7 +82,5 @@ renderView('event_join', [
     'otherCount' => $otherCount,
     'totalParticipants' => $totalParticipants,
     'ageBuckets' => $ageBuckets,
-    'topAgeRange' => $topAgeRange,
-    'topAgeCount' => $topAgeCount,
     'checkedCount' => $checkedCount
 ]);

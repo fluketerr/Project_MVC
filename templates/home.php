@@ -15,21 +15,21 @@
         }
     </style>
     <script>
-    tailwind.config = {
-        theme: {
-        extend: {
-            colors: {
-            btnGreen: '#22c55e',
-            btnGreenHover: '#16a34a',
-            cardBg: '#ffffff',
-            imagePlaceholder: '#dcdcdc'
-            },
-            fontFamily: {
-            sans: ['Prompt', 'sans-serif'],
-            },
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        btnGreen: '#22c55e',
+                        btnGreenHover: '#16a34a',
+                        cardBg: '#ffffff',
+                        imagePlaceholder: '#dcdcdc'
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                }
+            }
         }
-        }
-    }
     </script>
 </head>
 
@@ -148,7 +148,9 @@
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 
                     <div class="px-8">
-                        <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail_home">
+                        <a href="<?= isset($_SESSION['user_id'])
+                                        ? '/set_sessioneid?eid=' . (int)$row->eid . '&page=event_detail_home'
+                                        : '/login' ?>">
                             <div
                                 class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
@@ -199,8 +201,8 @@
                                         ?>
 
                                         <div class="xl:mt-auto pt-4 flex flex-row xl:flex-none justify-center xl:flex-col bg-white/20 rounded-xl xl:bg-transparent">
-                                            <div class="xl:border-t border-r border-gray-200 mb-3"></div>
-                                            <div class="text-sm text-gray-500 flex xl:items-center gap-2">
+                                            <div class="xl:border-t border-gray-200 mb-3"></div>
+                                            <div class="text-sm text-gray-500 flex xl:items-center xl:gap-2">
                                                 <span></span>
                                                 <span>
                                                     <h4><?= $start ?> - <?= $end ?></h4>
