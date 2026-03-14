@@ -48,8 +48,9 @@
                             <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
                         </svg>
                     </button>
-                </div>
-            <div class="flex gap-8 flex-col xl:flex-row p-8">
+                    <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
+            </div>
+            <div class="flex gap-8 flex-col xl:flex-row px-8 pb-8">
                 <!-- Cover Image -->
                 <?php if (!empty($data['pictures']) && $pic = $data['pictures']->fetch_object()): ?>
 

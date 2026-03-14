@@ -39,13 +39,17 @@
     <main class="flex flex-col flex-1 w-full ">
 
         <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] 
-            shadow-sm border border-[#213C51]/50 p-8 flex flex-col gap-6 ">
-            <div class="flex xl:hidden items-center justify-start">
-                <button id="openMenuBtn" type="button" onclick="openMenu();">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
-                        <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
-                    </svg>
-                </button>
+            shadow-sm border border-[#213C51]/50 flex flex-col gap-6 overflow-y-auto
+            [&::-webkit-scrollbar]:w-2
+            [&::-webkit-scrollbar-thumb]:bg-[#213C51]
+            [&::-webkit-scrollbar-thumb]:rounded-full
+            ">
+             <div class="sticky top-0 flex xl:hidden items-center justify-start bg-transparent z-10 backdrop-blur-lg p-4">
+                    <button id="openMenuBtn" type="button" onclick="openMenu();">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                            <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                        </svg>
+                    </button>
             </div>
 
             <!-- Flash Message -->
@@ -57,9 +61,9 @@
             <?php endif; ?>
 
             <!-- Title -->
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center p-8 ">
                 <h2 class="text-2xl">
-                    คำขอเข้าร่วม <?= $eid ?>
+                    คำขอเข้าร่วม
                 </h2>
                 <span class="text-gray-500 text-sm">
                     <?= $data['regis']->num_rows ?> รายการ
@@ -68,7 +72,7 @@
 
             <?php if ($data['regis']->num_rows > 0): ?>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-8">
 
                     <?php while ($row = $data['regis']->fetch_object()): ?>
 
