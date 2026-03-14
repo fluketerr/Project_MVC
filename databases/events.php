@@ -297,8 +297,8 @@ function searchEvents($keyword, $start, $end, $uid)
         $stmt->execute();
         return $stmt->get_result();
     }
-
-
+   
+    
 
     return $conn->query($sql);
 }
