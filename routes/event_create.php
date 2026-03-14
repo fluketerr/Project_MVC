@@ -80,5 +80,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: /login");
     exit;
 }else {
-    renderView('event_create', ['title' => 'Create Event']);
+    renderView('event_create', ['title' => 'สร้างกิจกรรม']);
 }

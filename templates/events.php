@@ -46,6 +46,8 @@
                 </svg>
             </a>
 
+            <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
+
         </div>
 
         <div class="overflow-y-auto px-8 xl:pb-8 flex flex-col gap-4 h-full
@@ -78,23 +80,23 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="flex-1 flex px-8 py-5 flex-col xl:flex-row">
-                        <div class="flex flex-1 xl:flex-col flex-row">
+                    <div class="flex-1 flex px-8 py-5 xl:flex-row flex-col">
+                        <div class="flex flex-1 flex-col">
 
-                            <div class="flex flex-col xl:w-2/3 w-1/3 flex-1">
-                                <div class="flex items-start gap-2 flex-row">
+                            <div class="flex flex-col xl:w-2/3 flex-1">
+                                <div class="flex flex-1 items-start gap-2 flex-row">
 
-                                    <h3 class="text-lg font-medium text-gray-800 max-w-48 truncate">
+                                    <h3 class="flex text-lg font-medium text-gray-800 xl:truncate">
                                         <?= $row->event_name ?>
                                     </h3>
 
                                     <?php if ($isClosed || $isExpired): ?>
-                                        <span class="hidden xl:inline-block px-2 py-1 text-xs font-semibold
+                                        <span class="flex px-2 py-1 text-xs font-semibold whitespace-nowrap
                             bg-red-100 text-red-600
                             rounded-full">
                                             ปิดแล้ว
                                         <?php else: ?>
-                                            <span class="hidden xl:inline-block px-2 py-1 text-xs font-semibold
+                                            <span class="flex px-2 py-1 text-xs font-semibold whitespace-nowrap
                             bg-green-100 text-green-600
                             rounded-full">
                                                 เปิดรับสมัคร
@@ -114,22 +116,8 @@
 
                             <div class="w-2/3 xl:w-full">
 
-                                <?php if ($isClosed || $isExpired): ?>
-                                    <span class="xl:hidden inline-block px-2 py-1 text-xs font-semibold
-                            bg-red-100 text-red-600
-                            rounded-full">
-                                        ปิดแล้ว
-                                    </span>
-                                <?php else: ?>
-                                    <span class="xl:hidden inline-block px-2 py-1 text-xs font-semibold
-                            bg-green-100 text-green-600
-                            rounded-full">
-                                        เปิดรับสมัคร
-                                    </span>
-                                <?php endif; ?>
-
                                 <div class="xl:border-t border-l border-white/50 mb-3"></div>
-                                <div class="text-sm text-gray-500 flex gap-2">
+                                <div class="text-sm text-gray-500 flex gap-2 whitespace-nowrap items-center my-2">
                                     <span></span>
                                     <span><?= $start ?> - <?= $end ?></span>
                                 </div>
