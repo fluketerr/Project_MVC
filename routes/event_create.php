@@ -2,7 +2,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $uploaded_files = [];
-    $allow_type = ['image/jpeg', 'image/png', 'image/webp'];
+    $allow_type = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
     $start_date = str_replace('T', ' ', $_POST['start_date']);
     $end_date   = str_replace('T', ' ', $_POST['end_date']);
@@ -58,12 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->commit();
+            $conn->close(); 
             $_SESSION['message'] = 'เพิ่มกิจกรรมสำเร็จ';
             header("Location: /events");
             exit;
         }
     } catch (Exception $e) {
         $conn->rollback();
+        $conn->close(); 
 
         foreach ($uploaded_files as $file) {
             if (file_exists($file)) {
