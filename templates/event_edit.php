@@ -63,7 +63,7 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
                         <h2 class="xl:mt-0 mt-5 text-2xl font-semibold text-[#1E293B]">รูปภาพกิจกรรม</h2>
                         <div>
                             <label class="block mb-3 font-medium text-[#1E293B]">เพิ่มรูปใหม่</label>
-                            <input type="file"
+                            <input type="file" accept="image/*"
                                 name="new_pictures[]"
                                 multiple require
                                 class="block w-full text-sm text-gray-700
