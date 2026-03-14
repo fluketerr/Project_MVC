@@ -25,6 +25,7 @@
 <body
     class="bg-[linear-gradient(90deg,#D9D9D9_0%,#6594B1_25%,#213C51_100%)] h-screen w-full flex overflow-hidden font-sans text-gray-800">
 
+    <?php unset($_SESSION['message']) ?>
     <div class="">
         <?php include 'sideNav_allEvents.php'; ?>
     </div>
