@@ -260,12 +260,30 @@
 
                                             <?php endif; ?>
                                         <?php } else { ?>
-                                            <a href="/login" class="xl:w-full w-1/2 text-center bg-green-500 hover:bg-green-600
+                                            <?php if ($row->approved_count >= $row->event_capacity): ?>
+
+                                                <div class="xl:w-full w-1/2 text-center bg-gray-500
+                                                text-white text-sm font-medium
+                                                    py-2 rounded-full shadow">
+                                                    เต็มแล้ว
+                                                </div>
+
+                                            <?php elseif ($row->event_status === 'Open' && strtotime($row->end_date) > time()): ?>
+
+                                                <a href="/login" class="xl:w-full w-1/2 text-center bg-green-500 hover:bg-green-600
                           text-white text-sm font-medium
                           py-2 rounded-full shadow
                           transition duration-200">
-                                                เข้าร่วม
-                                            </a>
+                                                    เข้าร่วม
+                                                </a>
+                                            <?php else: ?>
+                                                <div class="xl:w-full w-1/2 text-center bg-gray-400
+                                                    text-white text-sm font-medium
+                                                    py-2 rounded-full shadow">
+                                                    หมดเวลา
+                                                </div>
+
+                                            <?php endif; ?>
                                         <?php } ?>
 
                                     </div>

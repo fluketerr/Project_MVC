@@ -16,7 +16,7 @@ function getEvents(): mysqli_result|bool
                    WHERE r.eid = e.eid
                    AND r.status = 'approved'
                ) AS approved_count from Events e
-           where e.event_status != 'Closed'";
+           ";
     $result = $conn->query($sql);
     $conn->close();
     return $result;
@@ -47,7 +47,6 @@ function getNotinEvents(int $uid): mysqli_result|bool
                 WHERE uid = ?
         )
         AND e.create_uid != ?
-        and e.event_status != 'Closed'
         ORDER BY e.eid DESC
     ";
 
