@@ -377,7 +377,7 @@ function countCapacity($eid)
     $sql = "select e.*,
                     COALESCE((select count(uid) 
                     from   Registrations
-                    where  eid = ?), 0) as count_uid
+                    where  eid = ? and status = 'Approved'), 0) as count_uid
             from  Events e
             where eid = ?";
     $stmt = $conn->prepare($sql);

@@ -208,6 +208,7 @@
                             value="<?= htmlspecialchars($data['keyword'] ?? '') ?>"
                             class="w-full rounded-full border border-gray-50/75 px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
 
+                        <input type="hidden" name="eid" value="<?= $_GET['eid'] ?>">
                         <button class="absolute right-3 top-1/2 -translate-y-1/2 text-sm">
                             ค้นหา
                         </button>
@@ -224,6 +225,7 @@
                             <?php
                             $checked = !empty($row['checkin_time']);
                             $text = $checked ? 'เช็คชื่อแล้ว' : 'ยังไม่เช็คชื่อ';
+                            
                             $colorClass = $checked ? 'text-green-600' : 'text-orange-500';
                             ?>
 
@@ -245,6 +247,8 @@
 
                                 <!-- info -->
                                 <div class="flex-1 min-w-0">
+
+                                    <h1><?= $_GET['eid'] ?></h1>
                                     <h3 class="font-semibold text-base truncate">
                                         <?= htmlspecialchars($row['name']) ?>
                                     </h3>
