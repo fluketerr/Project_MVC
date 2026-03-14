@@ -8,7 +8,7 @@ $username = 'u910454988_regify';
 $password = 'I3WdSE]WGe;c6!tH';
 
 
-$conn = new mysqli($hostname, $username, $password, $dbName);
+$conn = new mysqli('p:' . $hostname, $username, $password, $dbName);
 $conn->set_charset("utf8mb4");
 
 function getConnection(): mysqli
