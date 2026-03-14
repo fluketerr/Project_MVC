@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (getUsersById($uid)->num_rows === 0) {
         $_SESSION['notice'] = 'ไม่พบ UID';
         $_SESSION['notice_type'] = 'error';
-        header("Location: /event_manage");
+        header("Location: /event_manage?eid=".$eid);
         exit();
     }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (getUserRegisById($eid, $uid)->num_rows === 0) {
         $_SESSION['notice'] = 'ไม่ได้เข้าร่วมกิจกรรม';
         $_SESSION['notice_type'] = 'warning';
-        header("Location: /event_manage");
+        header("Location: /event_manage?eid=".$eid);
         exit();
     }
 
@@ -42,6 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['notice_type'] = 'error';
     }
 
-    header("Location: /event_manage");
+    header("Location: /event_manage?eid=".$eid);
     exit();
 }
