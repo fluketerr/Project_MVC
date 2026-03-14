@@ -201,8 +201,8 @@
                                         ?>
 
                                         <div class="xl:mt-auto pt-4 flex flex-row xl:flex-none justify-center xl:flex-col bg-white/20 rounded-xl xl:bg-transparent">
-                                            <div class="xl:border-t border-r border-gray-200 mb-3"></div>
-                                            <div class="text-sm text-gray-500 flex xl:items-center gap-2">
+                                            <div class="xl:border-t border-gray-200 mb-3"></div>
+                                            <div class="text-sm text-gray-500 flex xl:items-center xl:gap-2">
                                                 <span></span>
                                                 <span>
                                                     <h4><?= $start ?> - <?= $end ?></h4>
