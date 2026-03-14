@@ -64,16 +64,16 @@
                 <?php endif; ?>
 
                 <!-- Event Info -->
-                <div class="flex-1 flex flex-col justify-between">
+                <div class="flex-1 flex flex-col justify-between text-left">
 
                     <div>
                         <h1 class="text-2xl font-bold mb-2">
                             <?= $row->event_name ?>
                         </h1>
 
-                        <p class="text-gray-600 mb-4 max-w-xl line-clamp-none whitespace-pre-wrap">
+                        <h1 class="text-gray-600 mb-4 max-w-xl line-clamp-none whitespace-pre-line text-left">
                             <?= $row->event_detail ?>
-                        </p>
+                        </h1>
 
                         <h2 class="text-gray-500 text-sm mt-5">
                             <?= $row->start_date ?> - <?= $row->end_date ?>
