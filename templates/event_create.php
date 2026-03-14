@@ -66,7 +66,7 @@
 
                         <div class="space-y-6">
                             <div>
-                                <label for="event_picture" class="block text-[#1E293B] font-medium mb-3">รูปประกอบงาน<br>(สามารถอัปโหลดได้หลายภาพและภาพแรกจะถูกใช้เป็นภาพปก)</label>
+                                <label for="event_picture" class="block text-[#1E293B] font-medium mb-3">รูปประกอบงาน<br>-สามารถอัปโหลดได้หลายภาพ&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br>-ภาพแรกจะถูกใช้เป็นภาพปก</label>
                                 <div class="w-full aspect-[4/3] bg-white rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-300 cursor-pointer">
                                     <label for="imageInput" class="relative w-full h-full flex flex-col items-center justify-center cursor-pointer gap-1">
                                         <input type="file" accept="image/*" name="event_picture[]" id="imageInput" multiple required class="absolute opacity-0 w-full h-full cursor-pointer">
