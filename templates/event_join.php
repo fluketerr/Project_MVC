@@ -59,7 +59,7 @@
 
                     <div class="bg-gray-50/75 rounded-xl p-4 shadow-sm">
                         <p class="text-xs text-slate-500 mb-1">จำนวนสมาชิก</p>
-                        <p class="text-2xl font-bold">
+                        <p class="text-5xl font-bold h-full flex justify-center items-center">
                             <?= (int)($data['totalParticipants'] ?? 0) ?>
                         </p>
                     </div>

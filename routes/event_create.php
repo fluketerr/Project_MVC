@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $conn->commit();
             $conn->close(); 
-            $_SESSION['message'] = 'เพิ่มกิจกรรมสำเร็จ';
+            $_SESSION['message'] = 'สร้างกิจกรรมสำเร็จ';
             header("Location: /events");
             exit;
         }
@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unlink($file);
             }
         }
+        $_SESSION['message'] = 'สร้างกิจกรรมไม่สำเร็จ';
         header("Location: /events");
         exit;
     }
@@ -79,5 +80,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: /login");
     exit;
 }else {
-    renderView('event_create', ['title' => 'Create Event']);
+    renderView('event_create', ['title' => 'สร้างกิจกรรม']);
 }

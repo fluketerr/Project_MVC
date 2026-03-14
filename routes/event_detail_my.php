@@ -22,18 +22,17 @@ if ($eid != '') {
 
     $conn = getConnection();
     $pictures = getPictureById((int)$eid, $conn);
-    $event = getEventRegisById((int)$eid,(int)$user_id)->fetch_object();
+    $event = getEventRegisById((int)$eid, (int)$user_id)->fetch_object();
 
     renderView('event_detail_my', [
         'title' => 'Event Detail My',
         'result' => $event,
         'pictures' => $pictures
     ]);
-
+    $conn->close();
 } else {
 
     $_SESSION['message'] = 'หา eid ไม่เจอ';
     header('Location: /home');
     exit();
-
 }

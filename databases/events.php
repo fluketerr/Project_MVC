@@ -432,3 +432,17 @@ function updateEvent(array $event, mysqli $conn): bool
 
     return $result;
 }
+
+function isOwnerEvent(int $eid, int $uid): bool
+{
+    global $conn;
+    $sql = "select *
+            from  Events
+            where eid = ? and create_uid = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $eid, $uid);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $count = $result->num_rows;
+    return $count > 0 ? true : false;
+}

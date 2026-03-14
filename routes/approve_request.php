@@ -3,7 +3,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $rid = (int)$_POST['rid'];
-    $eid = $_SESSION['eid'];
+    $eid = $_POST['eid'];
 
     $conn = getConnection();
 
@@ -24,6 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-header("Location: /event_request");
+header("Location: /event_request?eid=$eid");
 exit();
 ?>
