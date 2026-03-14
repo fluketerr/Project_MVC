@@ -177,12 +177,18 @@
                             //menu.classList.replace('hidden', 'flex');
                             statPanel.style.transform = "translateY(0%)";
                             closeBtn.style.rotate = "0deg";
+                            statPanel.style.transition = "transform 0.5s ease-in-out";
                         };
 
                         const closeStat = () => {
                             //menu.classList.replace('flex', 'hidden');
-                            statPanel.style.transform = "translateY(-55%)";
+                            if(window.innerWidth < 1280) {
+                                statPanel.style.transform = "translateY(-400px)";
+                            } else {
+                                statPanel.style.transform = "translateY(-200px)";
+                            }
                             closeBtn.style.rotate = "180deg";
+                            statPanel.style.transition = "transform 0.5s ease-in-out";
                         };
 
                         closeBtn.addEventListener("click", () => {
