@@ -1,7 +1,9 @@
 <?php
 $eid = $_SESSION['eid'] ?? null;
+$eid = $_GET['eid'] ?? null;
+$urOwner = isOwnerEvent($eid,(int)$_SESSION['user_id']);
 
-if (isset($_SESSION['eid'])) {
+if ($urOwner) {
     $event = getEventById($eid);
     $conn = getConnection();
 
@@ -9,7 +11,7 @@ if (isset($_SESSION['eid'])) {
     $picturesResult = getPictureById($eid, $conn);
 
     renderView('event_edit', [
-        'title' => 'Edit Event',
+        'title' => 'แก้ไขกิจกรรม',
         'event' => $eventResult,
         'pictures' => $picturesResult
     ]);

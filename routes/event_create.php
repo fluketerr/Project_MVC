@@ -2,7 +2,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $uploaded_files = [];
-    $allow_type = ['image/jpeg', 'image/png', 'image/webp'];
+    $allow_type = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
     $start_date = str_replace('T', ' ', $_POST['start_date']);
     $end_date   = str_replace('T', ' ', $_POST['end_date']);
@@ -58,18 +58,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->commit();
-            $_SESSION['message'] = 'เพิ่มกิจกรรมสำเร็จ';
+            $conn->close(); 
+            $_SESSION['message'] = 'สร้างกิจกรรมสำเร็จ';
             header("Location: /events");
             exit;
         }
     } catch (Exception $e) {
         $conn->rollback();
+        $conn->close(); 
 
         foreach ($uploaded_files as $file) {
             if (file_exists($file)) {
                 unlink($file);
             }
         }
+        $_SESSION['message'] = 'สร้างกิจกรรมไม่สำเร็จ';
         header("Location: /events");
         exit;
     }
@@ -77,5 +80,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: /login");
     exit;
 }else {
-    renderView('event_create', ['title' => 'Create Event']);
+    renderView('event_create', ['title' => 'สร้างกิจกรรม']);
 }

@@ -15,21 +15,21 @@
         }
     </style>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Prompt', 'sans-serif'],
-                    },
-                    colors: {
-                        btnGreen: '#22c55e',
-                        btnGreenHover: '#16a34a',
-                        cardBg: '#ffffff',
-                        imagePlaceholder: '#dcdcdc'
-                    }
-                }
-            }
+    tailwind.config = {
+        theme: {
+        extend: {
+            colors: {
+            btnGreen: '#22c55e',
+            btnGreenHover: '#16a34a',
+            cardBg: '#ffffff',
+            imagePlaceholder: '#dcdcdc'
+            },
+            fontFamily: {
+            sans: ['Prompt', 'sans-serif'],
+            },
         }
+        }
+    }
     </script>
 </head>
 
@@ -135,25 +135,21 @@
                             unset($_SESSION['message']); ?></p>-->
                 </div>
                 <?php if (!isset($_SESSION['user_id'])) { ?>
-                    <a class="fixed bottom-10 right-10 w-14 h-14 py-6 z-50 bg-[#DBC3D6]  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#DDAED3] hover:text-white transition-colors"
+                    <a class="backdrop-blur-lg fixed bottom-10 right-10 h-14 py-6 z-50 bg-[#DBC3D6]/60  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#DDAED3] hover:text-white transition-colors"
                         href="/login">
-                        <svg fill="white" width="30" height="30" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
-                            <path d="M17,11H13V7a1,1,0,0,0-1-1h0a1,1,0,0,0-1,1v4H7a1,1,0,0,0-1,1H6a1,1,0,0,0,1,1h4v4a1,1,0,0,0,1,1h0a1,1,0,0,0,1-1V13h4a1,1,0,0,0,1-1h0A1,1,0,0,0,17,11Z" />
-                        </svg>
+                        <h2 class="text-sm text-white p-5 ">สร้างกิจกรรม</h2>
                     </a>
                 <?php } else { ?>
-                    <a class="fixed bottom-10 right-10 w-14 h-14 py-6 z-50 bg-[#DBC3D6]  rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#DDAED3] hover:text-white transition-colors"
+                    <a class="backdrop-blur-lg fixed bottom-10 right-10 h-14 py-6 z-50 bg-[#DBC3D6]/60 rounded-full flex items-center justify-center text-4xl font-semibold text-black shadow-sm hover:bg-[#DDAED3] hover:text-white transition-colors"
                         href="/event_create">
-                        <svg fill="white" width="30" height="30" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
-                            <path d="M17,11H13V7a1,1,0,0,0-1-1h0a1,1,0,0,0-1,1v4H7a1,1,0,0,0-1,1H6a1,1,0,0,0,1,1h4v4a1,1,0,0,0,1,1h0a1,1,0,0,0,1-1V13h4a1,1,0,0,0,1-1h0A1,1,0,0,0,17,11Z" />
-                        </svg>
+                        <h2 class="text-sm text-white p-5 ">สร้างกิจกรรม</h2>
                     </a>
                 <?php } ?>
                 <?php while ($row = $data['result']->fetch_object()) { ?>
 
                     <div class="px-8">
-                        <a href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_detail_home">
-                            <div href="/set_sessionEid?eid=<?= (int)$row->eid ?>&page=event_detail_home"
+                        <a href="/set_sessioneid?eid=<?= (int)$row->eid ?>&page=event_detail_home">
+                            <div
                                 class="bg-white/30 backdrop-blur-sm rounded-2xl flex xl:flex-row flex-col xl:min-h-[170px]
             xl:overflow-hidden border border-white/50
             shadow-md hover:shadow-xl hover:bg-white/60
@@ -260,12 +256,30 @@
 
                                             <?php endif; ?>
                                         <?php } else { ?>
-                                            <a href="/login" class="xl:w-full w-1/2 text-center bg-green-500 hover:bg-green-600
+                                            <?php if ($row->approved_count >= $row->event_capacity): ?>
+
+                                                <div class="xl:w-full w-1/2 text-center bg-gray-500
+                                                text-white text-sm font-medium
+                                                    py-2 rounded-full shadow">
+                                                    เต็มแล้ว
+                                                </div>
+
+                                            <?php elseif ($row->event_status === 'Open' && strtotime($row->end_date) > time()): ?>
+
+                                                <a href="/login" class="xl:w-full w-1/2 text-center bg-green-500 hover:bg-green-600
                           text-white text-sm font-medium
                           py-2 rounded-full shadow
                           transition duration-200">
-                                                เข้าร่วม
-                                            </a>
+                                                    เข้าร่วม
+                                                </a>
+                                            <?php else: ?>
+                                                <div class="xl:w-full w-1/2 text-center bg-gray-400
+                                                    text-white text-sm font-medium
+                                                    py-2 rounded-full shadow">
+                                                    หมดเวลา
+                                                </div>
+
+                                            <?php endif; ?>
                                         <?php } ?>
 
                                     </div>

@@ -3,6 +3,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $conn = getConnection();
+    $allow_type = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
 
     $eid = isset($_POST['eid']) ? (int)$_POST['eid'] : 0;
 
@@ -31,12 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $filesToDelete = [];
 
-        // 1️⃣ update event
         if (!updateEvent($event, $conn)) {
             throw new Exception("Update event failed");
         }
 
-        // 2️⃣ ลบรูปที่ติ๊ก
         if (!empty($_POST['delete_pictures'])) {
 
             foreach ($_POST['delete_pictures'] as $pid) {
@@ -53,46 +52,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // 3️⃣ เพิ่มรูปใหม่
         if (!empty($_FILES['new_pictures']['name'][0])) {
 
-            foreach ($_FILES['new_pictures']['name'] as $key => $name) {
+            foreach ($_FILES['new_pictures']['name'] as $index => $name) {
 
-                if ($_FILES['new_pictures']['error'][$key] !== 0) {
+                if ($_FILES['new_pictures']['error'][$index] !== 0) {
                     throw new Exception("Upload error");
                 }
 
-                $fileName = time() . '_' . basename($name);
-                $tmp = $_FILES['new_pictures']['tmp_name'][$key];
+                if (!in_array($_FILES['new_pictures']['type'][$index], $allow_type)) {
+                    $_SESSION['error'] = 'อัปโหลดไฟล์ผิดประเภท';
+                    throw new Exception("Invalid file type");
+                }
+
+                $fileName = uniqid() . '_' . basename($name);
+                $tmp = $_FILES['new_pictures']['tmp_name'][$index];
 
                 $targetPath = UPLOADS_DIR . '/events/' . $fileName;
 
                 if (!move_uploaded_file($tmp, $targetPath)) {
+                    $_SESSION['error'] = 'อัปโหลดรูปไม่สำเร็จ';
                     throw new Exception("Move file failed");
                 }
 
                 if (!insertPicture($fileName, $eid, $conn)) {
+                    $_SESSION['error'] = 'อัปโหลดรูปไม่สำเร็จ';
                     throw new Exception("Insert picture failed");
                 }
             }
         }
 
         $conn->commit();
+        $conn->close();
 
         foreach ($filesToDelete as $file) {
             if (file_exists($file)) {
                 unlink($file);
             }
         }
-        $_SESSION['message'] = "Update success";
+        $_SESSION['message'] = "อัปเดตกิจกรรมสำเร็จ";
 
         header("Location: /events");
         exit;
     } catch (Exception $e) {
 
         $conn->rollback();
-        $_SESSION['message'] = "Update failed";
-        header("Location: /manage_event?eid=" . $eid);
+        $conn->close();
+        $_SESSION['message'] = "อัปเดตกิจกรรมไม่สำเร็จ";
+        header("Location: /event_manage");
         exit;
     }
 } else {

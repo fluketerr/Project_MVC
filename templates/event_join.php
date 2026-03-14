@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Dashboard - Full Screen</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -35,15 +36,16 @@
     </div>
     <main class="flex flex-col flex-1 w-full">
         <!-- แผ่นขาวหลัก -->
-        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 p-8 flex flex-col overflow-y-hidden">
-            <div id="statistics" class="transition-all">
-                <div class="sticky flex xl:hidden items-center justify-start mb-2">
+        <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 flex flex-col overflow-y-hidden">
+            <div class="sticky flex xl:hidden items-center justify-start z-10 p-4 bg-transparent backdrop-blur-lg">
                     <button id="openMenuBtn" type="button" onclick="openMenu();">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
                             <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
                         </svg>
                     </button>
-                </div>
+                    <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
+            </div>
+            <div id="statistics" class="transition-all px-8 pt-4 pb-8">
 
                 <!-- message -->
                 <?php if (!empty($_SESSION['message'])): ?>
@@ -59,7 +61,7 @@
 
                     <div class="bg-gray-50/75 rounded-xl p-4 shadow-sm">
                         <p class="text-xs text-slate-500 mb-1">จำนวนสมาชิก</p>
-                        <p class="text-2xl font-bold">
+                        <p class="text-5xl font-bold h-full flex justify-center items-center">
                             <?= (int)($data['totalParticipants'] ?? 0) ?>
                         </p>
                     </div>
@@ -69,9 +71,6 @@
                         <div class="w-full max-h-36">
                             <canvas id="PieChart"></canvas>
                         </div>
-
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
                         <script>
                             const ctx = document.getElementById('PieChart').getContext('2d');
                             new Chart(ctx, {
@@ -106,13 +105,41 @@
                     </div>
 
                     <div class="bg-gray-50/75 rounded-xl p-4 shadow-sm">
-                        <p class="text-xs text-slate-500 mb-1">ช่วงอายุ</p>
-                        <p class="text-xl font-bold">
-                            <?= htmlspecialchars($data['topAgeRange'] ?? '-') ?>
-                        </p>
-                        <p class="text-xs text-slate-500">
-                            <?= (int)($data['topAgeCount'] ?? 0) ?> คน
-                        </p>
+                        <p class="text-xs text-slate-500 mb-2">ช่วงอายุทั้งหมด</p>
+                            <div class="w-full h-36">
+                                <canvas id="AgeChart"></canvas>
+                            </div>
+                        <script>
+                            const ageCtx = document.getElementById('AgeChart').getContext('2d');
+                            new Chart(ageCtx, {
+                                type: 'bar',
+                                data: {
+                                    labels: <?= json_encode(array_keys($data['ageBuckets'] ?? [])) ?>,
+                                    datasets: [{
+                                        label: 'จำนวนคน',
+                                        data: <?= json_encode(array_values($data['ageBuckets'] ?? [])) ?>,
+                                        backgroundColor: '#6594B1'
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: {
+                                                stepSize: 1
+                                            }
+                                        }
+                                    },
+                                    plugins: {
+                                        legend: {
+                                            display: false
+                                        }
+                                    },
+                                    maintainAspectRatio: false
+                                }
+                            });
+                        </script>
+                        <p class="text-sm font-medium mt-2">
                     </div>
 
                     <div class="bg-gray-50/75 rounded-xl p-4 shadow-sm">
@@ -200,7 +227,18 @@
                             $colorClass = $checked ? 'text-green-600' : 'text-orange-500';
                             ?>
 
-                            <div class="bg-gray-50/75 rounded-xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md transition">
+                            <div
+                                class="bg-gray-50/75 rounded-xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md transition cursor-pointer"
+
+                                onclick="openModal(
+                                    '<?= htmlspecialchars($row['name'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['email'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['tel'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['birthday'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['job'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['gender'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= htmlspecialchars($row['address'] ?? '', ENT_QUOTES) ?>',
+                                    '<?= $text ?>')">
 
                                 <!-- avatar -->
                                 <div class="w-14 h-14 bg-gray-300 rounded-lg flex-shrink-0"></div>
@@ -210,9 +248,11 @@
                                     <h3 class="font-semibold text-base truncate">
                                         <?= htmlspecialchars($row['name']) ?>
                                     </h3>
+
                                     <p class="text-xs text-slate-600 truncate">
                                         <?= htmlspecialchars($row['email']) ?>
                                     </p>
+
                                     <p class="text-xs text-slate-600">
                                         <?= htmlspecialchars($row['tel']) ?>
                                     </p>
@@ -222,11 +262,8 @@
                                 <div class="text-xs font-semibold whitespace-nowrap <?= $colorClass ?>">
                                     <?= $text ?>
                                 </div>
-
                             </div>
-
                         <?php endforeach; ?>
-
                     </div>
 
                 <?php else: ?>

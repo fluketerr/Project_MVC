@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../databases/registration.php';
+$eid = $_GET['eid'] ?? 0;
+$urOwner = isOwnerEvent($eid,(int)$_SESSION['user_id']);
 
-if (!isset($_SESSION['eid'])) {
+if (!$urOwner) {
     header("Location: /events");
     exit();
 }
 
-$eid = (int)$_SESSION['eid'];
 $conn = getConnection();
 $keyword = $_GET['keyword'] ?? '';
 $result = getApprovedParticipantsByEventId($eid, $conn, $keyword);
@@ -53,18 +54,19 @@ foreach ($participants as $p) {
     $age = $today->diff($birth)->y;
 
     //  กำหนดขนาดช่วง (5 ปีต่อช่วง)
-    $start = floor($age / 5) * 5;
-    $end = $start + 4;
-    $rangeKey = "{$start}-{$end}";
+    if($age >= 60) {
+        $rangeKey = "60+";
+    } else {
+        $start = floor($age / 5) * 5;
+        $end = $start + 4;
+        $rangeKey = "{$start}-{$end}";
+    }
 
     if (!isset($ageBuckets[$rangeKey])) {
         $ageBuckets[$rangeKey] = 0;
     }
     $ageBuckets[$rangeKey]++;
 }
-
-$topAgeRange = '-';
-$topAgeCount = 0;
 
 if (!empty($ageBuckets)) {
     arsort($ageBuckets);
@@ -73,12 +75,13 @@ if (!empty($ageBuckets)) {
 }
 
 renderView('event_join', [
-    'title' => 'Participants',
+    'title' => 'ผู้เข้าร่วม',
     'participants' => $participants,
     'maleCount' => $maleCount,
     'femaleCount' => $femaleCount,
     'otherCount' => $otherCount,
     'totalParticipants' => $totalParticipants,
+    'ageBuckets' => $ageBuckets,
     'topAgeRange' => $topAgeRange,
     'topAgeCount' => $topAgeCount,
     'checkedCount' => $checkedCount
