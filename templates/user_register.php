@@ -139,6 +139,8 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
+        /* FIX: prevent grid children from overflowing their column */
+        min-width: 0;
     }
 
     .field label {
@@ -150,6 +152,7 @@
 
     .input-wrap {
         display: flex;
+        width: 100%;
         align-items: center;
         gap: 8px;
         background: rgba(255, 255, 255, 0.85);
@@ -157,6 +160,8 @@
         border-radius: 8px;
         padding: 0 12px;
         transition: border-color .2s, box-shadow .2s;
+        /* FIX: clip any child that tries to overflow */
+        overflow: hidden;
     }
 
     .input-wrap:focus-within {
@@ -178,6 +183,7 @@
         outline: none;
         appearance: none;
         -webkit-appearance: none;
+        /* FIX: allow flex children to shrink below their content size */
         min-width: 0;
     }
 
@@ -218,6 +224,8 @@
         resize: none;
         min-height: 64px;
         width: 100%;
+        /* FIX: allow textarea to shrink */
+        min-width: 0;
     }
 
     .input-wrap.area textarea::placeholder { color: #b0b6c4; }

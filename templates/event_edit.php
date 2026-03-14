@@ -38,23 +38,24 @@ h-screen w-full flex overflow-hidden font-sans text-gray-800">
     <main class="flex flex-col flex-1 w-full">
         <?php $event = $data['event']->fetch_object() ?>
         <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem]
-                    shadow-sm border border-[#213C51]/50 p-16 overflow-y-auto
+                    shadow-sm border border-[#213C51]/50 overflow-y-auto
                     [&::-webkit-scrollbar]:w-2
                   [&::-webkit-scrollbar-thumb]:bg-[#213C51]
                     [&::-webkit-scrollbar-thumb]:rounded-full
 ">
-            <div class="flex xl:hidden items-center justify-start">
-                <button id="openMenuBtn" type="button" onclick="openMenu();">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
-                        <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
-                    </svg>
-                </button>
+            <div class="sticky top-0 flex xl:hidden items-center justify-start bg-transparent z-10 backdrop-blur-lg p-4">
+                    <button id="openMenuBtn" type="button" onclick="openMenu();">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                            <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                        </svg>
+                    </button>
+                    <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
             </div>
 
             <form action="event_update" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="eid" value="<?= (int)$event->eid ?>">
 
-                <div class="flex flex-col gap-10 mb-5">
+                <div class="flex flex-col gap-10 mb-5 p-16 ">
 
                     <!-- image-->
                     <div class="space-y-5">
