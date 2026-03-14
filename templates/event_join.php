@@ -200,7 +200,16 @@
                             $colorClass = $checked ? 'text-green-600' : 'text-orange-500';
                             ?>
 
-                            <div class="bg-gray-50/75 rounded-xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md transition">
+                            <div class="bg-gray-50/75 rounded-xl p-3 flex items-center gap-3 shadow-sm hover:shadow-md hover:cursor-pointer transition " onclick="openModal(
+    '<?= htmlspecialchars($row['name']) ?>',
+    '<?= htmlspecialchars($row['email']) ?>',
+    '<?= htmlspecialchars($row['tel']) ?>',
+    '<?= htmlspecialchars($row['birthday'] ?? '') ?>',
+    '<?= htmlspecialchars($row['job'] ?? '') ?>',
+    '<?= htmlspecialchars($row['gender'] ?? '') ?>',
+    '<?= htmlspecialchars($row['address'] ?? '') ?>',
+    '<?= $row['status'] ?>'
+)">
 
                                 <!-- avatar -->
                                 <div class="w-14 h-14 bg-gray-300 rounded-lg flex-shrink-0"></div>
