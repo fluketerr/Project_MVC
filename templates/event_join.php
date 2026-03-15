@@ -38,12 +38,12 @@
         <!-- แผ่นขาวหลัก -->
         <div class="flex-1 bg-white/75 xl:my-4 xl:mr-4 xl:rounded-[2rem] shadow-sm border border-[#213C51]/50 flex flex-col overflow-y-hidden">
             <div class="sticky flex xl:hidden items-center justify-start z-10 p-4 bg-transparent backdrop-blur-lg">
-                    <button id="openMenuBtn" type="button" onclick="openMenu();">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
-                            <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
-                        </svg>
-                    </button>
-                    <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
+                <button id="openMenuBtn" type="button" onclick="openMenu();">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="25px" height="25px" viewBox="0 0 24 24">
+                        <path d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z" />
+                    </svg>
+                </button>
+                <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
             </div>
             <div id="statistics" class="transition-all px-8 pt-4 pb-8">
 
@@ -106,9 +106,9 @@
 
                     <div class="bg-gray-50/75 rounded-xl p-4 shadow-sm">
                         <p class="text-xs text-slate-500 mb-2">ช่วงอายุทั้งหมด</p>
-                            <div class="w-full h-36">
-                                <canvas id="AgeChart"></canvas>
-                            </div>
+                        <div class="w-full h-36">
+                            <canvas id="AgeChart"></canvas>
+                        </div>
                         <script>
                             const ageCtx = document.getElementById('AgeChart').getContext('2d');
                             new Chart(ageCtx, {
@@ -142,19 +142,44 @@
                         <p class="text-sm font-medium mt-2">
                     </div>
 
-                    <div class="bg-gray-50/75 rounded-xl p-4 shadow-sm">
-                        <div class="mb-2">
-                            <p class="text-xs text-slate-500 mb-1">เช็คชื่อแล้ว</p>
-                            <p class="text-2xl font-bold text-green-600">
-                                <?= (int)($data['checkedCount'] ?? 0) ?>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                        <!-- เช็คชื่อแล้ว -->
+                        <div class="bg-green-50 border border-green-200 rounded-xl shadow-sm 
+                relative min-h-[160px] p-4">
+
+                            <!-- text ซ้ายบน -->
+                            <p class="text-sm text-green-700 absolute top-3 left-4">
+                                เช็คชื่อแล้ว
                             </p>
+
+                            <!-- ตัวเลขกลาง -->
+                            <div class="flex items-center justify-center h-full">
+                                <p class="text-5xl font-bold text-green-600">
+                                    <?= (int)($data['checkedCount'] ?? 0) ?>
+                                </p>
+                            </div>
+
                         </div>
-                        <div>
-                            <p class="text-xs text-slate-500 mb-1">ยังไม่เช็คชื่อ</p>
-                            <p class="text-2xl font-bold text-yellow-600">
-                                <?= (int)($data['totalParticipants'] ?? 0) - (int)($data['checkedCount'] ?? 0) ?>
+
+                        <!-- ยังไม่เช็คชื่อ -->
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl shadow-sm 
+                relative min-h-[160px] p-4">
+
+                            <!-- text ซ้ายบน -->
+                            <p class="text-sm text-yellow-700 absolute top-3 left-4">
+                                ยังไม่เช็คชื่อ
                             </p>
+
+                            <!-- ตัวเลขกลาง -->
+                            <div class="flex items-center justify-center h-full">
+                                <p class="text-5xl font-bold text-yellow-500">
+                                    <?= (int)($data['totalParticipants'] ?? 0) - (int)($data['checkedCount'] ?? 0) ?>
+                                </p>
+                            </div>
+
                         </div>
+
                     </div>
 
                 </div>
@@ -177,12 +202,18 @@
                             //menu.classList.replace('hidden', 'flex');
                             statPanel.style.transform = "translateY(0%)";
                             closeBtn.style.rotate = "0deg";
+                            statPanel.style.transition = "transform 0.5s ease-in-out";
                         };
 
                         const closeStat = () => {
                             //menu.classList.replace('flex', 'hidden');
-                            statPanel.style.transform = "translateY(-55%)";
+                            if(window.innerWidth < 1280) {
+                                statPanel.style.transform = "translateY(-400px)";
+                            } else {
+                                statPanel.style.transform = "translateY(-200px)";
+                            }
                             closeBtn.style.rotate = "180deg";
+                            statPanel.style.transition = "transform 0.5s ease-in-out";
                         };
 
                         closeBtn.addEventListener("click", () => {
@@ -200,14 +231,16 @@
 
                 <!-- ===== search ===== -->
                 <form method="GET" action="/event_join" class="mb-4">
+                    <input type="hidden" name="eid" value="<?= $_GET['eid'] ?? '' ?>">
                     <div class="relative max-w-lg">
                         <input
                             type="text"
                             name="keyword"
                             placeholder="ค้นหาชื่อ / email / เบอร์"
-                            value="<?= htmlspecialchars($data['keyword'] ?? '') ?>"
+                            value="<?= htmlspecialchars($_GET['keyword'] ?? '') ?>"
                             class="w-full rounded-full border border-gray-50/75 px-4 py-2.5 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
 
+                        <input type="hidden" name="eid" value="<?= $_GET['eid'] ?>">
                         <button class="absolute right-3 top-1/2 -translate-y-1/2 text-sm">
                             ค้นหา
                         </button>
@@ -217,13 +250,14 @@
                 <!-- ===== participants scroll ===== -->
                 <?php if (!empty($data['participants'])): ?>
 
-                    <div class="max-h-[520px] overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                    <div class="max-h-[520px] overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3">
 
                         <?php foreach ($data['participants'] as $row): ?>
 
                             <?php
                             $checked = !empty($row['checkin_time']);
                             $text = $checked ? 'เช็คชื่อแล้ว' : 'ยังไม่เช็คชื่อ';
+                            
                             $colorClass = $checked ? 'text-green-600' : 'text-orange-500';
                             ?>
 
@@ -240,11 +274,10 @@
                                     '<?= htmlspecialchars($row['address'] ?? '', ENT_QUOTES) ?>',
                                     '<?= $text ?>')">
 
-                                <!-- avatar -->
-                                <div class="w-14 h-14 bg-gray-300 rounded-lg flex-shrink-0"></div>
-
                                 <!-- info -->
                                 <div class="flex-1 min-w-0">
+
+                                    <h1><?= $_GET['eid'] ?></h1>
                                     <h3 class="font-semibold text-base truncate">
                                         <?= htmlspecialchars($row['name']) ?>
                                     </h3>

@@ -16,6 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start_date = str_replace('T', ' ', $_POST['start_date']);
     $end_date   = str_replace('T', ' ', $_POST['end_date']);
 
+    $start_time = strtotime($start_date);
+    $end_time   = strtotime($end_date);
+
+    if ($start_time >= $end_time) {
+        // $_SESSION['error'] = "วันเริ่มต้นต้องมาก่อนวันสิ้นสุด";
+        header("Location: /event_create");
+        exit;
+    }
+
     $event = [
         'eid'      => $eid,
         'name'     => trim($_POST['event_name']),

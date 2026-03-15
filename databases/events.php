@@ -163,6 +163,7 @@ function searchEvents($keyword, $start, $end, $uid)
     global $conn;
 
     $sql = "";
+    
 
     if ($keyword != '' && $uid != "") {
         $keyword = strtolower($keyword);
@@ -377,7 +378,7 @@ function countCapacity($eid)
     $sql = "select e.*,
                     COALESCE((select count(uid) 
                     from   Registrations
-                    where  eid = ?), 0) as count_uid
+                    where  eid = ? AND status = 'approved'), 0) as count_uid
             from  Events e
             where eid = ?";
     $stmt = $conn->prepare($sql);

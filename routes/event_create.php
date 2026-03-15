@@ -7,6 +7,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start_date = str_replace('T', ' ', $_POST['start_date']);
     $end_date   = str_replace('T', ' ', $_POST['end_date']);
 
+    $start_time = strtotime($start_date);
+    $end_time   = strtotime($end_date);
+
+    if ($start_time >= $end_time) {
+        // $_SESSION['error'] = "วันเริ่มต้นต้องมาก่อนวันสิ้นสุด";
+        header("Location: /event_create");
+        exit;
+    }
+
     $event = [
         'name' => $_POST['event_name'],
         'detail' => $_POST['event_detail'],
@@ -58,14 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->commit();
-            $conn->close(); 
+            $conn->close();
             $_SESSION['message'] = 'สร้างกิจกรรมสำเร็จ';
             header("Location: /events");
             exit;
         }
     } catch (Exception $e) {
         $conn->rollback();
-        $conn->close(); 
+        $conn->close();
 
         foreach ($uploaded_files as $file) {
             if (file_exists($file)) {
@@ -76,9 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: /events");
         exit;
     }
-} else if(!isset($_SESSION['user_id'])) {
+} else if (!isset($_SESSION['user_id'])) {
     header("Location: /login");
     exit;
-}else {
+} else {
     renderView('event_create', ['title' => 'สร้างกิจกรรม']);
 }

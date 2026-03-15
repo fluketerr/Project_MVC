@@ -50,7 +50,7 @@
                     </button>
                     <h1 class="text-2xl font-semibold items-center xl:my-4 mx-4"><?= $data['title'] ?></h1>
             </div>
-            <div class="flex gap-8 flex-col xl:flex-row px-8 pb-8">
+            <div class="flex gap-8 flex-col xl:flex-row p-8">
                 <!-- Cover Image -->
                 <?php if (!empty($data['pictures']) && $pic = $data['pictures']->fetch_object()): ?>
 
@@ -64,20 +64,20 @@
                 <?php endif; ?>
 
                 <!-- Event Info -->
-                <div class="flex-1 flex flex-col justify-between">
+                <div class="flex-1 flex flex-col justify-between text-left">
 
                     <div>
                         <h1 class="text-2xl font-bold mb-2">
                             <?= $row->event_name ?>
                         </h1>
 
-                        <h2 class="text-gray-500 text-sm">
+                        <h1 class="text-gray-600 mb-4 max-w-xl line-clamp-none whitespace-pre-line text-left">
+                            <?= $row->event_detail ?>
+                        </h1>
+
+                        <h2 class="text-gray-500 text-sm mt-5">
                             <?= $row->start_date ?> - <?= $row->end_date ?>
                         </h2>
-
-                        <h3 class="text-gray-600 mt-4 max-w-xl line-clamp-none whitespace-pre-wrap">
-                            <?= $row->event_detail ?>
-                        </h3>
                     </div>
 
                     <!-- Capacity Section -->
@@ -110,7 +110,7 @@
 
             <!-- Gallery Section -->
             <div class="mt-4 ">
-                <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2 
+                <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2 pl-2
                     [&::-webkit-scrollbar]:h-1 
                   [&::-webkit-scrollbar-thumb]:bg-white/75
                     [&::-webkit-scrollbar-thumb]:rounded-full

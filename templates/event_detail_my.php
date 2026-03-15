@@ -219,7 +219,7 @@
                                 <?php } ?>
                                 <?php if ($row->status == 'approved') { ?>
                                     <?php if (empty($row->checkin_time)) { ?>
-                                        <form method="POST" class="">
+                                        <form method="POST" action="/events_detail_my" class="">
                                             <input type="hidden" name="otp_event_id" value="<?= $row->eid ?>">
                                             <button type="submit" name="request_otp" class="bg-[#DDAED3] hover:bg-[#DBC3D6] transition-colors text-white text-xs font-medium px-4 py-2 rounded-full shadow-sm">ขอ OTP</button>
                                         </form>
