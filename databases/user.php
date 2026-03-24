@@ -4,7 +4,6 @@ function getUsers(): mysqli_result|bool
     $conn = getConnection();
     $sql = 'select * from Users';
     $result = $conn->query($sql);
-    $conn->close();
     return $result;
 }
 function updateStudentPassword(int $id, string $hashed_password): bool

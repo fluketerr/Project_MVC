@@ -18,7 +18,6 @@ function getEvents(): mysqli_result|bool
                ) AS approved_count from Events e
            ";
     $result = $conn->query($sql);
-    $conn->close();
     return $result;
 }
 
@@ -118,7 +117,6 @@ function getEventByCreateUid(int $uid)
     $stmt->bind_param("i", $uid);
     $stmt->execute();
     $result = $stmt->get_result();
-    $conn->close();
 
     return $result;
 }
@@ -370,7 +368,6 @@ function joinEvent($user_id, $event_id)
             VALUES ('$user_id', '$event_id', 'wait')";
 
     $result = $conn->query($sql);
-    $conn->close();
     return $result;
 }
 

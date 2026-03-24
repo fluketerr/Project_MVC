@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && $eid != '') {
             throw new Exception("Delete event fail");
         }
         $conn->commit();
-        $conn->close(); 
 
         foreach ($filePaths as $file) {
             if (file_exists($file)) {
@@ -35,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && $eid != '') {
         exit();
     } catch (Exception $e) {
         $conn->rollback();
-        $conn->close(); 
 
         header("Location: /events");
         exit;

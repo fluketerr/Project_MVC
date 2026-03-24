@@ -15,12 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($approvedCount >= $maxParticipants) {
 
-        $conn->close();
         $_SESSION['message'] = "จำนวนผู้เข้าร่วมเต็มแล้ว";
 
     } else {
 
-        $conn->close();
         updateRegistrationStatus($rid, 'approved', $conn);
         $_SESSION['message'] = "อนุมัติเรียบร้อย";
     }

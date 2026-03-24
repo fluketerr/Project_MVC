@@ -67,14 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             $conn->commit();
-            $conn->close();
             $_SESSION['message'] = 'สร้างกิจกรรมสำเร็จ';
             header("Location: /events");
             exit;
         }
     } catch (Exception $e) {
         $conn->rollback();
-        $conn->close();
 
         foreach ($uploaded_files as $file) {
             if (file_exists($file)) {
