@@ -12,15 +12,21 @@ $password = 'I3WdSE]WGe;c6!tH';
 // $username = 'demo';
 // $password = '1234';
 
-$conn = new mysqli($hostname, $username, $password, $dbName);
-$conn->set_charset("utf8mb4");
+$conn = null;
 
 function getConnection(): mysqli
 {   
-    global $conn;
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    global $conn, $hostname, $username, $password, $dbName;
+    
+    if ($conn === null) {
+        $conn = new mysqli('p:' . $hostname, $username, $password, $dbName);
+        $conn->set_charset("utf8mb4");
+        
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
     }
+    
     return $conn;
 }
 

@@ -60,7 +60,7 @@ function getNotinEvents(int $uid): mysqli_result|bool
 
 function getEventById(int $eid): mysqli_result|bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = "select e.*,
                (    SELECT COUNT(*)
                    FROM Registrations r
@@ -79,7 +79,7 @@ function getEventById(int $eid): mysqli_result|bool
 
 function getEventRegisById(int $eid, int $uid): mysqli_result|bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = "select *, ( SELECT COUNT(*) FROM Registrations r 
             WHERE r.eid = e.eid AND r.status = 'approved' ) AS approved_count 
             from Events e, Registrations r where e.eid = r.eid and r.eid = ? and r.uid = ?";
@@ -160,7 +160,7 @@ function deleteEventById(int $id, $conn): bool
 }
 function searchEvents($keyword, $start, $end, $uid)
 {
-    global $conn;
+    $conn = getConnection();
 
     $sql = "";
     
@@ -306,7 +306,7 @@ function searchEvents($keyword, $start, $end, $uid)
 
 function searchEventsPublic($keyword, $start, $end)
 {
-    global $conn;
+    $conn = getConnection();
 
     if ($keyword != '') {
 
@@ -361,7 +361,7 @@ function searchEventsPublic($keyword, $start, $end)
 
 function joinEvent($user_id, $event_id)
 {
-    global $conn;
+    $conn = getConnection();
 
     $sql = "INSERT INTO Registrations (uid, eid, status)
             VALUES ('$user_id', '$event_id', 'wait')";
@@ -373,7 +373,7 @@ function joinEvent($user_id, $event_id)
 
 function countCapacity($eid)
 {
-    global $conn;
+    $conn = getConnection();
 
     $sql = "select e.*,
                     COALESCE((select count(uid) 
@@ -436,7 +436,7 @@ function updateEvent(array $event, mysqli $conn): bool
 
 function isOwnerEvent(int $eid, int $uid): bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = "select *
             from  Events
             where eid = ? and create_uid = ?";

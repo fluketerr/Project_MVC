@@ -17,7 +17,7 @@ function getPendingRegisByEventId(int $eid, mysqli $conn): mysqli_result|bool
 
 function getMyEvents($user_id, $status = '')
 {
-    global $conn;
+    $conn = getConnection();
 
     $sql = "
         SELECT e.*, r.status, r.checkin_time,
@@ -77,7 +77,7 @@ function generateOTP($uid, $eid) {
 
 function getUserRegisById(string $eid,string $uid) : mysqli_result|bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'select * from Registrations where uid = ? and eid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('ii', $uid,$eid);
