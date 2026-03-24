@@ -123,7 +123,7 @@ function getEventByCreateUid(int $uid)
     return $result;
 }
 
-function insertEvent($event, $conn): int | bool
+function insertEvent($event, $conn): int|bool
 {
     $str = 'Open';
     $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, event_status, create_uid) 
@@ -145,7 +145,8 @@ function insertEvent($event, $conn): int | bool
     if ($stmt->affected_rows > 0) {
         $eid = $stmt->insert_id;
         return $eid;
-    } else {
+    }
+    else {
         return false;
     }
 }
@@ -163,7 +164,7 @@ function searchEvents($keyword, $start, $end, $uid)
     $conn = getConnection();
 
     $sql = "";
-    
+
 
     if ($keyword != '' && $uid != "") {
         $keyword = strtolower($keyword);
@@ -324,7 +325,8 @@ function searchEventsPublic($keyword, $start, $end)
         FROM Events e
         WHERE e.event_status != 'Closed'
         AND LOWER(e.event_name) LIKE '%$keyword%'";
-    } elseif ($start != '' && $end != '') {
+    }
+    elseif ($start != '' && $end != '') {
 
         $sql = "
         SELECT e.*,
@@ -339,7 +341,8 @@ function searchEventsPublic($keyword, $start, $end)
         WHERE e.event_status != 'Closed'
         AND e.start_date >= '$start'
         AND e.end_date <= '$end'";
-    } else {
+    }
+    else {
 
         $sql = "
         SELECT e.*,
@@ -393,11 +396,9 @@ function autoCloseEvent()
 
     $sql = "
         UPDATE Events
-        SET event_status = 
-            CASE
-                WHEN end_date < NOW() THEN 'Closed'
-                ELSE 'Open'
-            END
+        SET event_status = 'Closed'
+        WHERE end_date < NOW()
+        AND event_status != 'Closed'
     ";
 
     $conn->query($sql);

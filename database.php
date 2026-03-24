@@ -2,21 +2,16 @@
 
 declare(strict_types=1);
 
-$hostname = 'gonggang.net';
-$dbName = 'u910454988_regify';
-$username = 'u910454988_regify';
-$password = 'I3WdSE]WGe;c6!tH';
-
-// $hostname = 'localhost';
-// $dbName = 'project_regisevent';
-// $username = 'demo';
-// $password = '1234';
-
 $conn = null;
 
 function getConnection(): mysqli
 {   
-    global $conn, $hostname, $username, $password, $dbName;
+    global $conn;
+    
+    $hostname = 'gonggang.net';
+    $dbName = 'u910454988_regify';
+    $username = 'u910454988_regify';
+    $password = 'I3WdSE]WGe;c6!tH';
     
     if ($conn === null) {
         $conn = new mysqli('p:' . $hostname, $username, $password, $dbName);
