@@ -1,15 +1,14 @@
 <?php
 function getUsers(): mysqli_result|bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'select * from Users';
     $result = $conn->query($sql);
-    $conn->close();
     return $result;
 }
 function updateStudentPassword(int $id, string $hashed_password): bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'update Users set password = ? where uid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('si', $hashed_password, $id);
@@ -19,7 +18,7 @@ function updateStudentPassword(int $id, string $hashed_password): bool
 
 function updateUserPassword(int $id, string $hashed_password): bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'update Users set password = ? where uid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('si', $hashed_password, $id);
@@ -29,7 +28,7 @@ function updateUserPassword(int $id, string $hashed_password): bool
 
 function getUsersById(int $id): mysqli_result|bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'select * from Users where uid = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('i', $id);
@@ -40,7 +39,7 @@ function getUsersById(int $id): mysqli_result|bool
 
 function getUserIdByEmail(string $email): int
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'select uid from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
@@ -55,7 +54,7 @@ function getUserIdByEmail(string $email): int
 
 function getUserNameByEmail(string $email): mysqli_result|string
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'select name from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
@@ -70,7 +69,7 @@ function getUserNameByEmail(string $email): mysqli_result|string
 
 function checkLogin(string $email, string $password): bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'select password from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
@@ -86,7 +85,7 @@ function checkLogin(string $email, string $password): bool
 
 function registerUser(string $name, string $email, string $password, string $birthday, string $tel, string $job , string $gender, string $address): bool
 {
-    global $conn;
+    $conn = getConnection();
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $sql = 'insert into Users (name, email, password, birthday, tel, job, gender, address) values (?, ?, ?, ?, ?, ?, ?, ?)';
     $stmt = $conn->prepare($sql);
@@ -96,7 +95,7 @@ function registerUser(string $name, string $email, string $password, string $bir
 
 function checkEmailExists(string $email): bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'select uid from Users where email = ?';
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $email);
@@ -120,7 +119,7 @@ function isValidBirthday(string $birthday): bool
 
 function updateUserData(int $uid, string $name, string $birthday, string $tel, string $job , string $gender, string $address): int
 {
-    global $conn;
+    $conn = getConnection();
     $sql = 'UPDATE Users SET name = ?, birthday = ?, tel = ?, job = ?, gender = ?, address = ? WHERE uid = ?';
     $stmt = $conn->prepare($sql); 
     
@@ -132,7 +131,7 @@ function updateUserData(int $uid, string $name, string $birthday, string $tel, s
 
 function updateCheckIn(string $uid,string $eid):bool
 { 
-    global $conn;
+    $conn = getConnection();
     $status = 'approved';
     $time = date('Y-m-d H:i:s');
     $sql = 'update Registrations set checkin_time = ? where uid = ? and eid = ? and status = ?';

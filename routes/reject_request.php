@@ -7,7 +7,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $conn = getConnection();
     updateRegistrationStatus($rid, 'rejected', $conn);
-    $conn->close();
     $_SESSION['message'] = "ปฏิเสธเรียบร้อย";
 
     header("Location: /event_request?eid=$eid");

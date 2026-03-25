@@ -92,7 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $conn->commit();
-        $conn->close();
 
         foreach ($filesToDelete as $file) {
             if (file_exists($file)) {
@@ -106,7 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (Exception $e) {
 
         $conn->rollback();
-        $conn->close();
         $_SESSION['message'] = "อัปเดตกิจกรรมไม่สำเร็จ";
         header("Location: /event_manage");
         exit;

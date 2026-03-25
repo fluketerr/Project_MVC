@@ -18,7 +18,6 @@ function getEvents(): mysqli_result|bool
                ) AS approved_count from Events e
            ";
     $result = $conn->query($sql);
-    $conn->close();
     return $result;
 }
 
@@ -60,7 +59,7 @@ function getNotinEvents(int $uid): mysqli_result|bool
 
 function getEventById(int $eid): mysqli_result|bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = "select e.*,
                (    SELECT COUNT(*)
                    FROM Registrations r
@@ -79,7 +78,7 @@ function getEventById(int $eid): mysqli_result|bool
 
 function getEventRegisById(int $eid, int $uid): mysqli_result|bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = "select *, ( SELECT COUNT(*) FROM Registrations r 
             WHERE r.eid = e.eid AND r.status = 'approved' ) AS approved_count 
             from Events e, Registrations r where e.eid = r.eid and r.eid = ? and r.uid = ?";
@@ -118,12 +117,11 @@ function getEventByCreateUid(int $uid)
     $stmt->bind_param("i", $uid);
     $stmt->execute();
     $result = $stmt->get_result();
-    $conn->close();
 
     return $result;
 }
 
-function insertEvent($event, $conn): int | bool
+function insertEvent($event, $conn): int|bool
 {
     $str = 'Open';
     $sql = 'insert into Events (event_name, event_detail, start_date, end_date, event_capacity, event_status, create_uid) 
@@ -145,7 +143,8 @@ function insertEvent($event, $conn): int | bool
     if ($stmt->affected_rows > 0) {
         $eid = $stmt->insert_id;
         return $eid;
-    } else {
+    }
+    else {
         return false;
     }
 }
@@ -160,10 +159,10 @@ function deleteEventById(int $id, $conn): bool
 }
 function searchEvents($keyword, $start, $end, $uid)
 {
-    global $conn;
+    $conn = getConnection();
 
     $sql = "";
-    
+
 
     if ($keyword != '' && $uid != "") {
         $keyword = strtolower($keyword);
@@ -306,7 +305,7 @@ function searchEvents($keyword, $start, $end, $uid)
 
 function searchEventsPublic($keyword, $start, $end)
 {
-    global $conn;
+    $conn = getConnection();
 
     if ($keyword != '') {
 
@@ -324,7 +323,8 @@ function searchEventsPublic($keyword, $start, $end)
         FROM Events e
         WHERE e.event_status != 'Closed'
         AND LOWER(e.event_name) LIKE '%$keyword%'";
-    } elseif ($start != '' && $end != '') {
+    }
+    elseif ($start != '' && $end != '') {
 
         $sql = "
         SELECT e.*,
@@ -339,7 +339,8 @@ function searchEventsPublic($keyword, $start, $end)
         WHERE e.event_status != 'Closed'
         AND e.start_date >= '$start'
         AND e.end_date <= '$end'";
-    } else {
+    }
+    else {
 
         $sql = "
         SELECT e.*,
@@ -361,19 +362,18 @@ function searchEventsPublic($keyword, $start, $end)
 
 function joinEvent($user_id, $event_id)
 {
-    global $conn;
+    $conn = getConnection();
 
     $sql = "INSERT INTO Registrations (uid, eid, status)
             VALUES ('$user_id', '$event_id', 'wait')";
 
     $result = $conn->query($sql);
-    $conn->close();
     return $result;
 }
 
 function countCapacity($eid)
 {
-    global $conn;
+    $conn = getConnection();
 
     $sql = "select e.*,
                     COALESCE((select count(uid) 
@@ -393,11 +393,9 @@ function autoCloseEvent()
 
     $sql = "
         UPDATE Events
-        SET event_status = 
-            CASE
-                WHEN end_date < NOW() THEN 'Closed'
-                ELSE 'Open'
-            END
+        SET event_status = 'Closed'
+        WHERE end_date < NOW()
+        AND event_status != 'Closed'
     ";
 
     $conn->query($sql);
@@ -436,7 +434,7 @@ function updateEvent(array $event, mysqli $conn): bool
 
 function isOwnerEvent(int $eid, int $uid): bool
 {
-    global $conn;
+    $conn = getConnection();
     $sql = "select *
             from  Events
             where eid = ? and create_uid = ?";
