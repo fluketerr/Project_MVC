@@ -2,7 +2,7 @@
 $conn = getConnection();
 $uid = (int)$_SESSION['user_id'] ?? '';
 $eid = $_GET['eid'];
-$urOwner = isOwnerEvent($eid, $uid);
+$urOwner = isOwnerEvent((int)$eid, (int)$uid);
 
 if ($urOwner) {
     $pictures = getPictureById((int)$eid, $conn);
